@@ -1,0 +1,43 @@
+---
+title: Run a check
+description: Point the Usuba Checker Scripts at an Omarchy plugin and read what they report.
+---
+
+import Callout from '../../../../components/Callout.astro';
+
+<Callout kind="tip" title="Tip">
+Run the Checker Scripts on a plugin before you share it. The feedback is the point, not the score.
+</Callout>
+
+## Check a plugin
+
+```bash
+# [TBD: real command and flags]
+usuba check ./dropbox-widget
+```
+
+## What the Checker Scripts do with it
+
+1. They read the plugin's code and flag invented APIs, missing helper scripts, made-up command flags and fake data.
+2. They load the plugin in a real Omarchy shell and catch load errors and crashes.
+3. They report every problem with a rule id, a plain reason and a fix hint.
+
+<Callout kind="warn" title="Heads up">
+The sample output is illustrative: the exact command and wording are `[TBD]` until the Checker Scripts ship. The rule ids are
+real, and come from [Usuba Standard v0.1](/docs/standard/).
+</Callout>
+
+```
+$ usuba check ./dropbox-widget
+✗ USB-H02   Shows storage numbers, but Dropbox isn't installed.
+  fix: detect Dropbox first, and show an empty state without it.
+✗ USB-B02   Calls xdotool, which doesn't exist on Omarchy.
+  fix: use hyprctl for window info instead.
+⚠ USB-S01   Writes outside the plugin directory (~/.cache/dropbox-widget). Review it.
+
+2 problems, 1 warning
+```
+
+## Next
+
+[Reading results](/docs/checker/reading-results/) explains each rule id and what a warning means.

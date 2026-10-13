@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-label="Usu-chan looking worried">
+  <ellipse cx="170" cy="188" rx="120" ry="10" fill="#f7b3cb"/>
+  <rect x="20" y="28" width="112" height="42" rx="21" fill="#e9b98a" stroke="#4a2a3f" stroke-width="5"/>
+  <path d="M42,40 L42,58 M60,40 L60,58" stroke="#c99566" stroke-width="4" stroke-linecap="round"/>
+  <rect x="128" y="28" width="24" height="58" rx="7" fill="#d9ccff" stroke="#4a2a3f" stroke-width="5"/>
+  <rect x="136" y="28" width="168" height="124" rx="12" fill="#eef1f8" stroke="#4a2a3f" stroke-width="5"/>
+  <path d="M160,48 L280,48" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+  <path d="M156,132 L284,132" stroke="#ccd3e6" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="180" cy="104" rx="12" ry="7" fill="#ff9cbf"/>
+  <ellipse cx="260" cy="104" rx="12" ry="7" fill="#ff9cbf"/>
+  <path d="M186,72 L203,66 M254,72 L237,66" stroke="#4a2a3f" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="196" cy="88" r="10" fill="#ffffff" stroke="#4a2a3f" stroke-width="4"/>
+  <circle cx="244" cy="88" r="10" fill="#ffffff" stroke="#4a2a3f" stroke-width="4"/>
+  <circle cx="196" cy="90" r="4" fill="#4a2a3f"/>
+  <circle cx="244" cy="90" r="4" fill="#4a2a3f"/>
+  <path d="M208,108 q6,-6 12,0 q6,6 12,0" fill="none" stroke="#4a2a3f" stroke-width="4" stroke-linecap="round"/>
+  <path d="M292,44 q10,14 0,22 q-10,-8 0,-22 Z" fill="#bfe3ff" stroke="#4a2a3f" stroke-width="3" stroke-linejoin="round"/>
+</svg>

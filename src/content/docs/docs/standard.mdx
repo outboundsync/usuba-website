@@ -1,0 +1,162 @@
+---
+title: Usuba Standard v0.1
+description: Usuba Standard v0.1 is the public rulebook the Checker Scripts enforce — what a working Omarchy plugin is, rule by rule.
+---
+
+**Usuba Standard v0.1** is the rulebook the [Usuba Checker Scripts](/docs/checker/install/) enforce. It says what a working Omarchy plugin is.
+Every failure the Checker Scripts report starts with a rule id from this document, gives the reason, and ends with a `Fix:` hint.
+
+This page *is* the rulebook, not a summary of one: the Checker Scripts are held to it, and you can hold the Checker Scripts to it.
+
+## What it targets
+
+- **Omarchy 4.0.4-1**, shell tree byte-identical to `basecamp/omarchy` at the pinned snapshot.
+- **Quickshell on Qt 6.11**, as installed on the reference machine the Checker Scripts are calibrated against.
+
+A plugin that passes here is a plugin that loads and runs on that target. The standard claims nothing beyond it.
+
+## Levels
+
+Every rule has a level, and the level decides whether a finding fails the plugin.
+
+| Level | What it means |
+|-------|---------------|
+| **error** | Always fails. |
+| **high** | A heuristic finding that fails, reported as `heuristic/high` so a human can overrule it. |
+| **medium**, **low** | Warnings only. They never fail a plugin. |
+
+## Rule families
+
+A rule id is `USB-<family><number>`. The family says where the rule looks.
+
+| Prefix | Family | Example |
+|--------|--------|---------|
+| `USB-T` | Task contract: the answer is plugin files, not prose | `USB-T03` Answer is files, not leaked reasoning |
+| `USB-M` | Manifest: `manifest.json`, ids and entry points | `USB-M02` Entry points are QML files |
+| `USB-Q` | QML types and imports | `USB-Q01` Every QML type resolves |
+| `USB-A` | APIs: real types, members and signals only | `USB-A01` Only real APIs are called |
+| `USB-B` | Binaries and commands that must exist on the target | `USB-B02` No X11-only tools |
+| `USB-F` | Files the plugin ships and references | `USB-F01` Referenced helper scripts are shipped |
+| `USB-J` | JavaScript correctness inside QML | `USB-J01` No undeclared identifiers |
+| `USB-S` | Safety: writes, privilege, destructive commands | `USB-S03` No clearly destructive commands |
+| `USB-H` | Heuristics: real data and real behaviour | `USB-H02` No hardcoded readings shown as live data |
+| `USB-R` | Runtime: the plugin in a real Omarchy shell | `USB-R03` Visible, legible, on-screen |
+
+## The rules
+
+### Task contract
+
+| Rule | Level | What it checks |
+|------|-------|----------------|
+| `USB-T01` | error | The answer contains plugin code, not a manifest alone |
+| `USB-T02` | error | The file the task asked for is delivered, in full |
+| `USB-T03` | error | The answer is files, not leaked reasoning or self-correction |
+
+### Manifest
+
+| Rule | Level | What it checks |
+|------|-------|----------------|
+| `USB-M01` | error | `manifest.json` is valid JSON with an id |
+| `USB-M02` | error | Entry points are QML files |
+| `USB-M03` | error | The plugin ships QML |
+| `USB-M04` | error | The entry root is a shell surface |
+| `USB-M05` | error | The id is namespaced and not reserved |
+
+### QML types and imports
+
+| Rule | Level | What it checks |
+|------|-------|----------------|
+| `USB-Q01` | error | Every QML type resolves, against a positive allowlist |
+| `USB-Q02` | error | Every import exists |
+| `USB-Q03` | error | No Qt 5 APIs |
+| `USB-Q04` | error | Valid QML structure |
+| `USB-Q05` | error | A `QtObject` does not host child objects |
+
+### APIs
+
+| Rule | Level | What it checks |
+|------|-------|----------------|
+| `USB-A01` | error | Only real APIs are called |
+| `USB-A02` | error | Signal handlers name real signals |
+| `USB-A03` | error | QML types are not constructed with `new` |
+| `USB-A04` | error | Methods called on an id exist |
+| `USB-A05` | error | No Node, browser or C++ idioms in QML JavaScript |
+| `USB-A06` | error | `qs.Commons` members exist |
+| `USB-A07` | error | Only real `shell` members are used |
+| `USB-A08` | medium | Read-only bar facade properties are not assigned |
+
+### Binaries and commands
+
+| Rule | Level | What it checks |
+|------|-------|----------------|
+| `USB-B01` | error | Binaries in shell strings exist on the target |
+| `USB-B02` | error | No X11-only tools |
+| `USB-B03` | error | `hyprctl` and `hyprsunset` invocations are valid |
+| `USB-B04` | error | No `hyprctl reload` after `hyprctl keyword` |
+| `USB-B05` | error | `argv[0]` exists on the target |
+| `USB-B06` | error | CLI flags are real |
+
+### Shipped files
+
+| Rule | Level | What it checks |
+|------|-------|----------------|
+| `USB-F01` | error | Referenced helper scripts are shipped |
+
+### JavaScript correctness
+
+| Rule | Level | What it checks |
+|------|-------|----------------|
+| `USB-J01` | error | No undeclared identifiers |
+| `USB-J02` | error | Commands never receive `undefined` |
+| `USB-J03` | error | No `Qt.resolvedUrl("~")` |
+| `USB-J04` | error | `argv` paths are local paths, not URLs |
+| `USB-J06` | error | Loader-passed properties are not read only in `onCompleted` |
+
+### Safety
+
+| Rule | Level | What it checks |
+|------|-------|----------------|
+| `USB-S01` | high / medium | Writes outside the plugin directory are flagged |
+| `USB-S02` | high | Privileged or remote-exec commands are flagged |
+| `USB-S03` | error | No clearly destructive commands |
+
+### Heuristics
+
+| Rule | Level | What it checks |
+|------|-------|----------------|
+| `USB-H01` | high / medium | Real data, not simulated |
+| `USB-H02` | high / medium | No hardcoded readings shown as live data |
+| `USB-H03` | high / low | Handlers do something besides `console.log` |
+| `USB-H04` | high | No demo click handlers |
+| `USB-H05` | error | Not a placeholder UI |
+| `USB-H06` | error | No placeholder data patterns |
+| `USB-H07` | high | No placeholder endpoints or credentials |
+
+### Runtime
+
+| Rule | Level | What it checks |
+|------|-------|----------------|
+| `USB-R01` | error | Loads and registers in the real shell |
+| `USB-R02` | error | No runtime JavaScript or QML errors |
+| `USB-R03` | error | Visible, legible, on-screen |
+| `USB-R04` | error | Runtime commands are valid |
+
+## How the Checker Scripts enforce it
+
+Three passes, in order:
+
+1. **Static checks.** Reads the plugin's files against the type and member allowlists, which are generated from the
+   Quickshell and Qt builds the runtime uses and from Omarchy's own shell modules — so they move with the target, not with a
+   hand-kept list.
+2. **The task contract.** When a plugin was written by a model, the answer itself is checked: real files, the file that was
+   asked for, and no leaked reasoning.
+3. **The runtime probe.** Boots the real Omarchy shell — Quickshell on a headless compositor, inside a sandbox — loads the
+   plugin, and watches what actually happens: load errors, JavaScript errors, and whether anything visible drew.
+
+Every rule above names its reason and a failing example in the canonical rule file, and every finding carries its rule id, so
+a result you disagree with is a result you can argue with.
+
+## Version
+
+Usuba Standard v0.1, dated 2026-10-13. It moves with the Checker Scripts: when a rule is added, or a level changes, this page and the
+version change with it.

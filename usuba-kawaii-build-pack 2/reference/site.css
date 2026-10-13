@@ -1,0 +1,267 @@
+/* Reference component styles for the Usuba Kawaii theme.
+   Uses only tokens from ../design/tokens.css. Port these into the real site's
+   component system; class names are suggestions, the rules are the spec. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  background-image: radial-gradient(var(--color-bg-dot) 3px, transparent 3.5px);
+  background-size: var(--dot-size) var(--dot-size);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-weight: var(--weight-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+}
+
+a { color: var(--color-ink); }
+a:hover { color: var(--color-ink-deep); }
+:focus-visible { outline: 3px dashed var(--color-focus); outline-offset: 4px; }
+
+img, svg { max-width: 100%; }
+
+.skip-link {
+  position: absolute; left: var(--space-4); top: -100px;
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-butter); color: var(--color-on-accent);
+  border: var(--border); border-radius: var(--radius-pill);
+  font-weight: var(--weight-heavy); text-decoration: none; z-index: 10;
+}
+.skip-link:focus { top: var(--space-4); }
+
+.container { max-width: var(--container); margin: 0 auto; padding-inline: var(--gutter); }
+.container--narrow { max-width: var(--container-narrow); }
+.container--code { max-width: var(--container-code); }
+
+/* ---------- Header ---------- */
+.site-header {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--space-5); padding-block: var(--space-6);
+}
+.logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo img { width: 40px; height: 40px; }
+.logo span { font-family: var(--font-display); font-size: var(--text-logo); font-weight: var(--weight-heavy); letter-spacing: -0.01em; }
+.nav { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-6); font-weight: var(--weight-bold); }
+.nav a:not(.btn) { text-decoration: none; padding-block: var(--space-3); }
+.nav a:not(.btn):hover { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; text-decoration-color: var(--color-pink); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  min-height: 58px; padding: 0 var(--space-8);
+  border: var(--border); border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-md);
+  color: var(--color-on-accent); text-decoration: none;
+  font-family: var(--font-display); font-size: 1.1875rem; font-weight: var(--weight-heavy);
+  cursor: pointer;
+  transition: transform var(--duration-press) var(--ease-out), box-shadow var(--duration-press) var(--ease-out);
+}
+.btn:hover { color: var(--color-on-accent); transform: translate(-1px, -1px); box-shadow: 6px 6px 0 var(--color-outline); }
+.btn:active { transform: translate(4px, 4px); box-shadow: var(--shadow-pressed); }
+.btn--primary { background: var(--color-pink); }
+.btn--secondary { background: var(--color-mint); }
+.btn--highlight { background: var(--color-butter); }
+.btn--sm { min-height: var(--tap-min); padding: 0 22px; font-size: var(--text-base); box-shadow: var(--shadow-sm); }
+.btn--sm:hover { box-shadow: 5px 5px 0 var(--color-outline); }
+.btn-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; }
+
+/* ---------- Hero ---------- */
+.hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: var(--space-6); padding-bottom: var(--space-22); }
+.hero__mascot { width: 100%; max-width: 380px; height: auto; margin-bottom: var(--space-5); }
+.hero h1 {
+  margin: 0 0 var(--space-5);
+  font-family: var(--font-display); font-size: var(--text-3xl); font-weight: var(--weight-heavy);
+  line-height: var(--leading-tight); letter-spacing: var(--tracking-tight);
+}
+.lede { margin: 0 0 36px; max-width: var(--measure); font-size: var(--text-lg); line-height: var(--leading-lede); color: var(--color-ink-soft); }
+
+/* One orchestrated moment: mascot hops in once on load. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__mascot { animation: hop-in var(--duration-intro) var(--ease-bounce) both; }
+  @keyframes hop-in {
+    0% { opacity: 0; transform: translateY(24px) scale(0.92); }
+    100% { opacity: 1; transform: none; }
+  }
+}
+
+/* ---------- Sections ---------- */
+.section { padding-bottom: var(--space-24); }
+.section-title {
+  margin: 0 0 var(--space-11); text-align: center;
+  font-family: var(--font-display); font-size: var(--text-2xl); font-weight: var(--weight-heavy); line-height: 1.2;
+}
+
+/* ---------- Sticker cards ---------- */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-8); padding: 0; margin: 0; list-style: none; }
+.card {
+  background: var(--color-surface);
+  border: var(--border); border-radius: var(--radius-card);
+  box-shadow: var(--shadow-lg);
+  padding: 30px;
+}
+.card-grid > :nth-child(3n+1) { transform: rotate(var(--tilt-1)); }
+.card-grid > :nth-child(3n+2) { transform: rotate(var(--tilt-2)); }
+.card-grid > :nth-child(3n)   { transform: rotate(var(--tilt-3)); }
+.card h3 { margin: 0 0 var(--space-2); font-family: var(--font-display); font-size: var(--text-xl); font-weight: var(--weight-heavy); line-height: 1.25; }
+.card p { margin: 0; color: var(--color-ink-soft); }
+
+.icon-badge {
+  display: flex; align-items: center; justify-content: center;
+  width: 68px; height: 68px; margin-bottom: var(--space-5);
+  border: var(--border); border-radius: var(--radius-icon);
+  color: var(--color-on-accent);
+}
+.icon-badge svg, .icon-badge img { width: 34px; height: 34px; }
+.icon-badge--mint { background: var(--color-mint); }
+.icon-badge--butter { background: var(--color-butter); }
+.icon-badge--lilac { background: var(--color-lilac); }
+.icon-badge--pink { background: var(--color-pink); }
+
+/* ---------- Code window ---------- */
+.code-window {
+  background: var(--color-code-bg);
+  border: var(--border-width) solid var(--color-code-bg);
+  border-radius: var(--radius-window);
+  box-shadow: var(--shadow-window);
+  overflow: hidden;
+}
+.code-window__bar { display: flex; align-items: center; gap: 10px; padding: var(--space-3) 22px; background: var(--color-code-bar); }
+.code-window__dot { width: 14px; height: 14px; border-radius: 50%; }
+.code-window__dot:nth-child(1) { background: var(--color-pink); }
+.code-window__dot:nth-child(2) { background: var(--color-butter); }
+.code-window__dot:nth-child(3) { background: var(--color-mint); }
+.code-window__copy {
+  margin-left: auto; min-height: 36px; padding: 0 14px;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent; color: var(--color-code-text);
+  border: 2px solid var(--color-code-text); border-radius: var(--radius-pill);
+  font: inherit; font-size: var(--text-sm); font-weight: var(--weight-bold); cursor: pointer;
+}
+.code-window__copy svg { width: 16px; height: 16px; }
+.code-window__copy:hover { background: var(--color-code-text); color: var(--color-code-bg); }
+.code-window pre {
+  margin: 0; padding: var(--space-7) var(--space-8) 34px;
+  font-family: var(--font-code); font-size: 1.1875rem; line-height: var(--leading-code);
+  color: var(--color-code-text); overflow-x: auto;
+}
+.code-window .prompt { color: var(--color-code-prompt); user-select: none; }
+.code-window .ok { color: var(--color-code-success); }
+
+/* ---------- Inline code (docs) ---------- */
+:not(pre) > code {
+  font-family: var(--font-code); font-size: 0.92em;
+  color: var(--color-ink); background: var(--color-surface);
+  border: 2px solid var(--color-outline);
+  border-radius: 8px; padding: 0.05em 0.4em;
+}
+
+/* ---------- Callout (docs) ---------- */
+.callout {
+  display: flex; gap: var(--space-4); align-items: flex-start;
+  background: var(--color-surface); border: var(--border); border-radius: 22px;
+  box-shadow: var(--shadow-sm); padding: var(--space-5) var(--space-6);
+}
+.callout img { width: 72px; flex: none; }
+.callout p { margin: 0; }
+.callout--tip { background: var(--color-mint); color: var(--color-on-accent); }
+.callout--warn { background: var(--color-butter); color: var(--color-on-accent); }
+
+/* ---------- Empty / error states ---------- */
+.state { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-4); padding: var(--space-16) var(--gutter); }
+.state img { width: 100%; max-width: 280px; }
+.state h1, .state h2 { margin: 0; font-family: var(--font-display); font-size: var(--text-2xl); font-weight: var(--weight-heavy); }
+.state p { margin: 0; max-width: var(--measure); color: var(--color-ink-soft); }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 18px; padding-block: var(--space-8) var(--space-11);
+  font-size: 1rem; font-weight: var(--weight-bold);
+}
+.site-footer p { margin: 0; }
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 22px; }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 640px) {
+  .site-header { justify-content: center; }
+  .nav { justify-content: center; gap: var(--space-4); }
+  .card-grid > * { transform: none !important; }
+  .code-window pre { font-size: 1rem; padding-inline: var(--space-5); }
+  .site-footer { justify-content: center; text-align: center; }
+}
+
+/* =========================================================
+   Added for the Checker + model homepage (v2)
+   ========================================================= */
+
+.section-lede { margin: calc(-1 * var(--space-6)) auto var(--space-11); max-width: 36em; text-align: center; font-size: var(--text-lg); line-height: var(--leading-lede); color: var(--color-ink-soft); }
+.hero h1 { max-width: 16em; font-size: var(--text-hero-long); }
+
+/* Status sticker: a small outlined pill that says what's available. */
+.status-pill {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: 44px; padding: var(--space-2) var(--space-5); margin-bottom: var(--space-6);
+  background: var(--color-butter); color: var(--color-on-accent);
+  border: var(--border); border-radius: var(--radius-pill); box-shadow: var(--shadow-sm);
+  font-weight: var(--weight-bold); text-decoration: none; transform: rotate(-1deg);
+}
+.status-pill:hover { color: var(--color-on-accent); text-decoration: underline; }
+
+.badge {
+  display: inline-block; padding: 2px var(--space-3);
+  border: 2px solid var(--color-outline); border-radius: var(--radius-pill);
+  color: var(--color-on-accent); font-size: var(--text-sm); font-weight: var(--weight-heavy); white-space: nowrap;
+}
+.badge--now { background: var(--color-mint); }
+.badge--training { background: var(--color-butter); }
+.badge--next { background: var(--color-lilac); }
+
+/* Sticker bar chart. Bars are outlined pills; widths come from data. */
+.chart { background: var(--color-surface); border: var(--border); border-radius: var(--radius-card); box-shadow: var(--shadow-lg); padding: var(--space-8); }
+.chart__caption { margin: 0 0 var(--space-6); font-weight: var(--weight-bold); }
+.chart__rows { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
+.chart__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-5); }
+.chart__label { flex: 1 1 200px; font-weight: var(--weight-bold); }
+.chart__track { flex: 999 1 320px; display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+.chart__bar { height: 34px; min-width: 34px; border: var(--border); border-radius: var(--radius-pill); }
+.chart__value { flex: none; font-weight: var(--weight-heavy); white-space: nowrap; }
+.chart__note { margin: var(--space-6) 0 0; font-size: var(--text-sm); color: var(--color-ink-soft); }
+.fill-mint { background: var(--color-mint); }
+.fill-butter { background: var(--color-butter); }
+.fill-lilac { background: var(--color-lilac); }
+.fill-pink { background: var(--color-pink); }
+
+/* Three-up grid for sets of 3 or 6 cards. */
+.card-grid--3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+/* Gain stickers for the "it makes models better" proof. */
+.gain { text-align: center; }
+.gain__number { display: block; font-family: var(--font-display); font-size: clamp(2.75rem, 5vw, 3.75rem); font-weight: var(--weight-heavy); line-height: 1; margin-bottom: var(--space-2); }
+.gain__model { display: block; font-size: var(--text-xl); font-weight: var(--weight-heavy); }
+.gain__detail { display: block; margin-top: var(--space-1); color: var(--color-ink-soft); }
+
+/* Roadmap: a real sequence, so it's numbered. */
+.roadmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-8); margin: 0; padding: 0; list-style: none; }
+.roadmap .card h3 { margin-top: var(--space-3); }
+
+.spec-list { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); margin: 0 0 var(--space-12); padding: 0; list-style: none; }
+.spec-list li { padding: var(--space-2) var(--space-5); background: var(--color-surface); border: var(--border); border-radius: var(--radius-pill); font-weight: var(--weight-bold); }
+
+.honest-note { margin: var(--space-10) auto 0; max-width: 36em; text-align: center; font-weight: var(--weight-bold); }
+
+/* Closing call to action band. */
+.cta-band { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-6) var(--space-12); background: var(--color-surface); border: var(--border); border-radius: var(--radius-card); box-shadow: var(--shadow-lg); padding: var(--space-10) var(--space-8); text-align: center; }
+.cta-band img { width: 220px; max-width: 100%; }
+.cta-band h2 { margin: 0 0 var(--space-3); font-family: var(--font-display); font-size: var(--text-2xl); font-weight: var(--weight-heavy); line-height: 1.2; }
+.cta-band p { margin: 0 0 var(--space-6); max-width: 28em; color: var(--color-ink-soft); }
+.cta-band__text { flex: 1 1 360px; max-width: 520px; }
+
+/* Checker output sample inside the code window. */
+.code-window .fail { color: var(--color-code-fail); }
+.code-window .warn { color: var(--color-code-warn); }
+.code-window .hint { color: var(--color-code-hint); }

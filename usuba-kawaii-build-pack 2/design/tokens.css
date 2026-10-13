@@ -1,0 +1,135 @@
+/* Usuba Kawaii theme: design tokens
+   Single source of truth. Mirror any change in tokens.json.
+   All text/background pairings listed in DESIGN_SYSTEM.md pass WCAG AA. */
+
+:root {
+  /* ---------- Color: light (default) ---------- */
+  --color-bg: #ffe1ec;            /* bubblegum page ground */
+  --color-bg-dot: #ffc6da;        /* polka dots on the ground */
+  --color-surface: #fffaf3;       /* cards, panels */
+  --color-ink: #4a2a3f;           /* headings, body text */
+  --color-ink-soft: #5e3a52;      /* secondary text */
+  --color-ink-deep: #2e1828;      /* link hover */
+
+  --color-pink: #ff9cbf;          /* primary action */
+  --color-pink-blush: #ff9cbf;    /* mascot cheeks */
+  --color-pink-shadow: #f7b3cb;   /* soft floor shadow under mascot */
+  --color-mint: #bdeed8;          /* secondary action, success */
+  --color-butter: #ffe69a;        /* highlight, nav CTA, sparkles */
+  --color-lilac: #d9ccff;         /* tertiary accent */
+  --color-steel: #eef1f8;         /* mascot blade */
+  --color-steel-bevel: #ccd3e6;
+  --color-wood: #e9b98a;          /* mascot handle */
+  --color-wood-grain: #c99566;
+
+  --color-code-bg: #4a2a3f;
+  --color-code-bar: #5e3a52;
+  --color-code-text: #fffaf3;
+  --color-code-prompt: #ff9cbf;
+  --color-code-success: #bdeed8;
+  --color-code-fail: #ff9cbf;
+  --color-code-warn: #ffe69a;
+  --color-code-hint: #d9c4d1;
+
+  --color-on-accent: #4a2a3f;     /* text on pink/mint/butter/lilac fills */
+  --color-outline: #4a2a3f;       /* sticker outlines and hard shadows */
+  --color-focus: #4a2a3f;
+
+  /* ---------- Typography ---------- */
+  --font-display: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Arial Rounded MT Bold", sans-serif;
+  --font-body: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Arial Rounded MT Bold", sans-serif;
+  --font-code: "M PLUS 1 Code", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --weight-body: 500;
+  --weight-bold: 700;
+  --weight-heavy: 800;
+
+  --text-sm: 0.9375rem;    /* 15px  footer, captions */
+  --text-base: 1.0625rem;  /* 17px  body, card text */
+  --text-lg: 1.25rem;      /* 20px  hero lede */
+  --text-xl: 1.5rem;       /* 24px  card titles (h3) */
+  --text-2xl: clamp(1.875rem, 3.4vw, 2.75rem);   /* 30–44px  section titles (h2) */
+  --text-3xl: clamp(2.5rem, 5.4vw, 4.375rem);    /* 40–70px  hero (h1) */
+  --text-hero-long: clamp(2.25rem, 4.6vw, 3.75rem); /* 36–60px  long hero headline (current H1) */
+  --text-logo: 1.875rem;   /* 30px wordmark */
+
+  --leading-tight: 1.12;
+  --leading-body: 1.6;
+  --leading-lede: 1.65;
+  --leading-code: 2;
+  --tracking-tight: -0.015em;
+
+  --measure: 30em;         /* max line length for body copy */
+
+  /* ---------- Shape ---------- */
+  --border-width: 3px;
+  --border: var(--border-width) solid var(--color-outline);
+  --radius-pill: 999px;
+  --radius-card: 30px;
+  --radius-window: 28px;
+  --radius-icon: 50%;
+
+  /* Hard offset shadows: never blurred */
+  --shadow-sm: 4px 4px 0 var(--color-outline);
+  --shadow-md: 5px 5px 0 var(--color-outline);
+  --shadow-lg: 6px 6px 0 var(--color-outline);
+  --shadow-window: 8px 8px 0 var(--color-pink);
+  --shadow-pressed: 1px 1px 0 var(--color-outline);
+
+  /* Sticker tilts for card rows (cycle through in order) */
+  --tilt-1: -1.5deg;
+  --tilt-2: 1deg;
+  --tilt-3: -0.6deg;
+
+  /* ---------- Space (4px base) ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-11: 44px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-22: 88px;
+  --space-24: 96px;
+
+  --container: 1160px;
+  --container-narrow: 920px;
+  --container-code: 820px;
+  --gutter: 28px;
+
+  --tap-min: 48px;          /* minimum interactive height */
+  --dot-size: 30px;         /* polka dot grid */
+
+  /* ---------- Motion ---------- */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-press: 90ms;
+  --duration-ui: 180ms;
+  --duration-intro: 700ms;
+}
+
+/* ---------- Color: dark (DRAFT, needs design review before shipping) ---------- */
+:root[data-theme="dark"] {
+  --color-bg: #2a1b28;
+  --color-bg-dot: #33212f;
+  --color-surface: #3b2638;
+  --color-ink: #fdeef4;          /* text */
+  --color-ink-soft: #e6c9d8;
+  --color-ink-deep: #ffffff;
+  --color-code-bg: #1e131d;
+  --color-code-bar: #2e1d2b;
+  --color-on-accent: #2a1b28;
+  --color-outline: #1a0f19;      /* outlines and shadows stay dark so stickers still pop */
+  --color-focus: #ffe69a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    /* Opt-in only once dark mode is approved: copy the [data-theme="dark"] block here. */
+  }
+}

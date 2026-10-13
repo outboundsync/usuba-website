@@ -1,0 +1,29 @@
+{
+  "name": "usuba-runtime",
+  // [TBD: domain and hosting, BRIEF.md open question 10]. Route left commented until Harris confirms.
+  "main": "runtime-worker.mjs",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": false,
+  // "routes": [{ "pattern": "usuba.dev", "custom_domain": true }],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    // Worker-first for HTML, discovery, MCP, sitemaps, and the other runtime paths.
+    // Hashed /_astro, /assets, pagefind and font files stay on the asset pipeline.
+    "run_worker_first": [
+      "/*",
+      "!/_astro/*",
+      "!/assets/*",
+      "!/pagefind/*",
+      "!/*.png",
+      "!/*.ico",
+      "!/*.svg",
+      "!/*.jpg",
+      "!/*.jpeg",
+      "!/*.webp",
+      "!/*.avif",
+      "!/*.woff",
+      "!/*.woff2",
+    ],
+  },
+}

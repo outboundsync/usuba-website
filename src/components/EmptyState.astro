@@ -1,0 +1,21 @@
+---
+/**
+ * Empty and error states. Use on a marketing page (the 404 renders its own
+ * full-height variant in src/pages/404.astro).
+ */
+interface Props {
+  pose: 'sleep' | 'oops' | 'celebrate';
+  title: string;
+  headingLevel?: 'h1' | 'h2';
+}
+
+const { pose, title, headingLevel = 'h2' } = Astro.props;
+const Heading = headingLevel;
+---
+
+<div class="state">
+  <img src={`/assets/mascot/usu-chan-${pose}.svg`} alt="" width="280" height="175" aria-hidden="true" />
+  <Heading>{title}</Heading>
+  <p><slot name="body" /></p>
+  <div class="btn-row"><slot name="actions" /></div>
+</div>

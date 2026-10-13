@@ -1,0 +1,45 @@
+---
+title: Usuba Checker Model
+description: The Usuba Checker Model is a local Omarchy model, trained on Omarchy plugin data, that reviews a plugin the Checker Scripts cannot. It is in training.
+---
+
+import Callout from '../../../components/Callout.astro';
+
+**Usuba is a model, not an app or a plugin.** The Usuba Checker Model is a small model that runs locally on your own laptop, for
+free, trained only on Omarchy plugin data.
+
+Usuba has two complementary parts: the scripts that test a plugin, and the model that judges it. The scripts are plain Python, not
+AI, and they are available now — see [the Checker Scripts](/docs/checker/install/). The model is in training.
+
+## Status
+
+| Piece | What it is | Status |
+|-------|-----------|--------|
+| Usuba Checker Scripts | The tests that check a plugin | **Available now** |
+| Usuba Standard v0.1 | The rulebook the scripts enforce | **Available now** |
+| Usuba Checker Model | The model that reviews a plugin | **In training** |
+
+## What it runs on
+
+- Based on Qwen 3.5 9B.
+- Runs at 4-bit quantization, about 5.5 GB of weights.
+- On a typical 32 GB laptop, with no graphics card.
+
+## What it is trained on
+
+Omarchy plugins verified with the Checker Scripts and tested on real Omarchy hardware, from a sweep of more than 1,400 published
+plugins so far. The scripts' results across those plugins are part of the training data too.
+
+## What it will do
+
+The model reviews a plugin and says what to fix. Give it the plugin, the scripts' report, and what the plugin shows on screen, and
+it judges what the scripts can't: whether the plugin really works, whether the data is real or faked, whether the buttons do
+anything, whether it breaks in use, and what Omarchy's plugin reviewer would flag. Then it explains what to fix.
+
+It is in training, so this is what it is built to do, not what it has proven.
+
+<Callout kind="warn" title="No published results yet">
+The Usuba Checker Model is in training. There are no published model results. When there are, they will appear here with the test
+method, the model versions and the dates attached.
+</Callout>
+

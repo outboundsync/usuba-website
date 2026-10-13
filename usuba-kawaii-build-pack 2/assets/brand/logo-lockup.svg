@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 44" role="img" aria-label="usuba">
+  <g transform="translate(0,2)">
+  <rect x="4" y="8" width="32" height="24" rx="8" fill="#eef1f8" stroke="#4a2a3f" stroke-width="3"/>
+  <circle cx="15" cy="19" r="2.4" fill="#4a2a3f"/>
+  <circle cx="25" cy="19" r="2.4" fill="#4a2a3f"/>
+  <ellipse cx="11" cy="24" rx="3" ry="1.8" fill="#ff9cbf"/>
+  <ellipse cx="29" cy="24" rx="3" ry="1.8" fill="#ff9cbf"/>
+  </g>
+  <text x="50" y="33" font-family="'M PLUS Rounded 1c', 'Arial Rounded MT Bold', sans-serif" font-size="30" font-weight="800" letter-spacing="-0.3" fill="#4a2a3f">usuba</text>
+</svg>

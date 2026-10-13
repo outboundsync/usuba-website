@@ -1,0 +1,46 @@
+{/*
+  Runs in <head> before first paint (is:inline, so it is not deferred) to set the
+  resolved theme with no flash. The stored choice is light | dark | system; system
+  (the default) follows the OS. `data-theme` holds the resolved value (light|dark)
+  so tokens.css only ever needs one dark block, and `data-theme-choice` holds the
+  raw choice for the switcher to reflect. Shared by the marketing layout and the
+  Starlight ThemeProvider so both agree.
+*/}
+<script is:inline>
+  (() => {
+    const root = document.documentElement;
+    const KEY = 'usuba-theme';
+    const query = window.matchMedia('(prefers-color-scheme: dark)');
+    const read = () => {
+      try {
+        const value = localStorage.getItem(KEY);
+        if (value === 'light' || value === 'dark' || value === 'system') return value;
+      } catch {}
+      return 'system';
+    };
+    const resolve = (choice) => (choice === 'system' ? (query.matches ? 'dark' : 'light') : choice);
+    const apply = (choice) => {
+      const theme = resolve(choice);
+      root.dataset.theme = theme;
+      root.dataset.themeChoice = choice;
+      const meta = document.querySelector('meta[name="theme-color"]') || (() => {
+        const tag = document.createElement('meta');
+        tag.setAttribute('name', 'theme-color');
+        document.head.appendChild(tag);
+        return tag;
+      })();
+      meta.setAttribute('content', theme === 'dark' ? '#2b1a27' : '#ffe1ec');
+    };
+    apply(read());
+    query.addEventListener('change', () => {
+      if (read() === 'system') apply('system');
+    });
+    window.__usubaSetTheme = (choice) => {
+      try {
+        localStorage.setItem(KEY, choice);
+      } catch {}
+      apply(choice);
+      window.dispatchEvent(new CustomEvent('usuba:themechange', { detail: choice }));
+    };
+  })();
+</script>

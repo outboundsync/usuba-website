@@ -1,0 +1,25 @@
+---
+/**
+ * Flat pastel shape, thick plum outline, hard offset shadow: a sticker.
+ * Icon badges and card tilts come from global.css. Icon art is the build pack's
+ * stroke set (public/assets/icons) and is never redrawn (AGENTS.md > Ground rules).
+ */
+interface Props {
+  tone?: 'mint' | 'butter' | 'lilac' | 'pink';
+  icon?: string;
+  title?: string;
+  /** Bulleted body. Use instead of the slot when the card lists parallel points. */
+  points?: string[];
+  class?: string;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { tone, icon, title, points, class: className, headingLevel = 'h3' } = Astro.props;
+const Heading = headingLevel;
+---
+
+<li class={`card ${className ?? ''}`.trim()}>
+  {icon && tone && <span class={`icon-badge icon-badge--${tone}`} aria-hidden="true"><img src={`/assets/icons/${icon}.svg`} alt="" /></span>}
+  {title && <Heading>{title}</Heading>}
+  {points && points.length > 0 ? <ul>{points.map((point) => <li>{point}</li>)}</ul> : <p><slot /></p>}
+</li>

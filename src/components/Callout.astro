@@ -1,0 +1,18 @@
+---
+/**
+ * Docs callouts. Tip = mint with the default pose, warning = butter with the oops pose.
+ * Callout copy is plain and factual; the mascot carries the mood, the words carry the facts.
+ */
+interface Props {
+  kind: 'tip' | 'warn';
+  title: string;
+}
+
+const { kind, title } = Astro.props;
+const pose = kind === 'tip' ? 'usu-chan-default' : 'usu-chan-oops';
+---
+
+<div class={`callout callout--${kind}`}>
+  <img src={`/assets/mascot/${pose}.svg`} alt="" width="72" height="72" aria-hidden="true" />
+  <p><b>{title}:</b> <slot /></p>
+</div>

@@ -1,0 +1,75 @@
+---
+import { preliminaryLabel, RESULTS } from '../data/results';
+
+/**
+ * The dumbbell: a hollow dot for the first try, a filled dot for after the
+ * scripts' feedback, and a bar between them. Sorted by where the model ended up,
+ * then by where it started, so ties read in a stable order.
+ */
+const benchmark = RESULTS.benchmark;
+const total = benchmark.requests;
+const label = preliminaryLabel(benchmark.final);
+
+const models = [...benchmark.models].sort((a, b) => b.afterFixes - a.afterFixes || b.firstTry - a.firstTry);
+
+const pct = (value: number) => `${Math.round((value / total) * 1000) / 10}%`;
+const ticks: number[] = [];
+for (let i = 0; i <= total; i += 7) ticks.push(i);
+---
+
+<figure class="chart uplift-chart">
+  <figcaption class="chart__caption">
+    First try vs. after up to {benchmark.rounds} rounds of the scripts&rsquo; feedback, out of {total}
+    {label && <span class="chart__preliminary"> · {label}</span>}
+  </figcaption>
+
+  <ol class="uplift-rows">
+    {
+      models.map((model) => (
+        <li class="uplift-row">
+          <span class="uplift-row__label">
+            <span class={`group-dot group-dot--${model.group}`} aria-hidden="true" />
+            {model.name}
+          </span>
+          <span class="uplift-row__track">
+            {ticks.map((tick) => (
+              <span class="uplift-tick" style={`left: ${pct(tick)}`} aria-hidden="true" />
+            ))}
+            <span class="uplift-bar" style={`left: ${pct(model.firstTry)}; width: ${pct(model.afterFixes - model.firstTry)}`} aria-hidden="true" />
+            <span class="uplift-dot uplift-dot--first" style={`left: ${pct(model.firstTry)}`} aria-hidden="true" />
+            <span class="uplift-dot uplift-dot--after" style={`left: ${pct(model.afterFixes)}`} aria-hidden="true" />
+            <span class="visually-hidden">
+              {`${model.firstTry} of ${total} on the first try, ${model.afterFixes} after the scripts' feedback`}
+            </span>
+          </span>
+          <span class="uplift-row__value">
+            {model.firstTry} <span aria-hidden="true">→</span> <strong>{model.afterFixes}</strong>
+          </span>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="uplift-axis" aria-hidden="true">
+    <span class="uplift-row__label" />
+    <span class="uplift-axis__track">
+      {
+        ticks.map((tick) => (
+          <span class="uplift-axis__tick" style={`left: ${pct(tick)}`}>
+            {tick}
+          </span>
+        ))
+      }
+    </span>
+    <span class="uplift-row__value" />
+  </div>
+
+  <p class="uplift-legend">
+    <span class="uplift-legend__item">
+      <span class="uplift-dot uplift-dot--first uplift-legend__dot" aria-hidden="true" /> first try
+    </span>
+    <span class="uplift-legend__item">
+      <span class="uplift-dot uplift-dot--after uplift-legend__dot" aria-hidden="true" /> after the scripts&rsquo; feedback
+    </span>
+  </p>
+</figure>

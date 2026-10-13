@@ -1,0 +1,35 @@
+---
+title: Reading results
+description: What each rule id from the Usuba Checker Scripts means, and what a warning means instead of a failure.
+---
+
+Every problem the Checker Scripts report carries a **rule id** from [Usuba Standard v0.1](/docs/standard/), a plain reason and a
+fix hint.
+
+## Problems and warnings
+
+| Kind | Mark | Meaning |
+|------|------|---------|
+| Problem | `✗` | The plugin does not work, or reports something that isn't true. |
+| Warning | `⚠` | A risky command the plugin may legitimately need. Allowed; review it. |
+
+Only clearly destructive commands fail outright. Deleting your home folder is a failure. Deleting a plugin's own cache
+directory is a warning.
+
+## Rule ids
+
+Every rule id is `USB-<family><number>`. Three that come up often:
+
+| Rule id | Reason |
+|---------|--------|
+| `USB-H02` | Shows a hardcoded reading as if it were live, such as storage numbers with Dropbox not installed. |
+| `USB-B02` | Calls a tool that does not exist on Omarchy. |
+| `USB-S01` | Writes outside the plugin's own directory. Flagged for review. |
+
+The full list, with the level of every rule, is [Usuba Standard v0.1](/docs/standard/).
+
+## A failing panel
+
+A plugin can pass every static check and still be wrong: it loads, and the panel shows nothing. Scripts cannot catch that, so
+the Checker Scripts also run a runtime probe — they boot the real Omarchy shell, load the plugin, and watch whether anything
+visible draws.

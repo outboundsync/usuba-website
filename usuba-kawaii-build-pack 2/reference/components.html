@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Usuba Kawaii: component gallery</title>
+<link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=M+PLUS+1+Code:wght@500&display=swap">
+<link rel="stylesheet" href="../design/tokens.css">
+<link rel="stylesheet" href="site.css">
+<style>
+  /* Gallery-only layout helpers. Not part of the theme. */
+  .g-section { padding-block: var(--space-12); border-top: var(--border); }
+  .g-section > h2 { margin: 0 0 var(--space-6); font-size: var(--text-2xl); font-weight: var(--weight-heavy); }
+  .g-note { margin: 0 0 var(--space-6); max-width: 46em; color: var(--color-ink-soft); }
+  .g-row { display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: flex-start; }
+  .swatch { width: 150px; border: var(--border); border-radius: 18px; overflow: hidden; background: var(--color-surface); font-size: var(--text-sm); }
+  .swatch div:first-child { height: 72px; border-bottom: var(--border); }
+  .swatch div:last-child { padding: var(--space-2) var(--space-3); line-height: 1.4; }
+  .pose { width: 220px; text-align: center; font-size: var(--text-sm); font-weight: var(--weight-bold); }
+  .pose img { width: 100%; height: 150px; object-fit: contain; }
+  .type-sample > * { margin: 0 0 var(--space-3); }
+  .theme-toggle { position: fixed; right: var(--space-4); bottom: var(--space-4); z-index: 5; }
+</style>
+</head>
+<body>
+<button class="btn btn--highlight btn--sm theme-toggle" type="button" onclick="const r=document.documentElement;r.dataset.theme=r.dataset.theme==='dark'?'light':'dark'">Toggle dark (draft)</button>
+
+<div class="container">
+  <header class="site-header">
+    <a class="logo" href="homepage.html"><img src="../assets/brand/logo-mark.svg" alt=""><span>usuba</span></a>
+    <nav class="nav" aria-label="Main"><a href="homepage.html">Homepage reference</a></nav>
+  </header>
+
+  <h1 style="font-size: var(--text-3xl); font-weight: var(--weight-heavy); line-height: var(--leading-tight); margin: var(--space-6) 0 var(--space-12)">Component gallery</h1>
+
+  <section class="g-section">
+    <h2>Color</h2>
+    <p class="g-note">Ink (#4a2a3f) is the only text color on light grounds. Every pastel is a fill, never a text color on light backgrounds.</p>
+    <div class="g-row">
+      <div class="swatch"><div style="background: var(--color-bg)"></div><div><b>bg</b><br>#ffe1ec</div></div>
+      <div class="swatch"><div style="background: var(--color-surface)"></div><div><b>surface</b><br>#fffaf3</div></div>
+      <div class="swatch"><div style="background: var(--color-ink)"></div><div><b>ink</b><br>#4a2a3f</div></div>
+      <div class="swatch"><div style="background: var(--color-ink-soft)"></div><div><b>ink-soft</b><br>#5e3a52</div></div>
+      <div class="swatch"><div style="background: var(--color-pink)"></div><div><b>pink</b><br>#ff9cbf</div></div>
+      <div class="swatch"><div style="background: var(--color-mint)"></div><div><b>mint</b><br>#bdeed8</div></div>
+      <div class="swatch"><div style="background: var(--color-butter)"></div><div><b>butter</b><br>#ffe69a</div></div>
+      <div class="swatch"><div style="background: var(--color-lilac)"></div><div><b>lilac</b><br>#d9ccff</div></div>
+    </div>
+  </section>
+
+  <section class="g-section">
+    <h2>Type</h2>
+    <div class="type-sample">
+      <p style="font-size: var(--text-3xl); font-weight: var(--weight-heavy); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight)">Hero, 800</p>
+      <p style="font-size: var(--text-2xl); font-weight: var(--weight-heavy)">Section title, 800</p>
+      <p style="font-size: var(--text-xl); font-weight: var(--weight-heavy)">Card title, 800</p>
+      <p style="font-size: var(--text-lg); color: var(--color-ink-soft); max-width: var(--measure)">Lede, 500. Usuba is a small AI model made for one job: Omarchy plugins.</p>
+      <p style="max-width: var(--measure)">Body, 500. Inline code looks like <code>usuba check</code> and sits comfortably in a sentence.</p>
+      <p style="font-family: var(--font-code)">Code, M PLUS 1 Code: $ usuba check ./dropbox-widget</p>
+    </div>
+  </section>
+
+  <section class="g-section">
+    <h2>Buttons</h2>
+    <p class="g-note">Hover lifts slightly; press pushes the button into its shadow. Primary is pink, secondary is mint, highlight (nav CTA) is butter.</p>
+    <div class="g-row">
+      <a class="btn btn--primary" href="#">Get started</a>
+      <a class="btn btn--secondary" href="#">Star on GitHub</a>
+      <a class="btn btn--highlight" href="#">Read the docs</a>
+      <a class="btn btn--highlight btn--sm" href="#">Get started</a>
+    </div>
+  </section>
+
+  <section class="g-section">
+    <h2>Sticker cards</h2>
+    <ul class="card-grid">
+      <li class="card"><div class="icon-badge icon-badge--mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-9"/><path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6z"/><path d="M12 14c0-3-2.5-5-6-5 0 3 2.5 5 6 5z"/></svg></div><h3>Card title</h3><p>Cards tilt in a repeating -1.5°, 1°, -0.6° cycle. Tilt is removed on small screens.</p></li>
+      <li class="card"><div class="icon-badge icon-badge--butter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18v16H3z" /><path d="M7 9l3 3-3 3M13 15h4"/></svg></div><h3>Card title</h3><p>Icon badges rotate through mint, butter, lilac, pink.</p></li>
+      <li class="card"><div class="icon-badge icon-badge--lilac"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M8 7h7"/></svg></div><h3>Card title</h3><p>Keep card text short: one or two sentences.</p></li>
+    </ul>
+  </section>
+
+  <section class="g-section">
+    <h2>Status: pill and badges</h2>
+    <p class="g-note">Every piece of Usuba that isn't shipped carries a badge. One status pill per page, in the hero.</p>
+    <a class="status-pill" href="#">The Usuba Checker is available now. Check it out, try it today.</a>
+    <div class="g-row"><span class="badge badge--now">Available now</span><span class="badge badge--training">In training</span><span class="badge badge--next">Next</span></div>
+  </section>
+
+  <section class="g-section">
+    <h2>Bar chart</h2>
+    <figure class="chart" style="margin: 0">
+      <figcaption class="chart__caption">Working plugins out of 49</figcaption>
+      <ol class="chart__rows">
+        <li class="chart__row"><span class="chart__label">Written by people</span><span class="chart__track"><span class="chart__bar fill-mint" style="width: 55%"></span><span class="chart__value">27</span></span></li>
+        <li class="chart__row"><span class="chart__label">GPT-5.6</span><span class="chart__track"><span class="chart__bar fill-butter" style="width: 45%"></span><span class="chart__value">22</span></span></li>
+        <li class="chart__row"><span class="chart__label">Small local models</span><span class="chart__track"><span class="chart__bar fill-pink" style="width: 7%"></span><span class="chart__value">3 to 4</span></span></li>
+      </ol>
+      <p class="chart__note">Notes give context or mark results preliminary.</p>
+    </figure>
+  </section>
+
+  <section class="g-section">
+    <h2>Gain stickers, spec chips</h2>
+    <ul class="card-grid" style="margin-bottom: var(--space-12)">
+      <li class="card gain"><span class="gain__number">+13</span><span class="gain__model">Model name</span><span class="gain__detail">more working plugins</span></li>
+      <li class="card gain"><span class="gain__number">+15</span><span class="gain__model">Model name</span><span class="gain__detail">one-line detail</span></li>
+    </ul>
+    <ul class="spec-list" style="justify-content: flex-start"><li>Based on Qwen 3.5 9B</li><li>Runs on a typical 32 GB laptop</li><li>No graphics card needed</li></ul>
+  </section>
+
+  <section class="g-section">
+    <h2>Code window</h2>
+    <div class="container--narrow">
+      <div class="code-window">
+        <div class="code-window__bar"><span class="code-window__dot"></span><span class="code-window__dot"></span><span class="code-window__dot"></span></div>
+<pre><code><span class="prompt">$ </span>usuba check ./dropbox-widget
+<span class="fail">✗ fake-data</span>   Shows storage numbers, but Dropbox isn't installed.
+<span class="hint">  fix: detect Dropbox first, and show an empty state without it.</span>
+<span class="warn">⚠ risky-cmd</span>   Deletes ~/.cache/dropbox-widget. Allowed; review it.
+
+1 problem, 1 warning</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="g-section">
+    <h2>Docs callouts</h2>
+    <div style="display: grid; gap: var(--space-6); max-width: 760px">
+      <div class="callout callout--tip"><img src="../assets/mascot/usu-chan-default.svg" alt=""><p><b>Tip:</b> run <code>usuba check</code> on a plugin before you share it.</p></div>
+      <div class="callout callout--warn"><img src="../assets/mascot/usu-chan-oops.svg" alt=""><p><b>Heads up:</b> callout copy is plain and precise. The mascot carries the mood; the words carry the facts.</p></div>
+    </div>
+  </section>
+
+  <section class="g-section">
+    <h2>Mascot poses</h2>
+    <p class="g-note">Working name Usu-chan (TBD). Use each pose only for its job. The hero bubble now reads "let's check!"</p>
+    <div class="g-row">
+      <div class="pose"><img src="../assets/mascot/usu-chan-hero.svg" alt=""><div>hero: homepage only</div></div>
+      <div class="pose"><img src="../assets/mascot/usu-chan-default.svg" alt=""><div>default: general use, tips</div></div>
+      <div class="pose"><img src="../assets/mascot/usu-chan-wave.svg" alt=""><div>wave: welcome, getting started</div></div>
+      <div class="pose"><img src="../assets/mascot/usu-chan-celebrate.svg" alt=""><div>celebrate: success, launch, "you did it"</div></div>
+      <div class="pose"><img src="../assets/mascot/usu-chan-sleep.svg" alt=""><div>sleep: empty states</div></div>
+      <div class="pose"><img src="../assets/mascot/usu-chan-oops.svg" alt=""><div>oops: 404, errors, warnings</div></div>
+    </div>
+  </section>
+
+  <section class="g-section">
+    <h2>States</h2>
+    <div class="card" style="transform: none; margin-bottom: var(--space-8)">
+      <div class="state">
+        <img src="../assets/mascot/usu-chan-oops.svg" alt="">
+        <h2>This page wandered off</h2>
+        <p>The link may be old or mistyped. Try the Checker docs, or head back home.</p>
+        <div class="btn-row"><a class="btn btn--primary btn--sm" href="#">Go home</a><a class="btn btn--secondary btn--sm" href="#">Checker docs</a></div>
+      </div>
+    </div>
+    <div class="card" style="transform: none">
+      <div class="state">
+        <img src="../assets/mascot/usu-chan-sleep.svg" alt="">
+        <h2>No results yet</h2>
+        <p>We'll publish them here when training finishes, with the test method and model versions.</p>
+        <a class="btn btn--primary btn--sm" href="#">Try the Checker</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer"><p>Gallery for the Usuba Kawaii build pack.</p></footer>
+</div>
+</body>
+</html>

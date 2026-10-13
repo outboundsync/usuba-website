@@ -1,0 +1,16 @@
+---
+import { RESULTS } from '../data/results';
+
+/** Surface pills with an outline and no shadow, for short factual specs. */
+interface Props {
+  /** Override the default model specs, for any other short factual list. */
+  items?: string[];
+}
+const { items } = Astro.props;
+const { specs } = RESULTS.model;
+const pills = items ?? specs;
+---
+
+<ul class="spec-list">
+  {pills.map((pill) => <li>{pill}</li>)}
+</ul>

@@ -1,0 +1,147 @@
+@import './tokens.css';
+
+/* Starlight is driven by CSS custom properties, so the Kawaii tokens map onto it
+   directly (BRIEF.md > Recommended stack). Nothing below restates a raw value:
+   every colour, radius and border comes from tokens.css. */
+
+:root,
+:root[data-theme='light'] {
+  --usuba-docs-header-height: 4.25rem;
+
+  --sl-color-bg: var(--color-bg);
+  --sl-color-bg-nav: var(--color-bg);
+  --sl-color-bg-sidebar: var(--color-surface);
+  --sl-color-bg-inline-code: var(--color-surface);
+  --sl-color-bg-accent: var(--color-pink);
+
+  --sl-color-text: var(--color-ink);
+  --sl-color-text-accent: var(--color-ink);
+  --sl-color-text-invert: var(--color-on-accent);
+  --sl-color-white: var(--color-ink);
+
+  --sl-color-gray-1: var(--color-ink);
+  --sl-color-gray-2: var(--color-ink);
+  --sl-color-gray-3: var(--color-ink-soft);
+  --sl-color-gray-4: var(--color-ink-soft);
+  --sl-color-gray-5: var(--color-ink-soft);
+  --sl-color-gray-6: var(--color-surface);
+  --sl-color-gray-7: var(--color-surface);
+  --sl-color-black: var(--color-bg);
+
+  --sl-color-hairline: var(--color-outline);
+  --sl-color-hairline-light: var(--color-outline);
+  --sl-color-hairline-shade: var(--color-outline);
+
+  --sl-color-accent-low: var(--color-lilac);
+  --sl-color-accent: var(--color-ink);
+  --sl-color-accent-high: var(--color-ink-deep);
+
+  --sl-font: var(--font-body);
+  --sl-font-mono: var(--font-code);
+  --sl-font-system: var(--font-body);
+
+  --sl-text-code: var(--text-sm);
+  --sl-text-body: var(--text-base);
+  --sl-text-h1: var(--text-3xl);
+  --sl-text-h2: var(--text-2xl);
+  --sl-text-h3: var(--text-xl);
+  --sl-text-h4: var(--text-lg);
+  --sl-line-height: var(--leading-body);
+  --sl-line-height-headings: var(--leading-tight);
+
+  --sl-color-text-placeholder: var(--color-ink-soft);
+}
+
+html {
+  background-color: var(--color-bg);
+}
+
+body {
+  background-color: var(--color-bg);
+  background-image: radial-gradient(var(--color-bg-dot) 3px, transparent 3.5px);
+  background-size: var(--dot-size) var(--dot-size);
+}
+
+/* ---------------- Sidebar ---------------- */
+
+[data-docs-sidebar-pane] a {
+  border-radius: var(--radius-pill);
+}
+
+[data-docs-sidebar-pane] a[aria-current='page'],
+[data-docs-sidebar-pane] a[aria-current='true'] {
+  background: var(--color-butter);
+  color: var(--color-on-accent);
+  border: 2px solid var(--color-outline);
+  font-weight: var(--weight-heavy);
+}
+
+/* ---------------- Content ---------------- */
+
+.sl-markdown-content :is(h1, h2, h3, h4) {
+  font-family: var(--font-display);
+  font-weight: var(--weight-heavy);
+}
+
+.sl-markdown-content a:not(:where(.not-content *)) {
+  color: var(--color-ink-deep);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-pink);
+}
+
+.sl-markdown-content :not(pre) > code {
+  font-family: var(--font-code);
+  border: 2px solid var(--color-outline);
+  border-radius: 8px;
+  padding: 0.05em 0.4em;
+  color: var(--color-ink);
+  background: var(--color-surface);
+}
+
+.sl-markdown-content :is(pre) {
+  border-radius: var(--radius-window);
+  border: var(--border-width) solid var(--color-code-bg);
+  box-shadow: var(--shadow-sm);
+}
+
+.sl-markdown-content table {
+  border: var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.sl-markdown-content :is(th, td) {
+  border-color: var(--color-outline);
+}
+
+/* Rule ids and other inline code stay on one line in tables (the standard's rule
+   tables would otherwise break `USB-T01` across two lines in a narrow column). */
+.sl-markdown-content table code {
+  white-space: nowrap;
+}
+
+.sl-markdown-content blockquote {
+  border-inline-start: var(--border-width) solid var(--color-pink);
+  color: var(--color-ink-soft);
+}
+
+/* Docs code blocks keep the sticker feel but drop the window bar: it is noisy in long docs. */
+.expressive-code .frame {
+  box-shadow: none;
+  border-radius: var(--radius-window);
+}
+
+.expressive-code .frame pre {
+  border: var(--border-width) solid var(--color-code-bg);
+}
+
+/* ---------------- Header and search ---------------- */
+
+site-search button[data-open-modal] {
+  border: var(--border-width) solid var(--color-outline);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-sm);
+}

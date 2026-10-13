@@ -1,0 +1,46 @@
+---
+/**
+ * Light / dark / system switcher for the header. Present on every page (the
+ * marketing header is also the Starlight docs header). The pre-paint ThemeScript
+ * sets the initial state; this only reflects it and handles clicks. Deliberately
+ * NOT the Starlight theme select: it is a token-styled sticker control.
+ */
+const OPTIONS = [
+  { value: 'light', label: 'Light' },
+  { value: 'dark', label: 'Dark' },
+  { value: 'system', label: 'System' },
+] as const;
+---
+
+<div class="theme-switch" role="group" aria-label="Color theme" data-theme-switch>
+  {
+    OPTIONS.map((option) => (
+      <button
+        type="button"
+        class="theme-switch__opt"
+        data-theme-option={option.value}
+        aria-pressed="false"
+        title={`${option.label} theme`}
+      >
+        {option.value === 'light' && (
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4.2" />
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1" />
+          </svg>
+        )}
+        {option.value === 'dark' && (
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" />
+          </svg>
+        )}
+        {option.value === 'system' && (
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="12" rx="2.5" />
+            <path d="M8 20h8M12 16v4" />
+          </svg>
+        )}
+        <span class="visually-hidden">{option.label}</span>
+      </button>
+    ))
+  }
+</div>

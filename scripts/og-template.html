@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Usuba social preview</title>
+    <style>
+      /* Rendered to public/og.png at 1200x630 by scripts/make-images.mjs.
+         Uses the same token values as src/styles/tokens.css. */
+      @font-face {
+        font-family: 'M PLUS Rounded 1c';
+        font-weight: 800;
+        font-display: block;
+        src: url('../node_modules/@fontsource/m-plus-rounded-1c/files/m-plus-rounded-1c-latin-800-normal.woff2') format('woff2');
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+
+      body {
+        background-color: #ffe1ec;
+        background-image: radial-gradient(#ffc6da 3px, transparent 3.5px);
+        background-size: 30px 30px;
+        color: #4a2a3f;
+        font-family: 'M PLUS Rounded 1c', sans-serif;
+        font-weight: 800;
+      }
+
+      .frame {
+        display: flex;
+        align-items: center;
+        gap: 48px;
+        height: 100%;
+        padding: 64px 72px;
+      }
+
+      .mascot {
+        width: 360px;
+        flex: none;
+      }
+
+      .panel {
+        background: #fffaf3;
+        border: 3px solid #4a2a3f;
+        border-radius: 30px;
+        box-shadow: 8px 8px 0 #ff9cbf;
+        padding: 40px 44px;
+      }
+
+      .wordmark {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 44px;
+        letter-spacing: -0.02em;
+      }
+
+      .wordmark img {
+        width: 52px;
+        height: 52px;
+      }
+
+      h1 {
+        margin: 22px 0 18px;
+        font-size: 52px;
+        line-height: 1.12;
+        letter-spacing: -0.015em;
+      }
+
+      .pill {
+        display: inline-block;
+        margin: 0;
+        padding: 8px 20px;
+        background: #ffe69a;
+        border: 3px solid #4a2a3f;
+        border-radius: 999px;
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <img class="mascot" src="../public/assets/mascot/usu-chan-wave.svg" alt="" />
+      <div class="panel">
+        <p class="wordmark"><img src="../public/assets/brand/logo-mark.svg" alt="" />usuba</p>
+        <h1>A native Omarchy model, trained on Omarchy plugin data, that runs locally.</h1>
+        <p class="pill">The Usuba Checker is available now</p>
+      </div>
+    </div>
+  </body>
+</html>

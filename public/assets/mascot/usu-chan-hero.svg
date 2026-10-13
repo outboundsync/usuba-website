@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" role="img" aria-label="A smiling little usuba knife saying let's check">
+  <ellipse cx="190" cy="236" rx="120" ry="11" fill="#f7b3cb"/>
+  <rect x="163" y="10" width="154" height="50" rx="25" fill="#ffffff" stroke="#4a2a3f" stroke-width="4"/>
+  <path d="M228,58 L238,80 L252,57" fill="#ffffff" stroke="#4a2a3f" stroke-width="4" stroke-linejoin="round"/>
+  <rect x="226" y="53" width="30" height="7" fill="#ffffff"/>
+  <text x="240" y="42" text-anchor="middle" font-family="'M PLUS Rounded 1c', 'Arial Rounded MT Bold', sans-serif" font-size="19" font-weight="800" fill="#4a2a3f">let's check!</text>
+  <g transform="translate(20,50)">
+    <rect x="20" y="28" width="112" height="42" rx="21" fill="#e9b98a" stroke="#4a2a3f" stroke-width="5"/>
+    <path d="M42,40 L42,58 M60,40 L60,58" stroke="#c99566" stroke-width="4" stroke-linecap="round"/>
+    <rect x="128" y="28" width="24" height="58" rx="7" fill="#d9ccff" stroke="#4a2a3f" stroke-width="5"/>
+    <rect x="136" y="28" width="168" height="124" rx="12" fill="#eef1f8" stroke="#4a2a3f" stroke-width="5"/>
+    <path d="M160,48 L280,48" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+    <path d="M156,132 L284,132" stroke="#ccd3e6" stroke-width="5" stroke-linecap="round"/>
+    <ellipse cx="196" cy="84" rx="8" ry="10" fill="#4a2a3f"/>
+    <ellipse cx="244" cy="84" rx="8" ry="10" fill="#4a2a3f"/>
+    <circle cx="198.5" cy="79.5" r="3" fill="#ffffff"/>
+    <circle cx="246.5" cy="79.5" r="3" fill="#ffffff"/>
+    <path d="M212,100 Q220,109 228,100" fill="none" stroke="#4a2a3f" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="180" cy="104" rx="12" ry="7" fill="#ff9cbf"/>
+    <ellipse cx="260" cy="104" rx="12" ry="7" fill="#ff9cbf"/>
+  </g>
+  <path d="M342,14 Q342,26 354,26 Q342,26 342,38 Q342,26 330,26 Q342,26 342,14 Z" fill="#ffe69a" stroke="#4a2a3f" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M140,18 Q140,26 148,26 Q140,26 140,34 Q140,26 132,26 Q140,26 140,18 Z" fill="#ffe69a" stroke="#4a2a3f" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M30,192 Q30,204 42,204 Q30,204 30,216 Q30,204 18,204 Q30,204 30,192 Z" fill="#ffe69a" stroke="#4a2a3f" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M340,206 Q340,216 350,216 Q340,216 340,226 Q340,216 330,216 Q340,216 340,206 Z" fill="#ffe69a" stroke="#4a2a3f" stroke-width="3" stroke-linejoin="round"/>
+</svg>

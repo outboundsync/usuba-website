@@ -1,0 +1,50 @@
+{
+  "benchmark": {
+    "final": false,
+    "preliminaryLabel": "Preliminary results, October 2026.",
+    "caption": "Working plugins out of 49",
+    "requests": 49,
+    "rounds": 3,
+    "omarchyVersion": "4.0.4",
+    "runDate": "October 13, 2026",
+    "provider": "OpenRouter",
+    "note": "We ran the same 49 requests to every model through OpenRouter and ran the Checker Scripts against them up to three times.",
+    "breakdown": [
+      "26 full plugins from a description",
+      "6 add a panel to a bar widget",
+      "12 pieces of larger multi-file plugins",
+      "5 broken manifests to fix"
+    ],
+    "totals": {
+      "worksRightAway": 87,
+      "fixedByChecker": 187,
+      "stillBuggy": 174,
+      "fullyBroken": 140
+    },
+    "models": [
+      { "name": "GPT-5.6", "group": "proprietary", "firstTry": 21, "afterFixes": 40, "worksRightAway": 21, "fixedByChecker": 19, "stillBuggy": 5, "fullyBroken": 4 },
+      { "name": "Claude Opus 5.5", "group": "proprietary", "firstTry": 17, "afterFixes": 36, "worksRightAway": 17, "fixedByChecker": 19, "stillBuggy": 10, "fullyBroken": 3 },
+      { "name": "Claude Sonnet 5.5", "group": "proprietary", "firstTry": 9, "afterFixes": 35, "worksRightAway": 9, "fixedByChecker": 26, "stillBuggy": 11, "fullyBroken": 3 },
+      { "name": "Meta Muse Wonder", "group": "proprietary", "firstTry": 12, "afterFixes": 33, "worksRightAway": 12, "fixedByChecker": 21, "stillBuggy": 14, "fullyBroken": 2, "footnote": "Ran without zero data retention: its only provider, Meta, is not ZDR. Every other model ran with ZDR." },
+      { "name": "Kimi K3", "group": "open", "firstTry": 3, "afterFixes": 32, "worksRightAway": 3, "fixedByChecker": 29, "stillBuggy": 9, "fullyBroken": 8 },
+      { "name": "Grok 4.7", "group": "proprietary", "firstTry": 1, "afterFixes": 27, "worksRightAway": 1, "fixedByChecker": 26, "stillBuggy": 17, "fullyBroken": 5 },
+      { "name": "Gemini 4 Argon", "group": "proprietary", "firstTry": 7, "afterFixes": 27, "worksRightAway": 7, "fixedByChecker": 20, "stillBuggy": 19, "fullyBroken": 3 },
+      { "name": "Gemini 3.1 Pro", "group": "proprietary", "firstTry": 2, "afterFixes": 17, "worksRightAway": 2, "fixedByChecker": 15, "stillBuggy": 20, "fullyBroken": 12 },
+      { "name": "DeepSeek V4 Pro", "group": "open", "firstTry": 4, "afterFixes": 10, "worksRightAway": 4, "fixedByChecker": 6, "stillBuggy": 12, "fullyBroken": 27 },
+      { "name": "Grok 4.3", "group": "proprietary", "firstTry": 3, "afterFixes": 8, "worksRightAway": 3, "fixedByChecker": 5, "stillBuggy": 28, "fullyBroken": 13 },
+      { "name": "Qwen3.6 27B", "group": "open", "firstTry": 4, "afterFixes": 5, "worksRightAway": 4, "fixedByChecker": 1, "stillBuggy": 14, "fullyBroken": 30 },
+      { "name": "Qwen3-Coder", "group": "open", "firstTry": 4, "afterFixes": 4, "worksRightAway": 4, "fixedByChecker": 0, "stillBuggy": 15, "fullyBroken": 30 }
+    ]
+  },
+  "model": {
+    "final": false,
+    "specs": [
+      "Based on Qwen 3.5 9B",
+      "Runs at 4-bit, about 5.5 GB of weights",
+      "On a typical 32 GB laptop, no graphics card",
+      "Trained only on Omarchy plugin data",
+      "1,400+ published plugins swept so far"
+    ],
+    "honestNote": "The Usuba Checker Model is in training. There are no published model results yet."
+  }
+}

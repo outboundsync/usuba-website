@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Usuba: a native Omarchy model that runs locally</title>
+<meta name="description" content="Usuba is a small AI model trained on Omarchy plugin data that runs locally. The model is in training; the Usuba Checker is available now.">
+<link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml">
+<!-- Reference only: the real site must self-host these fonts (see TASKS.md). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=M+PLUS+1+Code:wght@500&display=swap">
+<link rel="stylesheet" href="../design/tokens.css">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="container">
+  <header class="site-header">
+    <a class="logo" href="#">
+      <img src="../assets/brand/logo-mark.svg" alt="">
+      <span>usuba</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#checker">Checker</a>
+      <a href="#">Standard</a>
+      <a href="#model">Model</a>
+      <a href="#">GitHub</a>
+      <a class="btn btn--highlight btn--sm" href="#checker">Try the Checker</a>
+    </nav>
+  </header>
+</div>
+
+<main id="main">
+  <!-- 1. Hero -->
+  <section class="container container--narrow hero">
+    <svg class="hero__mascot" viewBox="0 0 360 260" role="img" aria-label="A smiling little usuba knife saying let's check">
+      <ellipse cx="190" cy="236" rx="120" ry="11" fill="#f7b3cb"/>
+      <rect x="20" y="14" width="152" height="50" rx="25" fill="#ffffff" stroke="#4a2a3f" stroke-width="4"/>
+      <path d="M118,62 L128,84 L142,61" fill="#ffffff" stroke="#4a2a3f" stroke-width="4" stroke-linejoin="round"/>
+      <rect x="116" y="56" width="30" height="7" fill="#ffffff"/>
+      <text x="96" y="46" text-anchor="middle" font-family="'M PLUS Rounded 1c', 'Arial Rounded MT Bold', sans-serif" font-size="19" font-weight="800" fill="#4a2a3f">let's check!</text>
+      <g transform="translate(20,50)">
+        <rect x="20" y="78" width="112" height="42" rx="21" fill="#e9b98a" stroke="#4a2a3f" stroke-width="5"/>
+        <path d="M42,90 L42,108 M60,90 L60,108" stroke="#c99566" stroke-width="4" stroke-linecap="round"/>
+        <rect x="118" y="70" width="20" height="58" rx="7" fill="#d9ccff" stroke="#4a2a3f" stroke-width="5"/>
+        <rect x="136" y="28" width="168" height="124" rx="28" fill="#eef1f8" stroke="#4a2a3f" stroke-width="5"/>
+        <path d="M160,48 L280,48" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+        <path d="M156,132 L284,132" stroke="#ccd3e6" stroke-width="5" stroke-linecap="round"/>
+        <ellipse cx="196" cy="84" rx="8" ry="10" fill="#4a2a3f"/>
+        <ellipse cx="244" cy="84" rx="8" ry="10" fill="#4a2a3f"/>
+        <circle cx="198.5" cy="79.5" r="3" fill="#ffffff"/>
+        <circle cx="246.5" cy="79.5" r="3" fill="#ffffff"/>
+        <path d="M212,100 Q220,109 228,100" fill="none" stroke="#4a2a3f" stroke-width="4" stroke-linecap="round"/>
+        <ellipse cx="180" cy="104" rx="12" ry="7" fill="#ff9cbf"/>
+        <ellipse cx="260" cy="104" rx="12" ry="7" fill="#ff9cbf"/>
+      </g>
+      <path d="M330,22 Q330,34 342,34 Q330,34 330,46 Q330,34 318,34 Q330,34 330,22 Z" fill="#ffe69a" stroke="#4a2a3f" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M200,22 Q200,30 208,30 Q200,30 200,38 Q200,30 192,30 Q200,30 200,22 Z" fill="#ffe69a" stroke="#4a2a3f" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M30,192 Q30,204 42,204 Q30,204 30,216 Q30,204 18,204 Q30,204 30,192 Z" fill="#ffe69a" stroke="#4a2a3f" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M340,206 Q340,216 350,216 Q340,216 340,226 Q340,216 330,216 Q340,216 340,206 Z" fill="#ffe69a" stroke="#4a2a3f" stroke-width="3" stroke-linejoin="round"/>
+    </svg>
+    <a class="status-pill" href="#checker">The Usuba Checker is available now. Check it out, try it today.</a>
+    <h1>A native Omarchy model, trained on Omarchy plugin data, that runs locally.</h1>
+    <p class="lede">Usuba is a small AI model made for one job: Omarchy plugins. It runs free on your own laptop. The model is still in training. Its first piece, the Usuba Checker, is ready now.</p>
+    <div class="btn-row">
+      <a class="btn btn--primary" href="#checker">Try the Checker</a>
+      <a class="btn btn--secondary" href="#">Read the standard</a>
+    </div>
+  </section>
+
+  <!-- 2. Problem -->
+  <section class="container section" aria-labelledby="problem-title">
+    <h2 class="section-title" id="problem-title">AI is bad at Omarchy plugins</h2>
+    <p class="section-lede">We gave 49 real plugin requests to the top models and ran every answer in real Omarchy 4.0.4.</p>
+    <figure class="chart" style="margin: 0 0 var(--space-12)">
+      <figcaption class="chart__caption">Working plugins out of 49</figcaption>
+      <ol class="chart__rows">
+        <li class="chart__row"><span class="chart__label">Written by people</span><span class="chart__track"><span class="chart__bar fill-mint" style="width: 55%"></span><span class="chart__value">27</span></span></li>
+        <li class="chart__row"><span class="chart__label">GPT-5.6</span><span class="chart__track"><span class="chart__bar fill-butter" style="width: 45%"></span><span class="chart__value">22</span></span></li>
+        <li class="chart__row"><span class="chart__label">Claude Opus</span><span class="chart__track"><span class="chart__bar fill-lilac" style="width: 41%"></span><span class="chart__value">about 20</span></span></li>
+        <li class="chart__row"><span class="chart__label">Small local models</span><span class="chart__track"><span class="chart__bar fill-pink" style="width: 7%"></span><span class="chart__value">3 to 4</span></span></li>
+      </ol>
+      <p class="chart__note">Same 49 requests and the same test for everyone, including the plugins people wrote.</p>
+    </figure>
+    <h3 class="section-title" style="font-size: var(--text-xl); margin-bottom: var(--space-8)">What goes wrong</h3>
+    <ul class="card-grid">
+      <li class="card"><h3>Made-up APIs</h3><p>Calls to functions and commands that Omarchy doesn't have.</p></li>
+      <li class="card"><h3>Fake data dressed up as real</h3><p>A Dropbox widget showing storage numbers with Dropbox not even installed.</p></li>
+      <li class="card"><h3>Panels that show nothing</h3><p>The plugin loads, and the panel is empty.</p></li>
+      <li class="card"><h3>X11-only tools</h3><p>Tools that don't exist on Omarchy, so the plugin can't run.</p></li>
+    </ul>
+  </section>
+
+  <!-- 3. Checker -->
+  <section class="container section" id="checker" aria-labelledby="checker-title">
+    <h2 class="section-title" id="checker-title">Usuba Checker <span class="badge badge--now">Available now</span></h2>
+    <p class="section-lede">An open test, not a model. It checks whether an Omarchy plugin actually works, and tells you how to fix it.</p>
+    <ul class="card-grid card-grid--3" style="margin-bottom: var(--space-16)">
+      <li class="card"><h3>Reads the code</h3><p>Flags invented APIs, missing helper scripts, made-up command flags and fake data.</p></li>
+      <li class="card"><h3>Runs it for real</h3><p>Loads the plugin in a real Omarchy shell and catches load errors and crashes.</p></li>
+      <li class="card"><h3>Explains every problem</h3><p>Each one comes with a rule id, a plain reason and a fix hint.</p></li>
+      <li class="card"><h3>Warns before it fails</h3><p>Risky commands a plugin may need are warnings. Only clearly destructive ones, like deleting your home folder, fail.</p></li>
+      <li class="card"><h3>Follows a public standard</h3><p>The rules are written up as an open standard for what a working Omarchy plugin is.</p></li>
+      <li class="card"><h3>Matches real hardware</h3><p>It agrees with a laptop running Omarchy on all 90 plugins in our answer key.</p></li>
+    </ul>
+    <div class="container--narrow" style="margin: 0 auto; padding: 0">
+      <div class="code-window">
+        <div class="code-window__bar">
+          <span class="code-window__dot"></span><span class="code-window__dot"></span><span class="code-window__dot"></span>
+        </div>
+<pre><code><span class="prompt">$ </span>usuba check ./dropbox-widget
+<span class="fail">✗ fake-data</span>   Shows storage numbers, but Dropbox isn't installed.
+<span class="hint">  fix: detect Dropbox first, and show an empty state without it.</span>
+<span class="fail">✗ x11-only</span>    Calls xdotool, which doesn't exist on Omarchy.
+<span class="hint">  fix: use hyprctl for window info instead.</span>
+<span class="warn">⚠ risky-cmd</span>   Deletes ~/.cache/dropbox-widget. Allowed; review it.
+
+2 problems, 1 warning</code></pre>
+      </div>
+      <p class="chart__note" style="text-align: center">Sample output. Command and rule ids shown for illustration.</p>
+    </div>
+  </section>
+
+  <!-- 4. Proof -->
+  <section class="container section" aria-labelledby="proof-title">
+    <h2 class="section-title" id="proof-title">It makes every model better at Omarchy</h2>
+    <p class="section-lede">The Checker isn't competing with AI models. Give a model the Checker's feedback and one more try, and more of its plugins work.</p>
+    <ul class="card-grid">
+      <li class="card gain"><span class="gain__number">+13</span><span class="gain__model">GPT-5.6</span><span class="gain__detail">more working plugins</span></li>
+      <li class="card gain"><span class="gain__number">+13</span><span class="gain__model">Claude Opus</span><span class="gain__detail">more working plugins</span></li>
+      <li class="card gain"><span class="gain__number">+15</span><span class="gain__model">Claude Sonnet</span><span class="gain__detail">more working plugins</span></li>
+      <li class="card gain"><span class="gain__number">+15</span><span class="gain__model">Kimi</span><span class="gain__detail">a cheap open model, up from 3 on the first try</span></li>
+    </ul>
+    <p class="chart__note" style="text-align: center; margin-top: var(--space-8)">Hand-checked results from the tests finished so far. Final numbers: [TBD].</p>
+  </section>
+
+  <!-- 5. Model -->
+  <section class="container section" id="model" aria-labelledby="model-title">
+    <h2 class="section-title" id="model-title">The Usuba model <span class="badge badge--training">In training</span></h2>
+    <p class="section-lede">A local Omarchy model trained only on Omarchy plugins we've verified with the Checker and tested on real Omarchy hardware.</p>
+    <ul class="spec-list">
+      <li>Based on Qwen 3.5 9B</li>
+      <li>Runs on a typical 32 GB laptop</li>
+      <li>No graphics card needed</li>
+      <li>1,400+ published plugins swept so far</li>
+    </ul>
+    <ol class="roadmap">
+      <li class="card"><span class="badge badge--now">Available now</span><h3>1. Usuba Checker</h3><p>The open test. Checks plugins with scripts and a real Omarchy shell.</p></li>
+      <li class="card"><span class="badge badge--training">In training</span><h3>2. Usuba model, checking</h3><p>Catches what scripts can't, like a panel that renders nothing or numbers that are obviously fake.</p></li>
+      <li class="card"><span class="badge badge--next">Next</span><h3>3. Usuba Builder</h3><p>Writes Omarchy plugins from scratch.</p></li>
+    </ol>
+    <p class="honest-note">No model results yet. We'll publish them when they're in.</p>
+  </section>
+
+  <!-- 6. Who it's for -->
+  <section class="container section" aria-labelledby="cta-title">
+    <div class="cta-band">
+      <img src="../assets/mascot/usu-chan-wave.svg" alt="">
+      <div class="cta-band__text">
+        <h2 id="cta-title">Built for Omarchy plugin builders</h2>
+        <p>And for anyone using AI to write Omarchy plugins. Check it out, try it today.</p>
+        <a class="btn btn--primary" href="#checker">Try the Checker</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="container">
+  <footer class="site-footer">
+    <p>Usuba is open source. Sponsored by Coinbase. [TBD: confirm credit wording]</p>
+    <nav aria-label="Footer">
+      <a href="#">GitHub</a>
+      <a href="#">Standard</a>
+      <a href="#">Omarchy</a>
+    </nav>
+  </footer>
+</div>
+</body>
+</html>

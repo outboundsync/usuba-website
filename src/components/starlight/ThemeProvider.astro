@@ -1,0 +1,14 @@
+---
+// Starlight's theme provider, replaced so the docs share the site's light / dark /
+// system switcher (see ThemeScript.astro). The switcher itself is in the shared
+// site header. updatePickers() stays a no-op because the Starlight theme select
+// is not used.
+import ThemeScript from '../ThemeScript.astro';
+---
+
+<ThemeScript />
+<script is:inline>
+  window.StarlightThemeProvider = {
+    updatePickers() {},
+  };
+</script>

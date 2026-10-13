@@ -1,0 +1,91 @@
+---
+import Logo from './Logo.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { NAV, navIsCurrent, SITE } from '../data/site';
+
+const pathname = Astro.url.pathname;
+const current = (href: string) => navIsCurrent(href, pathname);
+---
+
+<header class="site-header" data-site-header>
+  <Logo />
+
+  <div class="site-header__actions">
+    <ThemeToggle />
+    <button class="nav-toggle btn btn--control btn--sm" type="button" data-nav-toggle aria-controls="site-nav" aria-expanded="false">
+      <span data-nav-toggle-label>Menu</span>
+    </button>
+  </div>
+
+  <nav id="site-nav" class="nav" data-site-nav aria-label="Main">
+    {
+      NAV.map((item) => (
+        <a
+          href={item.href}
+          data-nav-current={current(item.href) ? '' : undefined}
+          aria-current={current(item.href) ? 'page' : undefined}
+          rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+          target={item.href.startsWith('http') ? '_blank' : undefined}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+    <a class="btn btn--action btn--sm nav-cta" href={SITE.checkerHref}>Try the Checker Scripts</a>
+  </nav>
+</header>
+
+<script>
+  type SetTheme = (choice: 'light' | 'dark' | 'system') => void;
+  const setTheme = (window as unknown as { __usubaSetTheme?: SetTheme }).__usubaSetTheme;
+
+  // ---- Compact nav ----
+  const header = document.querySelector('[data-site-header]');
+  const toggle = document.querySelector('[data-nav-toggle]');
+  const label = document.querySelector('[data-nav-toggle-label]');
+
+  if (header instanceof HTMLElement && toggle instanceof HTMLButtonElement) {
+    const setOpen = (next: boolean) => {
+      header.toggleAttribute('data-nav-open', next);
+      toggle.setAttribute('aria-expanded', next ? 'true' : 'false');
+      if (label) label.textContent = next ? 'Close' : 'Menu';
+    };
+
+    setOpen(false);
+    toggle.addEventListener('click', () => setOpen(!header.hasAttribute('data-nav-open')));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && header.hasAttribute('data-nav-open')) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
+
+  // ---- Theme switcher (light / dark / system) ----
+  const switcher = document.querySelector('[data-theme-switch]');
+  const options = switcher?.querySelectorAll<HTMLButtonElement>('[data-theme-option]');
+
+  if (options && options.length > 0) {
+    const reflect = (choice: string) => {
+      for (const option of options) {
+        option.setAttribute('aria-pressed', option.getAttribute('data-theme-option') === choice ? 'true' : 'false');
+      }
+    };
+
+    reflect(document.documentElement.dataset.themeChoice ?? 'system');
+    for (const option of options) {
+      option.addEventListener('click', () => {
+        const choice = option.getAttribute('data-theme-option');
+        if (choice !== 'light' && choice !== 'dark' && choice !== 'system') return;
+        setTheme?.(choice);
+        reflect(choice);
+      });
+    }
+    window.addEventListener('usuba:themechange', (event) => {
+      const choice = (event as CustomEvent<string>).detail;
+      if (typeof choice === 'string') reflect(choice);
+    });
+  }
+</script>
+
+

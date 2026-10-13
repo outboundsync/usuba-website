@@ -1,0 +1,47 @@
+{
+  "name": "usuba-website",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check:types": "astro check",
+    "check:site": "tsx scripts/check-site.mjs",
+    "check:browser": "tsx scripts/check-browser.mjs",
+    "make:images": "node scripts/make-images.mjs",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "deploy": "astro build && wrangler deploy -c wrangler.runtime.jsonc",
+    "prepare": "simple-git-hooks || true",
+    "ci": "npm run lint && npm run check:types && npm run build && npm run check:site && npm run check:browser && wrangler deploy --dry-run -c wrangler.runtime.jsonc"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/starlight": "^0.42.6",
+    "@fontsource/m-plus-1-code": "^5.3.1",
+    "@fontsource/m-plus-rounded-1c": "^5.3.0",
+    "astro": "^7.3.8",
+    "turndown": "^7.2.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@biomejs/biome": "^2.5.15",
+    "@playwright/test": "^1.63.0",
+    "@types/turndown": "^5.0.5",
+    "simple-git-hooks": "^2.14.0",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.147.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx --no-install biome check --write --staged --no-errors-on-unmatched && git update-index --again",
+    "pre-push": "npm run -s check:types"
+  }
+}

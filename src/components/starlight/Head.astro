@@ -1,0 +1,19 @@
+---
+import Default from '@astrojs/starlight/components/Head.astro';
+import { DISCOVERY } from '../../data/site';
+import { markdownUrlFor } from '../../lib/urls';
+
+const entry = Astro.locals.starlightRoute.entry;
+const markdownUrl = markdownUrlFor(`/${entry.id}`);
+---
+
+<Default><slot /></Default>
+<link rel="alternate" type="text/markdown" href={markdownUrl} />
+<link
+  rel="service-desc"
+  href={DISCOVERY.agentDiscovery}
+  type="application/json"
+  title="Usuba agent discovery"
+/>
+<link rel="describedby" href={DISCOVERY.contentIndex} />
+

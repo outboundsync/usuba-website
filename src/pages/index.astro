@@ -1,0 +1,237 @@
+---
+import OutcomeChart from '../components/OutcomeChart.astro';
+import Button from '../components/Button.astro';
+import CodeWindow from '../components/CodeWindow.astro';
+import CtaBand from '../components/CtaBand.astro';
+import HeroMascot from '../components/HeroMascot.astro';
+import PipelineDiagram from '../components/PipelineDiagram.astro';
+import SpecChip from '../components/SpecChip.astro';
+import StatusPill from '../components/StatusPill.astro';
+import StickerCard from '../components/StickerCard.astro';
+import Base from '../layouts/Base.astro';
+import { RESULTS } from '../data/results';
+import { SITE } from '../data/site';
+---
+
+<Base>
+  <!-- 1. Hero -->
+  <section class="container container--narrow hero">
+    <HeroMascot />
+    <StatusPill />
+    <h1>Usuba is a local model trained on, and built for, Omarchy.</h1>
+    <p class="lede">
+      Usuba is two parts: The Checker Scripts and the Checker Model. The scripts are plain python. The model reviews what the
+      scripts can&rsquo;t and runs simulated testing for you.
+    </p>
+    <div class="btn-row">
+      <Button href={SITE.checkerHref}>Try the Checker Scripts</Button>
+      <Button href={SITE.standardHref} variant="info">Read the Standard</Button>
+    </div>
+  </section>
+
+  <!-- 2. Why the name -->
+  <section class="container section" aria-labelledby="name-title">
+    <h2 class="section-title" id="name-title">Why it&rsquo;s called Usuba</h2>
+    <div class="box">
+      <p>
+        If Omarchy is an omakase Linux distribution based on Arch, Usuba is the trusty knife for the omakase chef. It helps you
+        prepare Omarchy just the way you like it.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3. Problem -->
+  <section class="container section" aria-labelledby="problem-title">
+    <h2 class="section-title" id="problem-title">AI can struggle building Omarchy plugins</h2>
+    <p class="section-lede">
+      Omarchy changes fast. So fast that it outpaces model development, leaving them to guess. We&rsquo;re closing that gap for
+      Omarchy developers.
+    </p>
+    <div class="chart-wrap">
+      <OutcomeChart />
+    </div>
+    <SpecChip items={RESULTS.benchmark.breakdown} />
+    <p class="chart__note chart__note--link">
+      <a href={SITE.resultsHref}>How the 49 test prompts are built, and what counts as working.</a>
+    </p>
+    <h3 class="subsection-title">Top 6 reasons models struggle</h3>
+    <ul class="card-grid card-grid--3">
+      <StickerCard title="Inventing APIs that don’t exist">Calls like Commons.exec or Quickshell.Clipboard that Omarchy doesn&rsquo;t have.</StickerCard>
+      <StickerCard title="Faking the data">Hardcoded or simulated values instead of real readings.</StickerCard>
+      <StickerCard title="Buttons that do nothing">Clicks that only log to the console.</StickerCard>
+      <StickerCard title="Using outdated configs">Writing old Hyprland .conf syntax into Quattro&rsquo;s Lua config files.</StickerCard>
+      <StickerCard title="Guessing helper script commands">Calling script subcommands that don&rsquo;t exist, like tablet.py options.</StickerCard>
+      <StickerCard title="Rambling without finishing">Answers loop, or get cut off before the plugin is complete.</StickerCard>
+    </ul>
+  </section>
+
+  <!-- 4. What Usuba is -->
+  <section class="container section" aria-labelledby="parts-title">
+    <h2 class="section-title" id="parts-title">Two parts, one job</h2>
+    <p class="section-lede">
+      Usuba is two complementary parts. Each one covers what the other can&rsquo;t, and each one makes the other better.
+    </p>
+    <ul class="card-grid">
+      <li class="card">
+        <span class="badge badge--now">Available now</span>
+        <h3>The scripts</h3>
+        <ul>
+          <li>Plain Python, not AI. These are programmed tests, so the same plugin gets the same answer every time.</li>
+          <li>
+            They load an Omarchy plugin in a real Omarchy environment and run rule checks over its code, then hand back a
+            detailed report: load errors, crashes, missing files, invented APIs, wrong config format and risky commands.
+          </li>
+          <li>Fast, deterministic and free. They exist today.</li>
+        </ul>
+      </li>
+      <li class="card">
+        <span class="badge badge--training">In training</span>
+        <h3>The model</h3>
+        <ul>
+          <li>
+            A small model, based on Qwen 3.5 9B and about 5.5 GB, trained only on Omarchy plugin data. It runs free and locally
+            on an Omarchy laptop, with no graphics card and no cloud.
+          </li>
+          <li>
+            It does the actual reviewing. It takes the scripts&rsquo; report, plus the plugin&rsquo;s code and what it shows on
+            screen, and judges what the scripts can&rsquo;t: whether the plugin really works, whether the data is real or faked,
+            whether the buttons do anything, whether it breaks in use, and what Omarchy&rsquo;s plugin reviewer would flag.
+          </li>
+          <li>Then it explains what to fix. It&rsquo;s in training now: built to do this, not proven at it.</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="box">
+      <h3 class="subsection-title">How they work together</h3>
+      <p>
+        The scripts gather the facts and the model makes the judgment call. You feed the plugin and the scripts&rsquo; report into
+        the model, and it reviews the plugin the way an experienced Omarchy reviewer would. The scripts&rsquo; results across
+        thousands of real plugins are also part of the model&rsquo;s training data.
+      </p>
+    </div>
+    <p class="highlight-box">Free, local, private. No frontier API bill, and nothing leaves your machine.</p>
+  </section>
+
+  <!-- 5. Checker -->
+  <section class="container section" id="checker" aria-labelledby="checker-title">
+    <h2 class="section-title" id="checker-title">
+      Usuba Checker Scripts <span class="badge badge--now">Available now</span>
+    </h2>
+    <p class="section-lede">
+      Plain Python, not AI. Point it at a plugin and it runs the tests: it loads the plugin in a real Omarchy environment, checks
+      the code against the <a href={SITE.standardHref}>Standard</a>, and tells you what to fix.
+    </p>
+    <ul class="card-grid card-grid--3 checker-grid">
+      <StickerCard title="Reads the code">Flags invented APIs, missing helper scripts, made-up command flags and fake data.</StickerCard>
+      <StickerCard title="Runs it for real">Loads the plugin in a real Omarchy shell and catches load errors and crashes.</StickerCard>
+      <StickerCard title="Explains every problem">Each one comes with a rule id, a plain reason and a fix hint.</StickerCard>
+      <StickerCard title="Warns before it fails">
+        Risky commands a plugin may need are warnings. Only clearly destructive ones, like deleting your home folder, fail.
+      </StickerCard>
+      <StickerCard title="Follows a public standard">
+        The rules are written up as an open standard for what a working Omarchy plugin is.
+      </StickerCard>
+      <StickerCard title="Matches real hardware">It agrees with a laptop running Omarchy on all 90 plugins in our answer key.</StickerCard>
+    </ul>
+    <div class="container--code code-wrap">
+      <CodeWindow />
+      <p class="chart__note chart__note--center">Sample output. Command and rule ids shown for illustration.</p>
+    </div>
+  </section>
+
+  <!-- 6. Checker Model -->
+  <section class="container section" id="model" aria-labelledby="model-title">
+    <h2 class="section-title" id="model-title">
+      Usuba Checker Model <span class="badge badge--training">In training</span>
+    </h2>
+    <p class="section-lede">
+      The Usuba Checker Model is trained only on Omarchy plugins we&rsquo;ve verified with the scripts and tested on real Omarchy
+      hardware. It is built to review a plugin the way an experienced Omarchy reviewer would: not just that it loads, but that it
+      really works.
+    </p>
+    <SpecChip />
+    <p class="honest-note">{RESULTS.model.honestNote}</p>
+  </section>
+
+  <!-- 7. How it is built -->
+  <section class="container section" aria-labelledby="pipeline-title">
+    <h2 class="section-title" id="pipeline-title">How Usuba is built</h2>
+    <p class="section-lede">
+      Usuba isn&rsquo;t trained on what models already write. It&rsquo;s trained on what actually runs on Omarchy.
+    </p>
+    <PipelineDiagram />
+  </section>
+
+  <!-- 8. Why not the shortcuts -->
+  <section class="container section" aria-labelledby="shortcuts-title">
+    <h2 class="section-title" id="shortcuts-title">Why not just&hellip;</h2>
+    <p class="section-lede">The three shortcuts people ask about, and what each one misses.</p>
+    <ul class="card-grid card-grid--3">
+      <StickerCard
+        title="Why not write a better prompt?"
+        points={[
+          'A prompt can’t tell the model whether its plugin actually loads, renders or responds.',
+          'Omarchy changes too fast for any fixed prompt to keep up.',
+          'Even with a good prompt, models fill gaps with confident guesses.',
+        ]}
+      />
+      <StickerCard
+        title="Why not use an agent skill?"
+        points={[
+          'A skill helps, and we use one, but it still needs a frontier model to run it.',
+          'Strong models improved a lot with feedback. Weaker models learned to fool the checks instead.',
+          'A skill gives the model facts, not the judgment to spot fake data or dead buttons.',
+        ]}
+      />
+      <StickerCard
+        class="card--center"
+        title="Why not use a better model?"
+        points={[
+          'The best model we tested got only 21 of 49 plugins working on the first try.',
+          'Frontier models cost money per use, need the cloud, and send your code out.',
+          'Usuba is built to run free on your laptop, with nothing leaving your machine.',
+        ]}
+      />
+    </ul>
+  </section>
+
+  <!-- 9. Who it's for -->
+  <section class="container section" aria-labelledby="cta-title">
+    <CtaBand />
+  </section>
+
+  <!-- 10. Thanks -->
+  <section class="container section" aria-labelledby="thanks-title">
+    <h2 class="section-title" id="thanks-title">Thanks to Omacom Sponsors</h2>
+    <p class="section-lede">
+      Usuba is an independent project made possible in particular by a few of the following Omacom Foundation sponsors.
+    </p>
+    <ul class="card-grid card-grid--3">
+      <StickerCard title="The Omacom Foundation and its sponsors">
+        The Omacom Foundation funds the Omarchy stack Usuba builds on, including Hyprland, Quickshell and mise. Thank you for
+        funding tools the rest of us get to use for free.
+      </StickerCard>
+      <StickerCard title="Inspired by Coinbase">
+        Brian Armstrong <a
+          href="https://x.com/brian_armstrong/status/2109412046244913643"
+          rel="noopener noreferrer"
+          target="_blank">wrote about fine-tuning an open-weight model on internal data at Coinbase</a
+        >. Usuba is the same idea at a smaller scale: a specialist model trained on real Omarchy plugin data.
+      </StickerCard>
+      <StickerCard title="Hosted by Cloudflare">This website is hosted by Cloudflare.</StickerCard>
+      <StickerCard title="Smoke tested on Dell hardware">
+        Hardware smoke testing was done on a Dell Latitude laptop.
+      </StickerCard>
+      <StickerCard title="Agent work managed with Fizzy">
+        Agent work on this project is managed using Fizzy.
+      </StickerCard>
+      <StickerCard title="Models that helped build this">
+        Meta, SpaceXSI, OpenRouter and OpenAI models all helped build this.
+      </StickerCard>
+    </ul>
+    <p class="highlight-box">
+      Usuba is an independent project. It is not affiliated with, or endorsed by, the Omacom Foundation.
+    </p>
+  </section>
+</Base>
+

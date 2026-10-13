@@ -1,0 +1,51 @@
+---
+import { SAMPLE_OUTPUT } from '../data/sample-output';
+
+/**
+ * Sticker code window: plum ground, hard offset shadow, one copy button.
+ * Microcopy is "Copy -> Copied" (content/copy.md > Microcopy).
+ * Lines come in as data so a <pre> keeps its newlines: Astro collapses whitespace
+ * between elements, which would otherwise run the sample output together.
+ */
+---
+
+<div class="code-window">
+  <div class="code-window__bar">
+    <span class="code-window__dot"></span>
+    <span class="code-window__dot"></span>
+    <span class="code-window__dot"></span>
+    <button class="code-window__copy" type="button" data-copy-output>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <rect x="8" y="8" width="12" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></rect>
+        <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span data-copy-label>Copy</span>
+    </button>
+    <span class="visually-hidden" role="status" aria-live="polite" data-copy-status></span>
+  </div>
+  <pre><code>{SAMPLE_OUTPUT.map((line) => <Fragment>{line.map((part) => <span class={part.tone}>{part.text}</span>)}{'\n'}</Fragment>)}</code></pre>
+</div>
+
+<script>
+  for (const button of document.querySelectorAll('[data-copy-output]')) {
+    if (!(button instanceof HTMLButtonElement)) continue;
+    const window_ = button.closest('.code-window');
+    const label = window_?.querySelector('[data-copy-label]');
+    const status = window_?.querySelector('[data-copy-status]');
+    const text = window_?.querySelector('code')?.textContent ?? '';
+
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        return;
+      }
+      if (label) label.textContent = 'Copied';
+      if (status) status.textContent = 'Sample output copied';
+      window.setTimeout(() => {
+        if (label) label.textContent = 'Copy';
+        if (status) status.textContent = '';
+      }, 2000);
+    });
+  }
+</script>

@@ -1,0 +1,77 @@
+---
+import { preliminaryLabel, RESULTS } from '../data/results';
+
+/**
+ * Every answer to the 49 requests, by what happened to it. One stacked bar per
+ * model; the four segments are the four outcomes, each showing its own count so
+ * colour never carries the meaning alone (DESIGN_SYSTEM.md).
+ */
+const benchmark = RESULTS.benchmark;
+const total = benchmark.requests;
+const label = preliminaryLabel(benchmark.final);
+
+const models = [...benchmark.models].sort((a, b) => b.afterFixes - a.afterFixes || b.firstTry - a.firstTry);
+
+const SEGMENTS = [
+  { key: 'worksRightAway', tone: 'mint', label: 'Worked right away' },
+  { key: 'fixedByChecker', tone: 'fixed', label: 'Fixed by the scripts' },
+  { key: 'stillBuggy', tone: 'butter', label: 'Still buggy' },
+  { key: 'fullyBroken', tone: 'dead', label: 'Fully broken' },
+] as const;
+---
+
+<figure class="chart outcome-chart">
+  <figcaption class="chart__caption">
+    <span class="chart__title">
+      {benchmark.caption}
+      {label && <span class="chart__preliminary"> · {label}</span>}
+    </span>
+    <span class="chart__subtitle">{benchmark.note}</span>
+  </figcaption>
+
+  <ol class="outcome-rows">
+    {
+      models.map((model) => (
+        <li class="outcome-row">
+          <span class="outcome-row__label">
+            <span class={`group-dot group-dot--${model.group}`} aria-hidden="true" />
+            {model.name}
+          </span>
+          <span class="outcome-row__track">
+            {SEGMENTS.map((segment) => {
+              const value = model[segment.key];
+              if (!value) return null;
+              return (
+                <span class={`outcome-seg fill-${segment.tone}`} style={`flex: ${value} 0 0`}>
+                  <span class="visually-hidden">{`${segment.label}: `}</span>
+                  <span class="outcome-seg__num">{value}</span>
+                </span>
+              );
+            })}
+          </span>
+        </li>
+      ))
+    }
+  </ol>
+
+  <ul class="outcome-legend">
+    {
+      SEGMENTS.map((segment) => (
+        <li>
+          <span class={`outcome-swatch fill-${segment.tone}`} aria-hidden="true" />
+          {segment.label}
+        </li>
+      ))
+    }
+    <li class="outcome-legend__group">
+      <span class="group-dot group-dot--proprietary" aria-hidden="true" /> proprietary
+      <span class="group-dot group-dot--open" aria-hidden="true" /> open
+    </li>
+  </ul>
+
+  <p class="chart__note">
+    Of {total * models.length} answers across the twelve models: {benchmark.totals.worksRightAway} worked right away,{' '}
+    {benchmark.totals.fixedByChecker} were fixed by the scripts, {benchmark.totals.stillBuggy} stayed buggy and{' '}
+    {benchmark.totals.fullyBroken} never loaded.
+  </p>
+</figure>

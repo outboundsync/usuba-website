@@ -1,0 +1,25 @@
+---
+/**
+ * The pipeline Usuba is built on. Numbered because the order matters: each step's
+ * output is the next step's input. Counts live in the numbers strip, not here.
+ */
+const STEPS = [
+  { title: 'Collect plugins', detail: 'Every Omarchy plugin we can find, from GitHub and the plugin catalog.' },
+  { title: 'Run them', detail: 'Each one through the Checker Scripts, and on a real Omarchy laptop.' },
+  { title: 'Mine what broke', detail: 'GitHub issues and plugin review comments, read for how plugins really fail.' },
+  { title: 'Write it down', detail: 'Every real failure becomes a rule in the Standard and a training example.' },
+  { title: 'Train the model', detail: 'The Usuba Checker Model learns from verified plugins and real failures.' },
+];
+---
+
+<ol class="pipeline">
+  {
+    STEPS.map((step, index) => (
+      <li class="pipeline__step">
+        <span class="pipeline__num" aria-hidden="true">{index + 1}</span>
+        <span class="pipeline__title">{step.title}</span>
+        <span class="pipeline__detail">{step.detail}</span>
+      </li>
+    ))
+  }
+</ol>

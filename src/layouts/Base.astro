@@ -1,0 +1,82 @@
+---
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import ThemeScript from '../components/ThemeScript.astro';
+import { DISCOVERY, SITE } from '../data/site';
+
+import '@fontsource/m-plus-rounded-1c/latin-500.css';
+import '@fontsource/m-plus-rounded-1c/latin-700.css';
+import '@fontsource/m-plus-rounded-1c/latin-800.css';
+import '@fontsource/m-plus-1-code/latin-500.css';
+import '../styles/tokens.css';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const { title = SITE.title, description = SITE.description, noindex = false } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE.origin).href;
+const ogImagePath = fileURLToPath(new URL('../../public/og.png', import.meta.url));
+const hasOgImage = existsSync(ogImagePath);
+const ogImage = hasOgImage ? new URL('/og.png', SITE.origin).href : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <ThemeScript />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="alternate" type="text/markdown" href={DISCOVERY.homepageMarkdown} />
+    <link
+      rel="service-desc"
+      href={DISCOVERY.agentDiscovery}
+      type="application/json"
+      title="Usuba agent discovery"
+    />
+    <link rel="describedby" href={DISCOVERY.contentIndex} />
+    <meta name="theme-color" content="#ffe1ec" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogImage && <meta property="og:image:width" content="1200" />}
+    {ogImage && <meta property="og:image:height" content="630" />}
+    {ogImage && <meta property="og:image:alt" content="Usuba: a native Omarchy model that runs locally" />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="container">
+      <Header />
+    </div>
+    <main id="main">
+      <slot />
+    </main>
+    <div class="container">
+      <Footer />
+    </div>
+
+    <script>
+      import '../scripts/webmcp';
+    </script>
+  </body>
+</html>

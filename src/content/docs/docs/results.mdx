@@ -1,0 +1,109 @@
+---
+title: Results and methodology
+description: What the 49 test prompts are, how the benchmark was run, and what the Checker Scripts' feedback does for every model. Preliminary results, October 2026.
+---
+
+import Callout from '../../../components/Callout.astro';
+import OutcomeChart from '../../../components/OutcomeChart.astro';
+import UpliftChart from '../../../components/UpliftChart.astro';
+
+<Callout kind="warn" title="Preliminary results, October 2026.">
+Every score on this page is preliminary. This is the run of October 13, 2026, with the models, the dates and the method attached.
+Final numbers will replace these.
+</Callout>
+
+## What the 49 test prompts are
+
+Every model got the same 49 Omarchy plugin requests. They are held-out test prompts: kept out of Usuba's own training data and
+deduplicated against it — no training prompt shares more than half its wording with a test prompt, and no test answer is a
+near-copy of a training answer.
+
+They are based on real Omarchy 4 plugins — community plugins, and the kinds of things Omarchy's own shell does. Between them they
+cover every plugin type: bar widgets, panels, popups and overlays, menus, background services, and full replacement bars.
+
+| The task | How many |
+|----------|----------|
+| Write a full plugin from a description | 26 |
+| Add a panel to an existing bar widget | 6 |
+| Build parts of a larger multi-file plugin | 12 |
+| Fix a manifest Omarchy's validator rejects | 5 |
+
+### Full plugins from a description (26)
+
+Everyday bar and shell tools: a clipboard manager, a notification daemon, a weather pill with a popup, a battery and
+power-profile widget, brightness controls, an internet speed test, a Dropbox status widget, a desktop background service, and a
+Bible verse-of-the-day widget.
+
+Plus recreations of real community plugins: Time Machine (scheduled restic backups), Key Promoter (shows the keyboard shortcuts
+in play), Vimarchy (Vim-style window control), Omaland (a Hyprland look-and-feel editor), Intemporel (a clock with calendar
+support), Flush Bar, and Port Watch (dev servers in the bar).
+
+### Add a panel (6)
+
+The model is handed an existing bar widget's manifest and asked to extend it with a detail panel: the same widget, now with
+somewhere to show more.
+
+### Parts of a larger plugin (12)
+
+Large multi-file plugins, built in pieces rather than all at once: parts of **Beam** (an app launcher and command menu),
+**Better Bar** (a dynamic-island-style bar), and **Omarchy Tablet** (Surface tablet mode, with a bar, a service and a menu).
+
+### Fix a broken manifest (5)
+
+Repairing manifests that Omarchy's own validator rejects: a reserved `omarchy.*` id, and entry-point paths that are absolute or
+point outside the plugin directory.
+
+## What counts as working
+
+A plugin counts as working only when the Usuba Checker Scripts load it in a real Omarchy environment without errors *and* it
+actually does its job: real data rather than faked, controls that do something, and real Omarchy APIs. Loading cleanly is not
+enough on its own.
+
+## The benchmark
+
+- **49** real plugin requests, given to twelve models. Every first answer was run in real Omarchy and scored by the Checker Scripts.
+- Each model then got the scripts' report and up to **3** more tries.
+- Omarchy version: **4.0.4**. Run date: **October 13, 2026**, via **OpenRouter**.
+
+<OutcomeChart />
+
+| Model | Working plugins out of 49 | On the first try |
+|-------|---------------------------|------------------|
+| GPT-5.6 | 40 | 21 |
+| Claude Opus 5.5 | 36 | 17 |
+| Claude Sonnet 5.5 | 35 | 9 |
+| Meta Muse Wonder `*` | 33 | 12 |
+| Kimi K3 | 32 | 3 |
+| Grok 4.7 | 27 | 1 |
+| Gemini 4 Argon | 27 | 7 |
+| Gemini 3.1 Pro | 17 | 2 |
+| DeepSeek V4 Pro | 10 | 4 |
+| Grok 4.3 | 8 | 3 |
+| Qwen3.6 27B | 5 | 4 |
+| Qwen3-Coder | 4 | 4 |
+
+`*` Meta Muse Wonder ran without zero data retention: its only provider, Meta, is not ZDR. Every other model ran with ZDR.
+
+## The feedback experiment
+
+Give a model the scripts' report and up to three more tries, and more of its plugins work. These numbers come from the scripts
+alone, not from our model.
+
+<UpliftChart />
+
+The largest gains went to the models that started weakest: Kimi K3 **+29** (3 → 32), Claude Sonnet 5.5 **+26** (9 → 35), Grok 4.7
+**+26** (1 → 27), and Meta Muse Wonder **+21** (12 → 33).
+
+### Preliminary
+
+The figures above are preliminary results from October 2026. `[TBD: final numbers, and whether the gains are measured on the same
+49 requests]`.
+
+## Open methodology questions
+
+These are tracked against `BRIEF.md` > Open questions and must be answered before this page ships as final:
+
+1. How do the 49 requests, the 90-plugin answer key and the 1,400+ plugin sweep relate?
+2. How was "working" judged, and by whom?
+3. Exact model versions for every entry, and the run date confirmed.
+

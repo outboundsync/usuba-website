@@ -1,0 +1,15 @@
+---
+/**
+ * Availability badge. Every piece of Usuba that isn't shipped carries one.
+ * Available now / In training / Next (DESIGN_SYSTEM.md > Badges).
+ */
+interface Props {
+  status: 'now' | 'training' | 'next';
+  label?: string;
+}
+
+const { status, label } = Astro.props;
+const text = label ?? { now: 'Available now', training: 'In training', next: 'Next' }[status];
+---
+
+<span class={`badge badge--${status}`}>{text}</span>

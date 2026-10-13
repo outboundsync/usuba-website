@@ -1,0 +1,15 @@
+---
+import Button from './Button.astro';
+import { SITE } from '../data/site';
+
+/** One per page, at the end. Wave pose carries the welcome. */
+---
+
+<section class="cta-band">
+  <img src="/assets/mascot/usu-chan-wave.svg" alt="" width="220" height="138" />
+  <div class="cta-band__text">
+    <h2>Built for Omarchy plugin builders</h2>
+    <p>If you build Omarchy plugins, start with the Checker Scripts. They run today, on your own machine, for free.</p>
+    <Button href={SITE.checkerHref}>Try the Checker Scripts</Button>
+  </div>
+</section>

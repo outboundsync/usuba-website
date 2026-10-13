@@ -1,0 +1,19 @@
+---
+interface Props {
+  href: string;
+  /** action: green, the step a reader takes. info: steel, an FYI to read on. control: butter, a UI control. */
+  variant?: 'action' | 'info' | 'control';
+  size?: 'md' | 'sm';
+  external?: boolean;
+}
+
+const { href, variant = 'action', size = 'md', external = false } = Astro.props;
+const classes = ['btn', `btn--${variant}`, size === 'sm' ? 'btn--sm' : ''].filter(Boolean).join(' ');
+---
+
+<a
+  class={classes}
+  href={href}
+  rel={external ? 'noopener noreferrer' : undefined}
+  target={external ? '_blank' : undefined}
+><slot /></a>
