@@ -1,10 +1,12 @@
 {
   "name": "usuba-runtime",
-  // [TBD: domain and hosting, BRIEF.md open question 10]. Route left commented until Harris confirms.
   "main": "runtime-worker.mjs",
   "compatibility_date": "2026-10-01",
   "workers_dev": false,
-  // "routes": [{ "pattern": "usuba.dev", "custom_domain": true }],
+  "routes": [
+    { "pattern": "usuba.dev", "custom_domain": true },
+    { "pattern": "www.usuba.dev", "custom_domain": true },
+  ],
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
