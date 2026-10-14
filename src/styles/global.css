@@ -264,6 +264,22 @@ img, svg { max-width: 100%; }
 .outcome-seg { display: flex; align-items: center; justify-content: center; overflow: hidden; min-width: 26px; border: 2px solid var(--color-outline); border-radius: var(--radius-pill); color: var(--color-on-accent); font-weight: var(--weight-heavy); font-size: var(--text-sm); }
 .outcome-seg__num { padding-inline: 2px; }
 
+/* Small screens: the figure's default inline margin and the desktop padding
+   squeezed the card to ~220px and pushed the bars past its edge. Labels take
+   their own line, the bar is the full row width, and segments shrink to fit;
+   a segment too narrow for its number hides it (the screen-reader text and
+   the totals note still carry every count). */
+.outcome-seg { container-type: inline-size; }
+@container (max-width: 0.75rem) { .outcome-seg__num { display: none; } }
+@media (max-width: 640px) {
+  .outcome-chart { margin-inline: 0; padding: var(--space-6) var(--space-4); }
+  .outcome-chart .chart__title { overflow-wrap: break-word; text-wrap: balance; }
+  .outcome-row { gap: var(--space-1) 0; }
+  .outcome-row__label { flex: 1 1 100%; min-width: 0; }
+  .outcome-row__track { flex: 1 1 100%; width: 100%; }
+  .outcome-seg { min-width: 1.5rem; }
+}
+
 /* Uplift chart: a hollow first-try dot, a bar, and a filled after-fixes dot. */
 .uplift-rows { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
 .uplift-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); }
