@@ -11,6 +11,7 @@ import ValidatorVsReal from '../components/charts/ValidatorVsReal.astro';
 import CodeWindow from '../components/CodeWindow.astro';
 import CtaBand from '../components/CtaBand.astro';
 import OutcomeChart from '../components/OutcomeChart.astro';
+import PostToc from '../components/PostToc.astro';
 import Screenshot from '../components/Screenshot.astro';
 import SpecChip from '../components/SpecChip.astro';
 import Icon from '../components/Icon.astro';
@@ -287,7 +288,7 @@ const TOC = [
       <h2 class="post__h2" id="model">The Usuba Checker Model <span class="badge badge--now">v0.1.0</span></h2>
       <p>
         The case for a model isn&rsquo;t loading; the scripts do that. It&rsquo;s the review a person would do: is the data real, do
-        the buttons do anything, does it break in use. Usuba run 2 is Qwen3.5 9B with a small LoRA adapter, trained on {model.run2.train}
+        the buttons do anything, does it break in use. Usuba run 2 is Qwen3.5 9B with a small LoRA adapter, trained on {model.run2.train}{' '}
         examples mined from real plugin git histories and the {hardware.short}. Here it is against the stock model it started from.
       </p>
     </div>
@@ -419,6 +420,7 @@ const TOC = [
       <p class="post__signoff">Harris Kenny, OutboundSync</p>
     </div>
 
+    <PostToc items={TOC} />
   </article>
 
   <section class="container section" aria-label="Get started">

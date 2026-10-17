@@ -301,3 +301,44 @@
 .verdict-list { display: grid; gap: var(--space-4); margin: 0 0 var(--space-6); padding: 0; list-style: none; }
 .verdict-list li { display: flex; gap: var(--space-4); align-items: flex-start; line-height: var(--leading-lede); }
 .claims-cta { margin: var(--space-5) 0 0 !important; }
+
+/* ---------- Floating contents for the post ----------
+   Wide screens: a rail fixed in the margin beside the reading column (wide figures narrow to make
+   room). Everything else: a "Contents" pill in the corner that opens the same list. */
+.post-toc { position: fixed; z-index: 20; transition: opacity var(--duration-ui) var(--ease-out), transform var(--duration-ui) var(--ease-out); }
+.post-toc[data-hidden] { opacity: 0; transform: translateY(8px); pointer-events: none; }
+.post-toc__panel {
+  background: var(--color-surface); border: var(--border); border-radius: 22px; box-shadow: var(--shadow-md);
+  padding: var(--space-4) var(--space-5);
+}
+.post-toc__title { margin: 0 0 var(--space-2); font-weight: var(--weight-heavy); }
+.post-toc ol { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; font-size: var(--text-sm); font-weight: var(--weight-bold); }
+.post-toc ol a {
+  display: block; padding: var(--space-1) var(--space-3); border: 2px solid transparent; border-radius: var(--radius-pill);
+  color: var(--color-ink-soft); text-decoration: none; line-height: 1.35;
+}
+.post-toc ol a:hover { color: var(--color-ink); background: var(--color-bg); }
+.post-toc ol a[aria-current='true'] { background: var(--color-butter); border-color: var(--color-outline); color: var(--color-on-accent); }
+.post-toc__top { display: inline-block; margin-top: var(--space-3); padding-left: var(--space-3); font-size: var(--text-sm); font-weight: var(--weight-bold); color: var(--color-ink-soft); }
+.post-toc__toggle {
+  display: inline-flex; align-items: center; min-height: var(--tap-min); padding: 0 var(--space-5);
+  background: var(--color-butter); color: var(--color-on-accent); border: var(--border); border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm); font: inherit; font-weight: var(--weight-heavy); cursor: pointer;
+}
+
+/* Pill mode (default) */
+.post-toc { right: var(--space-5); bottom: var(--space-5); display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-3); }
+.post-toc__panel { display: none; order: -1; width: min(300px, calc(100vw - 2 * var(--space-5))); max-height: min(70vh, 560px); overflow-y: auto; }
+.post-toc[data-open] .post-toc__panel { display: block; }
+
+/* Rail mode: only where the margin beside a 900px figure column fits a 210px rail. */
+@media (min-width: 1400px) {
+  .post .post__wide { max-width: 900px; }
+  .post-toc { right: auto; bottom: auto; top: var(--space-24); left: max(var(--space-5), calc((100vw - 900px) / 2 - 240px)); width: 210px; display: block; }
+  .post-toc__toggle { display: none; }
+  .post-toc__panel { display: block; width: auto; max-height: calc(100vh - 160px); padding: var(--space-4); box-shadow: var(--shadow-sm); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-toc { transition: none; }
+}
