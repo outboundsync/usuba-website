@@ -200,16 +200,16 @@
       "icon": "sparkles",
       "tone": "butter",
       "name": "Jason Fried",
-      "href": null,
-      "linkText": null,
+      "href": "https://x.com/jasonfried/status/2094225265069379678",
+      "linkText": "His world clock, on X",
       "body": "His world clock plugin shows what's possible when world-class designers can build for themselves on this platform."
     },
     {
       "icon": "book",
       "tone": "lilac",
       "name": "HANCORE",
-      "href": "https://github.com/HANCORE-linux",
-      "linkText": "github.com/HANCORE-linux",
+      "href": "https://hancore.dev/",
+      "linkText": "hancore.dev",
       "body": "We trained directly on HANCORE's plugin feedback and the git history behind it. The 329-plugin holdout exam is built from those reviews too."
     },
     {
