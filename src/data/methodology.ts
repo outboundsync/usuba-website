@@ -21,6 +21,14 @@ export interface Methodology {
   spend: { confirmed: string; provisional: string };
   screenshots: Figure[];
   screenshotsNote: string;
+  inspiration: {
+    series: string;
+    articles: { label: string; href: string }[];
+    ceo: { name: string; role: string; href: string };
+    coinbase: string[];
+    anyscale: string[];
+  };
+  tools: string;
   thanks: {
     icon: string;
     tone: 'mint' | 'butter' | 'lilac' | 'pink';

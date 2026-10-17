@@ -11,7 +11,6 @@ const current = (href: string) => navIsCurrent(href, pathname);
   <Logo />
 
   <div class="site-header__actions">
-    <ThemeToggle />
     <button class="nav-toggle btn btn--control btn--sm" type="button" data-nav-toggle aria-controls="site-nav" aria-expanded="false">
       <span data-nav-toggle-label>Menu</span>
     </button>
@@ -32,6 +31,8 @@ const current = (href: string) => navIsCurrent(href, pathname);
       ))
     }
     <a class="btn btn--action btn--sm nav-cta" href={SITE.checkerHref}>Try the Checker Scripts</a>
+    <!-- In the nav, not beside the Menu button: on small screens it lives in the dropdown, so Menu can sit on the logo's row. -->
+    <ThemeToggle />
   </nav>
 </header>
 

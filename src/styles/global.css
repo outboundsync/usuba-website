@@ -413,6 +413,10 @@ img, svg { max-width: 100%; }
   }
   [data-nav-open] .nav a:not(.btn) { padding-block: var(--space-2); }
   [data-nav-open] .nav-cta { align-self: flex-start; margin-top: var(--space-2); }
+  /* Logo and Menu share the top row, Menu pinned top-right; the theme switch lives in the dropdown. */
+  .site-header { flex-wrap: wrap; align-items: center; }
+  .site-header__actions { margin-left: auto; }
+  [data-nav-open] .nav .theme-switch { align-self: flex-start; margin-top: var(--space-3); }
 }
 
 /* Sections. */

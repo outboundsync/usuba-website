@@ -142,6 +142,31 @@ const TOC = [
         at a smaller scale: a model for Omarchy plugins that runs free on your own laptop. Coinbase is not a sponsor; its write-up is
         what prompted this.
       </p>
+      <aside class="credit" aria-labelledby="credit-title">
+        <span class="icon-badge icon-badge--mint credit__icon"><Icon name="seedling" /></span>
+        <div>
+          <p class="credit__title" id="credit-title">Inspired by Coinbase&rsquo;s {METHODOLOGY.inspiration.series} series</p>
+          <ul class="credit__links">
+            {
+              METHODOLOGY.inspiration.articles.map((article) => (
+                <li>
+                  <a href={article.href} rel="noopener noreferrer" target="_blank">
+                    {article.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <p>
+            <a href={METHODOLOGY.inspiration.ceo.href} rel="noopener noreferrer" target="_blank">
+              {METHODOLOGY.inspiration.ceo.name}
+            </a>
+            {`, ${METHODOLOGY.inspiration.ceo.role}, shared the work.`} The series is by {METHODOLOGY.inspiration.coinbase.slice(0, -1).join(', ')} and{' '}
+            {METHODOLOGY.inspiration.coinbase.at(-1)} at Coinbase, with {METHODOLOGY.inspiration.anyscale.slice(0, -1).join(', ')} and{' '}
+            {METHODOLOGY.inspiration.anyscale.at(-1)} at Anyscale. Thank you all for writing it down in the open.
+          </p>
+        </div>
+      </aside>
 
       <h2 class="post__h2" id="machine">The test machine</h2>
       <p>
@@ -376,6 +401,9 @@ const TOC = [
         <strong>Mostly, time.</strong> Calibrating a grader against a real laptop, sweeping thousands of plugins, chasing bugs through
         git histories, building a training set with a source on every row. Very little of it was GPUs. A specialist model isn&rsquo;t a
         weekend fine-tune; it&rsquo;s an ongoing investment in data and evaluation, and the evaluation is the part that lasts.
+      </p>
+      <p>
+        <strong>Tools.</strong> {METHODOLOGY.tools}
       </p>
       <h3 class="post__h3">What we&rsquo;d tell anyone trying this</h3>
       <ul class="lesson-list">{METHODOLOGY.lessons.map((lesson) => <li>{lesson}</li>)}</ul>
