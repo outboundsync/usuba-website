@@ -51,7 +51,7 @@ export const DISCOVERY = {
 // The Usuba Builder Model (the writer) is coming later; it is not on the site yet.
 // Never use bare "Checker": say "the Checker Scripts" or "the Checker Model".
 export const NAV = [
-  { label: 'Methodology', href: SITE.methodologyHref },
+  { label: 'How it’s built', href: SITE.methodologyHref },
   { label: 'Docs', href: SITE.docsHref },
   { label: 'Standard', href: SITE.standardHref },
   { label: 'GitHub', href: SITE.githubHref },

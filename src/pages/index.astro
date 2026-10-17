@@ -5,6 +5,7 @@ import CodeWindow from '../components/CodeWindow.astro';
 import CtaBand from '../components/CtaBand.astro';
 import HeroMascot from '../components/HeroMascot.astro';
 import PipelineDiagram from '../components/PipelineDiagram.astro';
+import PostCallout from '../components/PostCallout.astro';
 import SpecChip from '../components/SpecChip.astro';
 import StatusPill from '../components/StatusPill.astro';
 import StickerCard from '../components/StickerCard.astro';
@@ -31,6 +32,11 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
       <Button href={SITE.standardHref} variant="info">Read the Standard</Button>
     </div>
   </section>
+
+  <!-- 1b. The long-form post -->
+  <div class="container">
+    <PostCallout />
+  </div>
 
   <!-- 2. Why the name -->
   <section class="container section" aria-labelledby="name-title">
@@ -137,7 +143,7 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
         The rules are written up as an open standard for what a working Omarchy plugin is.
       </StickerCard>
       <StickerCard title="Matches real hardware">
-        Right on {RESULTS.scripts.dell75.accuracy.value} of the 75-plugin Dell exam with no model, and on {RESULTS.scripts.keyAgreement} cases in the
+        Right on {RESULTS.scripts.dell75.accuracy.value} of the 75-plugin Dell Latitude exam with no model, and on {RESULTS.scripts.keyAgreement} cases in the
         hardware answer key.
       </StickerCard>
     </ul>
@@ -153,7 +159,7 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
       Usuba Checker Model <span class="badge badge--training">In Training</span>
     </h2>
     <p class="section-lede">
-      The latest run, Usuba run 2, was trained on {RESULTS.model.run2.train} examples from real plugin histories and the Dell. It is built to review a
+      The latest run, Usuba run 2, was trained on {RESULTS.model.run2.train} examples from real plugin histories and the Dell Latitude. It is built to review a
       plugin the way an experienced Omarchy reviewer would: not just that it loads, but that it really works.
     </p>
     <SpecChip />
@@ -229,8 +235,8 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
         >. Usuba is the same idea at a smaller scale: a specialist model trained on real Omarchy plugin data.
       </StickerCard>
       <StickerCard title="Hosted by Cloudflare">This website is hosted by Cloudflare.</StickerCard>
-      <StickerCard title="Smoke tested on Dell hardware">
-        Hardware smoke testing was done on a Dell Latitude laptop.
+      <StickerCard title="Smoke tested on a Dell Latitude">
+        Hardware smoke testing was done on a Dell Latitude 7430 laptop.
       </StickerCard>
       <StickerCard title="Tasks on Fizzy by 37signals">
         Agent work on this project is managed using Fizzy.

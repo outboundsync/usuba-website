@@ -27,9 +27,9 @@ AI, and they are available now — see [the Checker Scripts](/docs/checker/insta
 |---|---|
 | Trained | October 16, 2026 |
 | Base | Qwen3.5 9B, stock weights unchanged, plus a LoRA adapter (about 350 MB) |
-| Data | 221 training and 23 validation examples, from real plugin git histories and Dell hardware runs |
+| Data | 221 training and 23 validation examples, from real plugin git histories and runs on the Dell Latitude 7430 |
 | Training | 28 steps, final validation loss 0.263 |
-| File you'd run | 5.63 GB, 4-bit (Q4_K_M), for llama.cpp. Built for a 32 GB laptop with no graphics card |
+| File you'd run | 5.63 GB, 4-bit (Q4_K_M), for llama.cpp. Built for a 32 GB laptop with no graphics card; not yet tested on the 16 GB Dell Latitude 7430 |
 | Licence | Apache-2.0, matching the Qwen base |
 | Download | [osiharris/usuba-checker-adapters](https://huggingface.co/osiharris/usuba-checker-adapters) (adapter and 4-bit file) |
 | Training data and eval outputs | [osiharris/usuba-checker-data](https://huggingface.co/datasets/osiharris/usuba-checker-data), with `REPRODUCE.md` |

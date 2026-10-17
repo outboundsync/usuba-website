@@ -1,0 +1,19 @@
+---
+import { RESULTS } from '../data/results';
+import { SITE } from '../data/site';
+import Button from './Button.astro';
+
+/** The homepage's pointer to the long-form post. A sticker card, no mascot (the hero already has one in view). */
+---
+
+<aside class="post-callout" aria-labelledby="post-callout-title">
+  <div class="post-callout__text">
+    <p class="post-callout__meta">New post · October 17, 2026 · Harris Kenny</p>
+    <h2 class="post-callout__title" id="post-callout-title">How Usuba was built and tested</h2>
+    <p>
+      Six days, two training runs and {RESULTS.sweep.total.toLocaleString('en-US')} plugin runs on a {RESULTS.hardware.name}. What we tried, the scores that
+      lied to us, and where the model stands.
+    </p>
+  </div>
+  <Button href={SITE.methodologyHref} variant="info">Read the post</Button>
+</aside>
