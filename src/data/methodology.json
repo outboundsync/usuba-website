@@ -87,10 +87,26 @@
     "note": "October 12, 2026. The validator only reads files; the real run loads each plugin in Quickshell. The real reference plugins passed 51 of 56. Claude Opus's real-run figure is from its larger run; the regular run scored 27.",
     "total": 56,
     "rows": [
-      { "name": "Tuned Qwen2.5-Coder 7B", "validator": 42, "real": 8 },
-      { "name": "Tuned Qwen2.5-Coder 14B", "validator": 42, "real": 12 },
-      { "name": "GPT-5.6", "validator": 40, "real": 29 },
-      { "name": "Claude Opus", "validator": 34, "real": 28 }
+      {
+        "name": "Tuned Qwen2.5-Coder 7B",
+        "validator": 42,
+        "real": 8
+      },
+      {
+        "name": "Tuned Qwen2.5-Coder 14B",
+        "validator": 42,
+        "real": 12
+      },
+      {
+        "name": "GPT-5.6",
+        "validator": 40,
+        "real": 29
+      },
+      {
+        "name": "Claude Opus",
+        "validator": 34,
+        "real": 28
+      }
     ]
   },
   "graderVsReal": {
@@ -98,10 +114,26 @@
     "note": "Stock Qwen3.6 27B with up to 3 rounds of grader feedback, October 13. Real passes were counted by reading every plugin, at the start and after round 3.",
     "max": 16,
     "rounds": [
-      { "label": "Start", "grader": 5, "real": 4 },
-      { "label": "Round 1", "grader": 8, "real": null },
-      { "label": "Round 2", "grader": 12, "real": null },
-      { "label": "Round 3", "grader": 13, "real": 4 }
+      {
+        "label": "Start",
+        "grader": 5,
+        "real": 4
+      },
+      {
+        "label": "Round 1",
+        "grader": 8,
+        "real": null
+      },
+      {
+        "label": "Round 2",
+        "grader": 12,
+        "real": null
+      },
+      {
+        "label": "Round 3",
+        "grader": 13,
+        "real": 4
+      }
     ]
   },
   "authority": [
@@ -155,38 +187,46 @@
     }
   ],
   "screenshotsNote": "Usuba run 1 (usuba-9b, Q4_K_M) on the Dell Latitude 7430, running on its Core i5 CPU, October 14, 2026. One manual run of review.py, a single sample, unedited screenshots; preliminary. This is the model's review, given a Checker Scripts report and the plugin source, not the scripts' own output. Run 1 is the run before run 2, which shipped as v0.1.0: its \"exact commit\" opening is one of the habits run 2 was trained to drop.",
-  "sourceCharts": [
+  "thanks": [
     {
-      "src": "/methodology/source/chart1_dell_scoreboard_hero.png",
-      "width": 1700,
-      "height": 918,
-      "alt": "Dell 75 verdict accuracy for every model, against the Checker Scripts alone and the always-broken baseline.",
-      "caption": "Dell 75 scoreboard",
-      "href": "https://github.com/outboundsync/usuba-checker-scripts/blob/main/docs/post/images/chart1_dell_scoreboard_hero.png"
+      "icon": "heart",
+      "tone": "pink",
+      "name": "David Heinemeier Hansson (DHH)",
+      "href": "https://omarchy.org",
+      "linkText": "omarchy.org",
+      "body": "For creating Omarchy, and a plugin platform worth building a whole project around."
     },
     {
-      "src": "/methodology/source/set1_stacked.png",
-      "width": 1920,
-      "height": 1152,
-      "alt": "Plugins passing checks, out of 49, for 11 models, split into first try, after Checker fixes, failed checks and no usable code.",
-      "caption": "Writing test, Set 1",
-      "href": "https://github.com/outboundsync/usuba-checker-scripts/blob/main/docs/post/images/set1_stacked.png"
+      "icon": "sparkles",
+      "tone": "butter",
+      "name": "Jason Fried",
+      "href": null,
+      "linkText": null,
+      "body": "His world clock plugin shows what's possible when world-class designers can build for themselves on this platform."
     },
     {
-      "src": "/methodology/source/chart3_dell_sweep_labels.png",
-      "width": 1785,
-      "height": 782,
-      "alt": "Dell Latitude sweep labels: 3,942 works, 1,001 broken, 589 unsure, and the 137 plugins that pass the scripts but fail in use.",
-      "caption": "Dell Latitude sweep",
-      "href": "https://github.com/outboundsync/usuba-checker-scripts/blob/main/docs/post/images/chart3_dell_sweep_labels.png"
+      "icon": "book",
+      "tone": "lilac",
+      "name": "HANCORE",
+      "href": "https://github.com/HANCORE-linux",
+      "linkText": "github.com/HANCORE-linux",
+      "body": "We trained directly on HANCORE's plugin feedback and the git history behind it. The 329-plugin holdout exam is built from those reviews too."
     },
     {
-      "src": "/methodology/source/diagram_authority.png",
-      "width": 1700,
-      "height": 952,
-      "alt": "Who has authority over a verdict: the hardware test, then the Checker Scripts, then the model.",
-      "caption": "Who decides",
-      "href": "https://github.com/outboundsync/usuba-checker-scripts/blob/main/docs/post/images/diagram_authority.png"
+      "icon": "seedling",
+      "tone": "mint",
+      "name": "Jankees van Woezik (jankeesvw)",
+      "href": "https://github.com/jankeesvw",
+      "linkText": "github.com/jankeesvw",
+      "body": "His plugins, from Time Machine to Tesla, Clippy and Notification Center, ran through our discussions, our test requests and our training data."
+    },
+    {
+      "icon": "gift",
+      "tone": "pink",
+      "name": "Tom Ballard (tcballard)",
+      "href": "https://github.com/tcballard/build-omarchy-plugins",
+      "linkText": "tcballard/build-omarchy-plugins",
+      "body": "For the Build Omarchy Plugins skills directory. If you want an agent to build your plugin, start there, then check what it writes with the Checker Scripts."
     }
   ]
 }

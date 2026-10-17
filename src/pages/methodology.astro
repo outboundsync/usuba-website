@@ -61,6 +61,7 @@ const TOC = [
   { id: 'run', label: 'See it run' },
   { id: 'claims', label: 'What we’re releasing' },
   { id: 'took', label: 'What it took' },
+  { id: 'thanks', label: 'Thank you' },
   { id: 'help', label: 'Help us' },
 ];
 ---
@@ -375,13 +376,33 @@ const TOC = [
         git histories, building a training set with a source on every row. Very little of it was GPUs. A specialist model isn&rsquo;t a
         weekend fine-tune; it&rsquo;s an ongoing investment in data and evaluation, and the evaluation is the part that lasts.
       </p>
-      <p>
-        Separately from all of this, Brian Armstrong personally gave $1 million to the Omacom Foundation, which funds the Omarchy stack
-        Usuba builds on.
-      </p>
       <h3 class="post__h3">What we&rsquo;d tell anyone trying this</h3>
       <ul class="lesson-list">{METHODOLOGY.lessons.map((lesson) => <li>{lesson}</li>)}</ul>
 
+      <h2 class="post__h2" id="thanks">Thank you</h2>
+      <p>Usuba stands on other people&rsquo;s work. Some of it we learned from; some of it we trained on directly.</p>
+    </div>
+    <ul class="post__wide card-grid thanks-grid">
+      {
+        METHODOLOGY.thanks.map((person) => (
+          <li class="card thanks">
+            <span class={`icon-badge icon-badge--${person.tone}`}>
+              <Icon name={person.icon} />
+            </span>
+            <h3>{person.name}</h3>
+            <p>{person.body}</p>
+            {person.href && (
+              <p class="thanks__link">
+                <a href={person.href} rel="noopener noreferrer" target="_blank">
+                  {person.linkText}
+                </a>
+              </p>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+    <div class="post__prose">
       <h2 class="post__h2" id="help">Help us</h2>
       <Callout kind="tip" title="Most useful">
         A plugin the Checker Scripts got wrong on your machine, especially one that loads fine and breaks when you click it.
@@ -398,13 +419,6 @@ const TOC = [
       <p class="post__signoff">Harris Kenny, OutboundSync</p>
     </div>
 
-    <div class="post__prose">
-      <h2 class="post__h2" id="source">Appendix: the original charts</h2>
-      <p>The charts above are redrawn from the same data. These are the originals from the research repo, with their footnotes.</p>
-    </div>
-    <div class="post__wide shot-grid shot-grid--2">
-      {METHODOLOGY.sourceCharts.map((figure) => <Screenshot figure={figure} />)}
-    </div>
   </article>
 
   <section class="container section" aria-label="Get started">
