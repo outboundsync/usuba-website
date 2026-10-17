@@ -21,7 +21,14 @@ export interface Methodology {
   spend: { confirmed: string; provisional: string };
   screenshots: Figure[];
   screenshotsNote: string;
-  sourceCharts: Figure[];
+  thanks: {
+    icon: string;
+    tone: 'mint' | 'butter' | 'lilac' | 'pink';
+    name: string;
+    href: string | null;
+    linkText: string | null;
+    body: string;
+  }[];
 }
 
 export const METHODOLOGY = data as Methodology;
