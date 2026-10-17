@@ -1,5 +1,6 @@
 ---
 import { RESULTS } from '../data/results';
+import Icon from './Icon.astro';
 
 /** The reference laptop, spelled out: every "works" or "broken" label on the site comes from runs on it. */
 const { hardware } = RESULTS;
@@ -7,6 +8,7 @@ const { hardware } = RESULTS;
 
 <figure class="machine">
   <figcaption class="machine__head">
+    <span class="icon-badge icon-badge--lilac"><Icon name="laptop" /></span>
     <span class="machine__title">The test machine: {hardware.name}</span>
     <span class="machine__sub">Every hardware label on this site comes from runs on this one laptop.</span>
   </figcaption>

@@ -1,0 +1,17 @@
+---
+/**
+ * A build-pack stroke icon, inlined so it takes its colour from CSS (an <img> SVG can't inherit
+ * currentColor). Icons live in public/assets/icons and are never redrawn here.
+ */
+const ICONS = import.meta.glob<string>('/public/assets/icons/*.svg', { query: '?raw', import: 'default', eager: true });
+
+interface Props {
+  name: string;
+  class?: string;
+}
+const { name, class: className } = Astro.props;
+const svg = ICONS[`/public/assets/icons/${name}.svg`];
+if (!svg) throw new Error(`Unknown icon: ${name}`);
+---
+
+<span class:list={['icon', className]} aria-hidden="true" set:html={svg} />

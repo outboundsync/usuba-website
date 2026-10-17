@@ -5,7 +5,7 @@ export const SITE = {
   // Required headline (BRIEF.md > Required headline).
   title: 'Usuba: a native Omarchy model that runs locally',
   description:
-    'Usuba is a small AI model trained on Omarchy plugin data that runs locally. The Usuba Checker Scripts are available now; the Usuba Checker Model is in training.',
+    'Usuba is a small AI model trained on Omarchy plugin data that runs locally. The Usuba Checker Scripts and the Usuba Checker Model are out now: v0.1.0.',
   // Live on Cloudflare (the usuba-runtime Worker), apex plus a www redirect.
   origin: 'https://usuba.dev',
   // The site's own repo is private, so the header points at the org; the two public repos are below.
@@ -18,6 +18,7 @@ export const SITE = {
   // Omarchy is named descriptively; Usuba claims no official status (BRIEF.md open question 8).
   omarchyHref: 'https://omarchy.org',
   checkerHref: '/docs/checker/install/',
+  getHref: '/docs/get/',
   standardHref: '/docs/standard/',
   modelHref: '/docs/model/',
   resultsHref: '/docs/results/',
@@ -45,8 +46,9 @@ export const DISCOVERY = {
 // The names, and what each one means. Use them exactly like this, always:
 //   Usuba                  the whole project: the scripts and the model, together.
 //   Usuba Checker Scripts  the tests. Plain Python, not AI. Available now. Short: "the scripts".
-//   Usuba Checker Model    the reviewer. Small, local, In Training. Short: "the model". Latest run: "Usuba run 2"
-//                          (never "Usuba v2", which was an older, superseded adapter).
+//   Usuba Checker Model    the reviewer. Small, local, released as v0.1.0 (= Usuba run 2). Short: "the model".
+//                          Never "Usuba v2", which was an older, superseded adapter.
+//   Both are v0.1.0 (tags checker-v0.1.0 and model-v0.1.0); links live in results.json > releases.
 //   Usuba Standard         the rulebook the scripts enforce, v0.2. Available now.
 // The Usuba Builder Model (the writer) is coming later; it is not on the site yet.
 // Never use bare "Checker": say "the Checker Scripts" or "the Checker Model".
@@ -54,13 +56,19 @@ export const NAV = [
   { label: 'How it’s built', href: SITE.methodologyHref },
   { label: 'Docs', href: SITE.docsHref },
   { label: 'Standard', href: SITE.standardHref },
-  { label: 'GitHub', href: SITE.githubHref },
+  { label: 'Get Usuba', href: SITE.getHref },
 ] as const;
 
 // The docs sidebar (Starlight). It lives here beside the header nav so both menus
 // are edited in one place; astro.config.mjs imports it.
 export const DOCS_SIDEBAR = [
-  { label: 'Start here', items: [{ label: 'What Usuba is', slug: 'docs' }] },
+  {
+    label: 'Start here',
+    items: [
+      { label: 'What Usuba is', slug: 'docs' },
+      { label: 'Get Usuba v0.1.0', slug: 'docs/get' },
+    ],
+  },
   {
     label: 'Usuba Checker Scripts',
     items: [
@@ -80,9 +88,16 @@ export const DOCS_SIDEBAR = [
   { label: 'Contributing', items: [{ label: 'Contributing', slug: 'docs/contributing' }] },
 ];
 
-export function navIsCurrent(href: string, pathname: string): boolean {
+function navMatches(href: string, pathname: string): boolean {
   const clean = pathname.replace(/\/+$/, '') || '/';
   const target = href.replace(/\/+$/, '') || '/';
   if (target === '/') return clean === '/';
   return clean === target || clean.startsWith(`${target}/`);
+}
+
+/** True for the one nav item that best matches the page: the longest matching href wins, so /docs/get/ marks "Get Usuba", not "Docs". */
+export function navIsCurrent(href: string, pathname: string): boolean {
+  const matches = NAV.map((item) => item.href).filter((candidate) => navMatches(candidate, pathname));
+  const best = matches.sort((a, b) => b.length - a.length)[0];
+  return best === href;
 }

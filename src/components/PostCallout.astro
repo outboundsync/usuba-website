@@ -2,11 +2,13 @@
 import { RESULTS } from '../data/results';
 import { SITE } from '../data/site';
 import Button from './Button.astro';
+import Icon from './Icon.astro';
 
 /** The homepage's pointer to the long-form post. A sticker card, no mascot (the hero already has one in view). */
 ---
 
 <aside class="post-callout" aria-labelledby="post-callout-title">
+  <span class="icon-badge icon-badge--butter post-callout__icon"><Icon name="book" /></span>
   <div class="post-callout__text">
     <p class="post-callout__meta">New post · October 17, 2026 · Harris Kenny</p>
     <h2 class="post-callout__title" id="post-callout-title">How Usuba was built and tested</h2>

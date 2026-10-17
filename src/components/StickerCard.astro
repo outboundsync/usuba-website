@@ -1,4 +1,6 @@
 ---
+import Icon from './Icon.astro';
+
 /**
  * Flat pastel shape, thick plum outline, hard offset shadow: a sticker.
  * Icon badges and card tilts come from global.css. Icon art is the build pack's
@@ -19,7 +21,13 @@ const Heading = headingLevel;
 ---
 
 <li class={`card ${className ?? ''}`.trim()}>
-  {icon && tone && <span class={`icon-badge icon-badge--${tone}`} aria-hidden="true"><img src={`/assets/icons/${icon}.svg`} alt="" /></span>}
+  {
+    icon && tone && (
+      <span class={`icon-badge icon-badge--${tone}`} aria-hidden="true">
+        <Icon name={icon} />
+      </span>
+    )
+  }
   {title && <Heading>{title}</Heading>}
   {points && points.length > 0 ? <ul>{points.map((point) => <li>{point}</li>)}</ul> : <p><slot /></p>}
 </li>

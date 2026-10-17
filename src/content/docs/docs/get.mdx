@@ -1,0 +1,64 @@
+---
+title: Get Usuba v0.1.0
+description: Download the Usuba Checker Scripts v0.1.0 and the Usuba Checker Model v0.1.0, and find every Usuba repo on GitHub and Hugging Face.
+---
+
+import Callout from '../../../components/Callout.astro';
+import GetUsuba from '../../../components/GetUsuba.astro';
+
+Usuba v0.1.0 is out, in two parts: the **Usuba Checker Scripts**, which test an Omarchy plugin, and the **Usuba Checker Model**, which
+reviews it. Both were released on October 17, 2026.
+
+<GetUsuba />
+
+## Get the Checker Scripts
+
+```bash
+git clone --branch checker-v0.1.0 https://github.com/outboundsync/usuba-checker-scripts
+cd usuba-checker-scripts
+python3 functest/functest.py path/to/your-plugin --reasons
+```
+
+Python 3.10 or newer, no dependencies. The static checks run on any machine; the real-shell run needs the reference Linux build.
+More: [Install](/docs/checker/install/) and [Run a check](/docs/checker/run-a-check/).
+
+To use them from Python instead:
+
+```bash
+pip install "usuba-checker @ git+https://github.com/outboundsync/usuba-checker-scripts@checker-v0.1.0"
+```
+
+## Get the Checker Model
+
+Download the 4-bit file (5.63 GB) and serve it with [llama.cpp](https://github.com/ggml-org/llama.cpp):
+
+```bash
+curl -L -o usuba-checker-model-v0.1.0.gguf \
+  https://huggingface.co/osiharris/usuba-checker-adapters/resolve/e736833300da7bf3ede035b58c0cf99cbedc5495/gguf/usuba-9b-usuba-9b-lora-r7-best-Q4_K_M.gguf
+shasum -a 256 usuba-checker-model-v0.1.0.gguf
+# 7d2b54a24f335aa31d53a47fca8e0848add83bef8246f0f7f831c0e80c9e4f8e
+llama-server -m usuba-checker-model-v0.1.0.gguf -c 32768
+```
+
+The model reads a plugin together with the Checker Scripts' report and answers in a fixed JSON format: a verdict and its findings.
+The prompt that builds that request is `scope/prompt_scope.py` in
+[outboundsync/usuba-checker-models](https://github.com/outboundsync/usuba-checker-models).
+
+<Callout kind="warn" title="Early release">
+v0.1.0 is advisory. It catches more broken plugins than its base model but raises more false alarms, so the Checker Scripts' verdict
+is the one to trust. Its scores were measured on the full-precision model; the 4-bit file hasn't been scored yet, and there's no
+one-command reviewer for your own plugin yet. See [Model status](/docs/model/).
+</Callout>
+
+## Where everything lives
+
+| What | Where | Licence |
+|------|-------|---------|
+| Usuba Checker Scripts and Usuba Standard v0.2: source, releases, issues | [github.com/outboundsync/usuba-checker-scripts](https://github.com/outboundsync/usuba-checker-scripts) | MIT |
+| Usuba Checker Model: training code, exams, model card, releases, issues | [github.com/outboundsync/usuba-checker-models](https://github.com/outboundsync/usuba-checker-models) | MIT |
+| Usuba Checker Model weights: the LoRA adapter and the 4-bit file | [huggingface.co/osiharris/usuba-checker-adapters](https://huggingface.co/osiharris/usuba-checker-adapters) | Apache-2.0 |
+| Training data, exam outputs, `REPRODUCE.md` | [huggingface.co/datasets/osiharris/usuba-checker-data](https://huggingface.co/datasets/osiharris/usuba-checker-data) | Each row keeps its source licence |
+| Base model | [huggingface.co/Qwen/Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B) | Apache-2.0 |
+
+Bugs in a check go to the [Checker Scripts issues](https://github.com/outboundsync/usuba-checker-scripts/issues); anything about the
+model's answers goes to the [Checker Model issues](https://github.com/outboundsync/usuba-checker-models/issues).

@@ -3,7 +3,7 @@ import { DISCOVERY, SITE } from '../data/site';
 export function llmsTxt(): string {
   return `# Usuba
 
-Usuba is a native Omarchy model, trained on Omarchy plugin data, that runs locally. It is a model, not an app or a plugin. The Usuba Checker Scripts, an open test that checks whether an Omarchy plugin works, are available now; the scripts are plain Python, not AI. The Usuba Checker Model, the local model that reviews a plugin the scripts cannot, is In Training.
+Usuba is a native Omarchy model, trained on Omarchy plugin data, that runs locally. It is a model, not an app or a plugin. The Usuba Checker Scripts, an open test that checks whether an Omarchy plugin works, are available now; the scripts are plain Python, not AI. The Usuba Checker Model, the local model that reviews a plugin the scripts cannot, is available now too. Both are v0.1.0 (October 17, 2026); downloads: ${SITE.origin}${SITE.getHref}
 
 The required headline: A native Omarchy model, trained on Omarchy plugin data, that runs locally.
 
@@ -11,9 +11,9 @@ Usuba is independent. The Omarchy name is used descriptively. The Usuba Checker 
 
 ## What exists
 
-- Usuba Checker Scripts — an open test for Omarchy plugins, run by plain Python scripts that are not AI. Available now.
+- Usuba Checker Scripts v0.1.0 — an open test for Omarchy plugins, run by plain Python scripts that are not AI. Available now.
 - Usuba Standard v0.2 — the rulebook the Checker Scripts enforce, published in full. Available now.
-- Usuba Checker Model — the local model that reviews a plugin the scripts cannot. In Training. Weights (Apache-2.0): ${SITE.adaptersHref}
+- Usuba Checker Model v0.1.0 — the local model that reviews a plugin the scripts cannot. An early, advisory release. Weights (Apache-2.0): ${SITE.adaptersHref}
 
 ## Site actions
 

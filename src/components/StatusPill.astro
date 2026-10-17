@@ -1,9 +1,11 @@
 ---
+import { RESULTS } from '../data/results';
 import { SITE } from '../data/site';
 
-/** One per page, in the hero, linking to what's available. */
+/** One per page, in the hero, linking to the downloads. */
+const { scripts, model } = RESULTS.releases;
 ---
 
-<a class="status-pill" href={SITE.checkerHref}>
-  <span>The Usuba Checker Scripts are available now. The Usuba Checker Model is in training.</span>
+<a class="status-pill" href={SITE.getHref}>
+  <span>Out now: the Usuba Checker Scripts v{scripts.version} and the Usuba Checker Model v{model.version}.</span>
 </a>

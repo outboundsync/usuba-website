@@ -277,3 +277,24 @@
   .post-callout { transform: none; padding: var(--space-6) var(--space-5); }
   .toc ol { columns: 1; }
 }
+
+/* ---------- Get Usuba: the two downloads ---------- */
+.get-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: var(--space-6); margin: var(--space-8) 0; }
+.get-card { background: var(--color-surface); border: var(--border); border-radius: var(--radius-card); box-shadow: var(--shadow-md); padding: var(--space-6); }
+.get-card h3 { margin: var(--space-3) 0 var(--space-2); font-family: var(--font-display); font-size: var(--text-xl); font-weight: var(--weight-heavy); line-height: 1.2; }
+.get-card p { margin: 0 0 var(--space-4); color: var(--color-ink-soft); }
+.get-links { display: grid; gap: var(--space-2); margin: 0; padding: 0; list-style: none; font-weight: var(--weight-bold); }
+.get-links .btn { margin-bottom: var(--space-2); }
+
+/* ---------- Icons (build-pack stroke set, inlined so they take --color-on-accent) ---------- */
+.icon { display: inline-flex; line-height: 0; }
+.icon-badge .icon svg { width: 34px; height: 34px; }
+.icon-badge--sm { width: 44px; height: 44px; margin: 0; flex: none; }
+.icon-badge--sm .icon svg { width: 22px; height: 22px; }
+.section-actions { margin: calc(-1 * var(--space-6)) 0 var(--space-11); }
+.machine__head { display: grid; grid-template-columns: auto 1fr; column-gap: var(--space-4); align-items: center; }
+.machine__head .icon-badge { grid-row: span 2; margin: 0; }
+.post-callout__icon { margin: 0; flex: none; }
+.verdict-list { display: grid; gap: var(--space-4); margin: 0 0 var(--space-6); padding: 0; list-style: none; }
+.verdict-list li { display: flex; gap: var(--space-4); align-items: flex-start; line-height: var(--leading-lede); }
+.claims-cta { margin: var(--space-5) 0 0 !important; }

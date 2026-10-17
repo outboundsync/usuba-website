@@ -28,7 +28,7 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
       scripts can&rsquo;t and runs simulated testing for you.
     </p>
     <div class="btn-row">
-      <Button href={SITE.checkerHref}>Try the Checker Scripts</Button>
+      <Button href={SITE.getHref}>Get Usuba v0.1.0</Button>
       <Button href={SITE.standardHref} variant="info">Read the Standard</Button>
     </div>
   </section>
@@ -65,12 +65,12 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
     </p>
     <h3 class="subsection-title">Top 6 reasons models struggle</h3>
     <ul class="card-grid card-grid--3">
-      <StickerCard title="Inventing APIs that don’t exist">Calls like Commons.exec or Quickshell.Clipboard that Omarchy doesn&rsquo;t have.</StickerCard>
-      <StickerCard title="Faking the data">Hardcoded or simulated values instead of real readings.</StickerCard>
-      <StickerCard title="Buttons that do nothing">Clicks that only log to the console.</StickerCard>
-      <StickerCard title="Using outdated configs">Writing old Hyprland .conf syntax into Quattro&rsquo;s Lua config files.</StickerCard>
-      <StickerCard title="Guessing helper script commands">Calling script subcommands that don&rsquo;t exist, like tablet.py options.</StickerCard>
-      <StickerCard title="Rambling without finishing">Answers loop, or get cut off before the plugin is complete.</StickerCard>
+      <StickerCard icon="question" tone="pink" title="Inventing APIs that don’t exist">Calls like Commons.exec or Quickshell.Clipboard that Omarchy doesn&rsquo;t have.</StickerCard>
+      <StickerCard icon="sparkles" tone="butter" title="Faking the data">Hardcoded or simulated values instead of real readings.</StickerCard>
+      <StickerCard icon="bug" tone="lilac" title="Buttons that do nothing">Clicks that only log to the console.</StickerCard>
+      <StickerCard icon="book" tone="mint" title="Using outdated configs">Writing old Hyprland .conf syntax into Quattro&rsquo;s Lua config files.</StickerCard>
+      <StickerCard icon="terminal" tone="pink" title="Guessing helper script commands">Calling script subcommands that don&rsquo;t exist, like tablet.py options.</StickerCard>
+      <StickerCard icon="loop" tone="butter" title="Rambling without finishing">Answers loop, or get cut off before the plugin is complete.</StickerCard>
     </ul>
   </section>
 
@@ -82,7 +82,7 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
     </p>
     <ul class="card-grid">
       <li class="card">
-        <span class="badge badge--now">Available now</span>
+        <span class="badge badge--now">Available now · v0.1.0</span>
         <h3>The scripts</h3>
         <ul>
           <li>Plain Python, not AI. These are programmed tests, so the same plugin gets the same answer every time.</li>
@@ -90,11 +90,11 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
             They load an Omarchy plugin in a real Omarchy environment and run rule checks over its code, then hand back a
             detailed report: load errors, crashes, missing files, invented APIs, wrong config format and risky commands.
           </li>
-          <li>Fast, deterministic and free. They exist today.</li>
+          <li>Fast, deterministic and free.</li>
         </ul>
       </li>
       <li class="card">
-        <span class="badge badge--training">In Training</span>
+        <span class="badge badge--now">Available now · v0.1.0</span>
         <h3>The model</h3>
         <ul>
           <li>
@@ -106,7 +106,7 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
             screen, and judges what the scripts can&rsquo;t: whether the plugin really works, whether the data is real or faked,
             whether the buttons do anything, whether it breaks in use, and what Omarchy&rsquo;s plugin reviewer would flag.
           </li>
-          <li>Then it explains what to fix. It&rsquo;s In Training: better than its base at some of this, not yet good enough at the rest.</li>
+          <li>Then it explains what to fix. v0.1.0 is an early release: better than its base at some of this, not yet good enough at the rest.</li>
         </ul>
       </li>
     </ul>
@@ -124,25 +124,29 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
   <!-- 5. Checker -->
   <section class="container section" id="checker" aria-labelledby="checker-title">
     <h2 class="section-title" id="checker-title">
-      Usuba Checker Scripts <span class="badge badge--now">Available now</span>
+      Usuba Checker Scripts <span class="badge badge--now">Available now · v0.1.0</span>
     </h2>
     <p class="section-lede">
       Plain Python, not AI. Point it at a plugin and it runs the tests: it loads the plugin in a real Omarchy environment, checks
       the code against the <a href={SITE.standardHref}>Standard</a>, and tells you what to fix.
     </p>
+    <div class="btn-row section-actions">
+      <Button href={RESULTS.releases.scripts.release} external>Get the Checker Scripts v{RESULTS.releases.scripts.version}</Button>
+      <Button href={RESULTS.releases.scripts.repo} variant="info" external>Source: usuba-checker-scripts</Button>
+    </div>
     <ul class="card-grid card-grid--3 checker-grid">
-      <StickerCard title="Reads the code">Flags invented APIs, missing helper scripts, made-up command flags and fake data.</StickerCard>
-      <StickerCard title="Runs it for real">
+      <StickerCard icon="terminal" tone="mint" title="Reads the code">Flags invented APIs, missing helper scripts, made-up command flags and fake data.</StickerCard>
+      <StickerCard icon="laptop" tone="butter" title="Runs it for real">
         On the reference Linux build, loads the plugin in a real Omarchy shell and catches load errors and crashes.
       </StickerCard>
-      <StickerCard title="Explains every problem">Each one comes with a rule id, a plain reason and a fix hint.</StickerCard>
-      <StickerCard title="Warns before it fails">
+      <StickerCard icon="check" tone="lilac" title="Explains every problem">Each one comes with a rule id, a plain reason and a fix hint.</StickerCard>
+      <StickerCard icon="alert" tone="pink" title="Warns before it fails">
         Risky commands a plugin may need are warnings. Only clearly destructive ones, like deleting your home folder, fail.
       </StickerCard>
-      <StickerCard title="Follows a public standard">
+      <StickerCard icon="book" tone="mint" title="Follows a public standard">
         The rules are written up as an open standard for what a working Omarchy plugin is.
       </StickerCard>
-      <StickerCard title="Matches real hardware">
+      <StickerCard icon="chart" tone="butter" title="Matches real hardware">
         Right on {RESULTS.scripts.dell75.accuracy.value} of the 75-plugin Dell Latitude exam with no model, and on {RESULTS.scripts.keyAgreement} cases in the
         hardware answer key.
       </StickerCard>
@@ -156,7 +160,7 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
   <!-- 6. Checker Model -->
   <section class="container section" id="model" aria-labelledby="model-title">
     <h2 class="section-title" id="model-title">
-      Usuba Checker Model <span class="badge badge--training">In Training</span>
+      Usuba Checker Model <span class="badge badge--now">Available now · v0.1.0</span>
     </h2>
     <p class="section-lede">
       The latest run, Usuba run 2, was trained on {RESULTS.model.run2.train} examples from real plugin histories and the Dell Latitude. It is built to review a
@@ -164,6 +168,10 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
     </p>
     <SpecChip />
     <p class="honest-note">{RESULTS.model.summary}</p>
+    <div class="btn-row section-actions">
+      <Button href={RESULTS.releases.model.gguf}>Download the model ({RESULTS.releases.model.ggufSize})</Button>
+      <Button href={RESULTS.releases.model.repo} variant="info" external>Source: usuba-checker-models</Button>
+    </div>
     <p class="chart__note chart__note--link">
       <a href={`${SITE.methodologyHref}#model`}>See run 2 against its base, exam by exam.</a>
     </p>
@@ -184,6 +192,8 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
     <p class="section-lede">The three shortcuts people ask about, and what each one misses.</p>
     <ul class="card-grid card-grid--3">
       <StickerCard
+        icon="terminal"
+        tone="pink"
         title="Why not write a better prompt?"
         points={[
           'A prompt can’t tell the model whether its plugin actually loads, renders or responds.',
@@ -192,6 +202,8 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
         ]}
       />
       <StickerCard
+        icon="gift"
+        tone="butter"
         title="Why not use an agent skill?"
         points={[
           'A skill helps, and we use one, but it still needs a frontier model to run it.',
@@ -201,6 +213,8 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
       />
       <StickerCard
         class="card--center"
+        icon="chart"
+        tone="lilac"
         title="Why not use a better model?"
         points={[
           `The best model we tested passed only ${BEST_FIRST_TRY.firstTry} of 49 on the first try.`,
@@ -223,25 +237,25 @@ const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry -
       Usuba is an independent project made possible in particular by a few of the following Omacom Foundation sponsors.
     </p>
     <ul class="card-grid card-grid--3">
-      <StickerCard title="The Omacom Foundation">
+      <StickerCard icon="heart" tone="pink" title="The Omacom Foundation">
         The Omacom Foundation funds the Omarchy stack Usuba builds on, including Hyprland, Quickshell and mise. Thank you for
         funding tools the rest of us get to use for free.
       </StickerCard>
-      <StickerCard title="Inspired by Coinbase">
+      <StickerCard icon="seedling" tone="mint" title="Inspired by Coinbase">
         Brian Armstrong <a
           href="https://x.com/brian_armstrong/status/2109412046244913643"
           rel="noopener noreferrer"
           target="_blank">wrote about fine-tuning an open-weight model on internal data at Coinbase</a
         >. Usuba is the same idea at a smaller scale: a specialist model trained on real Omarchy plugin data.
       </StickerCard>
-      <StickerCard title="Hosted by Cloudflare">This website is hosted by Cloudflare.</StickerCard>
-      <StickerCard title="Smoke tested on a Dell Latitude">
+      <StickerCard icon="gift" tone="butter" title="Hosted by Cloudflare">This website is hosted by Cloudflare.</StickerCard>
+      <StickerCard icon="laptop" tone="lilac" title="Smoke tested on a Dell Latitude">
         Hardware smoke testing was done on a Dell Latitude 7430 laptop.
       </StickerCard>
-      <StickerCard title="Tasks on Fizzy by 37signals">
+      <StickerCard icon="check" tone="mint" title="Tasks on Fizzy by 37signals">
         Agent work on this project is managed using Fizzy.
       </StickerCard>
-      <StickerCard title="Models that helped build this">
+      <StickerCard icon="sparkles" tone="pink" title="Models that helped build this">
         Meta, SpaceXSI, OpenRouter and OpenAI models all helped build this.
       </StickerCard>
     </ul>

@@ -22,7 +22,7 @@ Approved copy for the homepage, plus voice rules and microcopy. `[TBD]` items de
 - **The Checker helps models; it doesn't beat them.** Never position it against AI models.
 - **Never claim the model beats frontier models. Never imply model performance numbers.**
 - **Never use the word "bitter."**
-- **Cute lives in the visuals.** The mascot, stickers and colors carry the warmth. Words stay plain. The hero bubble ("let's check!") is the one playful line.
+- **Cute lives in the visuals.** The mascot, stickers and colors carry the warmth. Words stay plain. The hero bubble ("Let's cook!") is the one playful line.
 - Sentence case everywhere. No emoji in copy. Errors explain and direct, without apologizing.
 - Use the Omarchy name descriptively ("for Omarchy"). Don't imply official status unless Harris confirms it.
 
@@ -35,7 +35,7 @@ Approved copy for the homepage, plus voice rules and microcopy. `[TBD]` items de
 
 ### 1. Hero
 
-- **Mascot bubble:** let's check!
+- **Mascot bubble:** Let's cook!
 - **Status pill (links to Checker section):** The Usuba Checker is available now. Check it out, try it today.
 - **H1:** A native Omarchy model, trained on Omarchy plugin data, that runs locally.
 - **Lede:** Usuba is a small AI model made for one job: Omarchy plugins. It runs free on your own laptop. The model is still in training. Its first piece, the Usuba Checker, is ready now.

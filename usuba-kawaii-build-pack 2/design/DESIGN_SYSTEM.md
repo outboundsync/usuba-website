@@ -112,7 +112,7 @@ Working name **Usu-chan** (pending Harris's decision). A small rectangular usuba
 
 | Pose | File | Use for |
 |------|------|---------|
-| hero | `usu-chan-hero.svg` | Homepage hero only (includes the "let's check!" bubble) |
+| hero | `usu-chan-hero.svg` | Homepage hero only (includes the "Let's cook!" bubble) |
 | default | `usu-chan-default.svg` | General use, docs tips |
 | wave | `usu-chan-wave.svg` | Closing CTA band, welcome, README |
 | celebrate | `usu-chan-celebrate.svg` | A Checker run with no problems, release announcements |

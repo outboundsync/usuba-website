@@ -128,7 +128,7 @@ async function handleRpc(request: JsonRpcRequest, context: SiteMcpContext): Prom
         protocolVersion: PROTOCOL,
         capabilities: { tools: {} },
         serverInfo: { name: 'Usuba site actions', version: '1.0.0' },
-        instructions: `Read-only tools for the Usuba site: get the public Usuba facts and search the docs. The Usuba Checker Scripts are available now at ${SITE.origin}${SITE.checkerHref}. Usuba Standard v0.2, the rulebook the Checker Scripts enforce, is published at ${SITE.origin}${SITE.standardHref}. The Usuba Checker Model is In Training; its latest run (Usuba run 2) has preliminary, labelled results, and the full account of the method is at ${SITE.origin}${SITE.methodologyHref}. Human search on /docs/ is Starlight Pagefind.`,
+        instructions: `Read-only tools for the Usuba site: get the public Usuba facts and search the docs. The Usuba Checker Scripts are available now at ${SITE.origin}${SITE.checkerHref}. Usuba Standard v0.2, the rulebook the Checker Scripts enforce, is published at ${SITE.origin}${SITE.standardHref}. The Usuba Checker Scripts and the Usuba Checker Model are both v0.1.0, downloads at ${SITE.origin}${SITE.getHref}; the model (Usuba run 2) is an early, advisory release with preliminary, labelled results, and the full account of the method is at ${SITE.origin}${SITE.methodologyHref}. Human search on /docs/ is Starlight Pagefind.`,
       });
     case 'notifications/initialized':
       return empty(204);

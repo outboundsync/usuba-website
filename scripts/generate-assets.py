@@ -78,12 +78,12 @@ poses = {
         vb="0 0 380 200", label="Usu-chan waving"),
 }
 
-HERO = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" role="img" aria-label="A smiling little usuba knife saying let's check">
+HERO = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" role="img" aria-label="A smiling little usuba knife saying let's cook">
   <ellipse cx="190" cy="236" rx="120" ry="11" fill="#f7b3cb"/>
   <rect x="20" y="14" width="152" height="50" rx="25" fill="#ffffff" stroke="{INK}" stroke-width="4"/>
   <path d="M118,62 L128,84 L142,61" fill="#ffffff" stroke="{INK}" stroke-width="4" stroke-linejoin="round"/>
   <rect x="116" y="56" width="30" height="7" fill="#ffffff"/>
-  <text x="96" y="46" text-anchor="middle" font-family="'M PLUS Rounded 1c', 'Arial Rounded MT Bold', sans-serif" font-size="19" font-weight="800" fill="{INK}">let's check!</text>
+  <text x="96" y="46" text-anchor="middle" font-family="'M PLUS Rounded 1c', 'Arial Rounded MT Bold', sans-serif" font-size="19" font-weight="800" fill="{INK}">Let's cook!</text>
   <g transform="translate(20,50)">
     <rect x="20" y="78" width="112" height="42" rx="21" fill="#e9b98a" stroke="{INK}" stroke-width="5"/>
     <path d="M42,90 L42,108 M60,90 L60,108" stroke="#c99566" stroke-width="4" stroke-linecap="round"/>
@@ -140,6 +140,15 @@ icons = {
     "book": '<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M8 7h7"/>',
     "copy": '<rect x="8" y="8" width="12" height="12" rx="3"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
     "check": '<path d="M5 12.5l4.5 4.5L19 7"/>',
+    # Added for the site (Oct 17, 2026), same 24px grid and 2.2 stroke as the set above.
+    "download": '<path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/>',
+    "laptop": '<rect x="4" y="5" width="16" height="11" rx="2"/><path d="M2 19.5h20"/>',
+    "bug": '<rect x="8" y="8" width="8" height="12" rx="4"/><path d="M12 8V5M10 5.5 9 4M14 5.5l1-1.5M8 12H4.5M8 16H5M16 12h3.5M16 16h3"/>',
+    "alert": '<path d="M10.3 4.2 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4M12 17h.01"/>',
+    "chart": '<path d="M4 20V11M10 20V5M16 20v-6M3 20.5h18"/>',
+    "sparkles": '<path d="M11 3.5l1.7 4.3 4.3 1.7-4.3 1.7L11 15.5l-1.7-4.3L5 9.5l4.3-1.7z"/><path d="M18.5 14.5v5M16 17h5"/>',
+    "question": '<circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.5 2.4c-.7.3-1.1.9-1.1 1.6v.6M12 17h.01"/>',
+    "loop": '<path d="M4.5 11a7.5 7.5 0 0 1 13.2-4.3L19.5 8.5"/><path d="M19.5 4v4.5H15"/><path d="M19.5 13a7.5 7.5 0 0 1-13.2 4.3L4.5 15.5"/><path d="M4.5 20v-4.5H9"/>',
 }
 
 if __name__ == "__main__":

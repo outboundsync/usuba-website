@@ -109,16 +109,16 @@ const homepageChecks = [
   ['class="skip-link"', 'homepage must include a skip link'],
   ['href="#main"', 'skip link must point at #main'],
   ['id="main"', 'homepage must expose id="main"'],
-  ['The Usuba Checker Scripts are available now. The Usuba Checker Model is in training.', 'homepage must keep the hero status pill copy'],
-  ["let's check!", 'homepage must inline the hero mascot so the bubble uses the brand font'],
+  ['Out now: the Usuba Checker Scripts v0.1.0 and the Usuba Checker Model v0.1.0.', 'homepage must keep the hero status pill copy'],
+  ["Let's cook!", 'homepage must inline the hero mascot so the bubble uses the brand font'],
   ['badge--now', 'homepage must show the Available now badge'],
-  ['badge--training', 'homepage must show the In Training badge'],
+  ['Available now · v0.1.0', 'homepage must show the release badge'],
   ['Usuba is a local model trained on, and built for, Omarchy.', 'homepage must keep the hero headline'],
   ['AI can struggle building Omarchy plugins', 'homepage must keep the problem heading'],
   ['Plugins passing checks, out of 49', 'homepage must keep the benchmark chart caption'],
   ['outcome-chart', 'homepage must render the outcome chart'],
   ['The Checker Scripts still make the call.', 'homepage must keep the model honest note'],
-  ['In Training', 'homepage must label the model In Training'],
+  ['href="/docs/get/"', 'homepage must link the downloads'],
   ['href="/methodology/', 'homepage must link the methodology page'],
   ['data-copy-output', 'homepage must offer the code-window copy button'],
   ['Built for Omarchy plugin builders', 'homepage must keep the closing CTA band'],
@@ -155,7 +155,7 @@ const methodology = await mustExist('methodology/index.html');
 const methodologyChecks = [
   ['How Usuba was built and tested', 'methodology page must keep its headline'],
   ['Preliminary results, October 2026.', 'methodology numbers must carry the preliminary label'],
-  ['In Training', 'methodology page must label the model In Training'],
+  ['Checker Model v0.1.0', 'the post must name the model release'],
   ['The Checker Scripts still make the call.', 'methodology page must say who makes the call'],
   ['has not yet met', 'methodology page must say the model has not met its full-release targets'],
   ['Usuba run 1', 'the review screenshots must say they show run 1'],
@@ -190,6 +190,7 @@ const banned = [
   [/\bUsuba v2\b/, '"Run 2" is never "Usuba v2"; say "Usuba run 2"'],
   [/\b(?:Oct(?:ober)?\.? 19|2026-10-19)\b/, 'no release or announcement dates on the site'],
   [/no published model results/i, 'model results are published now; this line is stale'],
+  [/\bIn Training\b/, 'the model is released (v0.1.0); "In Training" is stale'],
 ];
 for (const [pattern, message] of banned) {
   if (pattern.test(corpus)) fail(message);
