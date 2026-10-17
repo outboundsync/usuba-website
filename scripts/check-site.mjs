@@ -130,7 +130,7 @@ const homepageChecks = [
   ['Preliminary results, October 2026.', 'preliminary numbers must carry their label'],
   ['the trusty knife for the omakase chef', 'homepage must explain where the name comes from'],
   ['This website is hosted by Cloudflare', 'homepage must credit Cloudflare for hosting'],
-  ['Hardware smoke testing was done on a Dell Latitude laptop', 'homepage must credit the smoke-test hardware'],
+  ['Hardware smoke testing was done on a Dell Latitude 7430 laptop', 'homepage must credit the smoke-test hardware'],
   ['Agent work on this project is managed using Fizzy', 'homepage must credit Fizzy'],
   ['brian_armstrong/status/2109412046244913643', 'homepage must link the Coinbase post that inspired the project'],
   ['not affiliated with, or endorsed by, the Omacom Foundation', 'homepage must state that Usuba is independent of the Omacom Foundation'],

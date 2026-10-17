@@ -28,7 +28,7 @@ export const PRODUCT = {
     base: 'Qwen3.5 9B with a LoRA adapter (stock weights unchanged)',
     hardware:
       'A 5.63 GB 4-bit file (Q4_K_M), built for a typical 32 GB laptop with no graphics card. The 4-bit file has no exam score yet.',
-    data: `Usuba run 2 was trained on ${RESULTS.model.run2.train} examples (${RESULTS.model.run2.val} held out for validation) built from real plugin git histories and Dell hardware runs.`,
+    data: `Usuba run 2 was trained on ${RESULTS.model.run2.train} examples (${RESULTS.model.run2.val} held out for validation) built from real plugin git histories and runs on a Dell Latitude 7430.`,
     role: 'The model does the reviewing the scripts cannot: whether a plugin really works, whether its data is real or faked, whether its buttons do anything, whether it breaks in use, and what Omarchy’s plugin reviewer would flag. Then it explains what to fix. It is In Training, so it is built to do this, not proven at it.',
     results: RESULTS.model.summary,
     weights: SITE.adaptersHref,

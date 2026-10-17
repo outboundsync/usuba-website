@@ -61,9 +61,9 @@ A plugin passes only when all three hold:
 
 1. the Usuba Checker Scripts pass it,
 2. a code read agrees it does the task, with no stubs, fake data or invented APIs, and
-3. where we could run it, it loads on the Dell laptop running Omarchy 4.0.4.
+3. where we could run it, it loads on the reference laptop: a Dell Latitude 7430 (Core i5-1245U, 16 GB) running Omarchy 4.0.4.
 
-Failing doesn't prove a plugin is broken. The Dell load test covered part of the set: 420 plugins passed the scripts at some point
+Failing doesn't prove a plugin is broken. The Dell Latitude load test covered part of the set: 420 plugins passed the scripts at some point
 and got a code read. 267 loaded fine, 37 failed and 116 were not run, mostly because the code held destructive commands and we
 kept them off the laptop.
 
@@ -86,10 +86,10 @@ alone, not from our model.
 
 The scripts help the strong models most: Claude Opus 5.5 went from 14 to 38 passing. Several open models stayed low, and Qwen3.6 27B
 didn't gain any. One model passed the scripts on all 49 plugins by its third fix round, yet only 38 survived the code read and the
-Dell load test: passing the scripts is not the same as working.
+Dell Latitude load test: passing the scripts is not the same as working.
 
 ## How this fits with the other exams
 
 The writing test asks whether a model can **write** a plugin. The Usuba Checker Model is judged on three other exams that ask
-whether it can **review** one: the Dell 75 (real-hardware verdicts), S4 60 (real bugs mined from git history) and a 329-plugin
+whether it can **review** one: the Dell 75 (verdicts from real runs on the Dell Latitude 7430), S4 60 (real bugs mined from git history) and a 329-plugin
 holdout from Omarchy plugin reviews. All four are explained, with their limits, on [How Usuba was built and tested](/methodology/#exams).

@@ -1,7 +1,7 @@
 ---
 import { RESULTS } from '../../data/results';
 
-/** The Dell sweep in one stacked bar, then the plugins that passed the scripts and still broke in use. */
+/** The Dell Latitude sweep in one stacked bar, then the plugins that passed the scripts and still broke in use. */
 const { sweep } = RESULTS;
 const TONES = { works: 'mint', broken: 'pink', unsure: 'dead' } as const;
 const fmt = (n: number) => n.toLocaleString('en-US');
@@ -10,8 +10,8 @@ const most = Math.max(...sweep.inUse.items.map((item) => item.value));
 
 <figure class="chart sweep-chart">
   <figcaption class="chart__caption">
-    <span class="chart__title">{fmt(sweep.total)} plugin runs, labelled on the Dell</span>
-    <span class="chart__subtitle">Omarchy 4.0.4 on a Dell laptop, October 13, 2026, after re-running {sweep.rerun} jobs a misbehaving plugin spoiled.</span>
+    <span class="chart__title">{fmt(sweep.total)} plugin runs, labelled on the Dell Latitude</span>
+    <span class="chart__subtitle">Omarchy 4.0.4 on a Dell Latitude 7430, October 13, 2026, after re-running {sweep.rerun} jobs a misbehaving plugin spoiled.</span>
   </figcaption>
   <div class="sweep-stack">
     {

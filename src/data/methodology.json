@@ -10,7 +10,7 @@
     {
       "date": "Oct 12",
       "title": "Build a grader that matches a real laptop",
-      "what": "A headless harness boots the real Omarchy shell and loads the plugin. We calibrated it against a Dell running Omarchy 4.0.4: from 44 of 58 agreeing cases to 90 of 90, with no false passes.",
+      "what": "A headless harness boots the real Omarchy shell and loads the plugin. We calibrated it against a Dell Latitude 7430 running Omarchy 4.0.4: from 44 of 58 agreeing cases to 90 of 90, with no false passes.",
       "learned": "A grader you haven't checked against hardware is a guess."
     },
     {
@@ -27,7 +27,7 @@
     },
     {
       "date": "Oct 13",
-      "title": "Sweep thousands of plugins on the Dell",
+      "title": "Sweep thousands of plugins on the Dell Latitude",
       "what": "Every plugin we could find, run on real hardware. An audio plugin rerouted the sound and the shell ran out of memory, so we sandboxed the runs and redid 194 jobs.",
       "learned": "The scripts handle \"does it load\". What's left is \"does it work when you click it\"."
     },
@@ -40,7 +40,7 @@
     {
       "date": "Oct 15–16",
       "title": "Usuba run 2",
-      "what": "A much smaller, cleaner set: 221 rows mined from plugin git histories and the Dell, scored on three exams against the same stock model.",
+      "what": "A much smaller, cleaner set: 221 rows mined from plugin git histories and the Dell Latitude runs, scored on three exams against the same stock model.",
       "learned": "It learned the answer format. The judgment is still the Checker Scripts' job."
     }
   ],
@@ -53,8 +53,8 @@
     },
     {
       "how": "A grader never checked against hardware",
-      "flattering": "Old grader agreed with the Dell on 44 of 58",
-      "exposed": "Labelling real runs on the Dell",
+      "flattering": "Old grader agreed with the Dell Latitude on 44 of 58",
+      "exposed": "Labelling real runs on the Dell Latitude",
       "honest": "Rebuilt: 90 of 90, no false passes"
     },
     {
@@ -66,7 +66,7 @@
     {
       "how": "Passing the scripts isn't working",
       "flattering": "The scripts passed Claude Opus 5.5 on 49 of 49",
-      "exposed": "A code read plus a Dell load test",
+      "exposed": "A code read plus a load test on the Dell Latitude",
       "honest": "38 of 49"
     },
     {
@@ -107,7 +107,7 @@
   "authority": [
     {
       "title": "The real laptop",
-      "body": "Omarchy 4.0.4 on a Dell: load it, click it, screenshot it, read the logs.",
+      "body": "Omarchy 4.0.4 on a Dell Latitude 7430: load it, click it, screenshot it, read the logs.",
       "power": "The final word on whether a plugin works."
     },
     {
@@ -154,7 +154,7 @@
       "caption": "The finished review: changes requested, one blocker."
     }
   ],
-  "screenshotsNote": "Usuba run 1 (usuba-9b, Q4_K_M) on the Dell, local CPU, October 14, 2026. One manual run of review.py, a single sample, unedited screenshots; preliminary, model In Training. This is the model's review, given a Checker Scripts report and the plugin source, not the scripts' own output. Run 1 is the run before run 2: its \"exact commit\" opening is one of the habits run 2 was trained to drop.",
+  "screenshotsNote": "Usuba run 1 (usuba-9b, Q4_K_M) on the Dell Latitude 7430, running on its Core i5 CPU, October 14, 2026. One manual run of review.py, a single sample, unedited screenshots; preliminary, model In Training. This is the model's review, given a Checker Scripts report and the plugin source, not the scripts' own output. Run 1 is the run before run 2: its \"exact commit\" opening is one of the habits run 2 was trained to drop.",
   "sourceCharts": [
     {
       "src": "/methodology/source/chart1_dell_scoreboard_hero.png",
@@ -176,8 +176,8 @@
       "src": "/methodology/source/chart3_dell_sweep_labels.png",
       "width": 1785,
       "height": 782,
-      "alt": "Dell sweep labels: 3,942 works, 1,001 broken, 589 unsure, and the 137 plugins that pass the scripts but fail in use.",
-      "caption": "Dell sweep",
+      "alt": "Dell Latitude sweep labels: 3,942 works, 1,001 broken, 589 unsure, and the 137 plugins that pass the scripts but fail in use.",
+      "caption": "Dell Latitude sweep",
       "href": "https://github.com/outboundsync/usuba-checker-scripts/blob/main/docs/post/images/chart3_dell_sweep_labels.png"
     },
     {

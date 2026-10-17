@@ -53,6 +53,8 @@ export interface Exam {
 }
 
 export interface Results {
+  /** The reference laptop every hardware label comes from. */
+  hardware: { name: string; short: string; specs: { label: string; value: string }[] };
   benchmark: {
     final: boolean;
     preliminaryLabel: string;

@@ -1,5 +1,36 @@
 {
   "_about": "Every number on the site comes from this file. Latest run: Usuba run 2 and the Oct 16 exam sets. Each block names its source in the usuba-checker-scripts repo.",
+  "hardware": {
+    "_source": "Harris Kenny, Oct 17, 2026",
+    "name": "Dell Latitude 7430",
+    "short": "Dell Latitude",
+    "specs": [
+      {
+        "label": "CPU",
+        "value": "Intel Core i5-1245U (12th Gen)"
+      },
+      {
+        "label": "Memory",
+        "value": "16 GB DDR4"
+      },
+      {
+        "label": "Storage",
+        "value": "256 GB SSD"
+      },
+      {
+        "label": "Display",
+        "value": "14.0\" FHD, 1920 × 1080, non-touch"
+      },
+      {
+        "label": "GPU",
+        "value": "Integrated graphics only"
+      },
+      {
+        "label": "OS",
+        "value": "Omarchy 4.0.4-1"
+      }
+    ]
+  },
   "benchmark": {
     "_source": "usuba-checker-scripts/docs/post/data/set1_summary.csv (Set 1, Oct 16 rerun)",
     "final": false,
@@ -14,7 +45,7 @@
     "passTest": [
       "the Checker Scripts pass it",
       "a code read agrees it does the task: no stubs, fake data or invented APIs",
-      "where we could run it, it loads on the Dell"
+      "where we could run it, it loads on the Dell Latitude"
     ],
     "labels": {
       "worksRightAway": "Passed on first try",
@@ -225,7 +256,7 @@
       "name": "Dell 75",
       "size": "75 plugins: 28 broken, 47 working",
       "measures": "Is the verdict right: broken or working?",
-      "labels": "Runs on real hardware, Omarchy 4.0.4 on a Dell laptop",
+      "labels": "Real runs on the Dell Latitude 7430, Omarchy 4.0.4",
       "limit": "Small set, so intervals are about 20 points wide. One laptop. Always answering \"broken\" scores 0.373."
     },
     {
@@ -246,8 +277,8 @@
       "name": "Writing test 49",
       "size": "49 plugin requests",
       "measures": "Can a model write a plugin that passes?",
-      "labels": "The Checker Scripts, a code read and a Dell load test",
-      "limit": "Failing doesn't prove a plugin is broken; the Dell load test covered part of the set."
+      "labels": "The Checker Scripts, a code read and a load test on the Dell Latitude",
+      "limit": "Failing doesn't prove a plugin is broken; the Dell Latitude load test covered part of the set."
     }
   ],
   "scoreboard": {
@@ -505,7 +536,7 @@
     },
     "facts": {
       "addedFindings": "Adds far fewer findings of its own: 13 vs 47 on S4, 64 vs 139 on the holdout.",
-      "dismissals": "Rarely disagrees with the scripts: it dismissed 3 of 80 of their findings on the Dell, where stock dismissed 43 of 71.",
+      "dismissals": "Rarely disagrees with the scripts: it dismissed 3 of 80 of their findings on the Dell 75, where stock dismissed 43 of 71.",
       "loop": "The scripts' feedback loop didn't move it: 0.48 one shot, 0.47 with feedback. Stock went from 0.51 to 0.57."
     }
   }
