@@ -2,7 +2,7 @@
 
 Public website for **Usuba** (`usuba.dev`, on Cloudflare): a native Omarchy model, trained on Omarchy plugin data, that runs
 locally. **Usuba is a model, not an app or a plugin.** The **Usuba Checker Scripts**, an open test for Omarchy plugins, are
-available now; the **Usuba Checker Model** is In Training (latest run: Usuba run 2).
+out now, and so is the **Usuba Checker Model**: both v0.1.0 (Oct 17, 2026; the model is Usuba run 2).
 
 The approved design direction, tokens, mascot assets and copy live in [`usuba-kawaii-build-pack 2/`](usuba-kawaii-build-pack%202/)
 (next to this file). Read `BRIEF.md`, `design/DESIGN_SYSTEM.md`, `content/copy.md` and `TASKS.md` there before changing
@@ -11,7 +11,7 @@ anything visual or any claim.
 ## Ground rules
 
 - **Naming contract** (`src/data/site.ts`): Usuba (project) · Usuba Checker Scripts (the tests, now) · Usuba Checker Model
-  (the reviewer, In Training) · Usuba Standard v0.2 (the rulebook, now). Never bare "the Checker". The latest model run is
+  (the reviewer, v0.1.0) · Usuba Standard v0.2 (the rulebook, now). Never bare "the Checker". The latest model run is
   "Usuba run 2", never "Usuba v2" (an older, superseded adapter). The Usuba Builder Model
   (the writer) is coming later and is **not on the site**; `check:site` fails if "Builder" appears.
 - **Do not invent product facts.** Install, command, rule ids, output, licences, repos and weights are confirmed (Oct 17,
@@ -20,13 +20,13 @@ anything visual or any claim.
   still unconfirmed stays `[TBD: ...]`.
 - **Honesty rules are hard limits.** No hype. Never the word "bitter." Never claim the model beats, or outperforms, the Checker
   Scripts or frontier models. Model numbers appear only as measured: with their exam, sample size, intervals where they exist
-  and the preliminary label, next to the stock base they are compared with. Always say the model is In Training, and say plainly
+  and the preliminary label, next to the stock base they are compared with. Call it an early, advisory v0.1.0 release, and say plainly
   where it is worse (false alarms). No release or announcement dates. `check:site` enforces the wording.
 - **Tokens only.** No raw hex, font names or shadow values in components or stylesheets. `src/styles/tokens.css` is the
   source of truth (copied from the build pack); if you need a value that is not a token, add it there and to the build
   pack's `design/tokens.json`, and note it. `check:site` enforces this for `src/styles/`.
 - **Use the mascot SVGs as provided.** Don't redraw, restyle or add poses. One mascot per viewport.
-- **The hero mascot is inlined**, not an `<img>`, so the "let's check!" bubble renders in the brand font.
+- **The hero mascot is inlined**, not an `<img>`, so the "Let's cook!" bubble renders in the brand font.
 - **Accessibility is a requirement.** Every colour pairing in use is in the checked table in `DESIGN_SYSTEM.md`. Don't
   introduce new pairings without checking them.
 - **Ask before** choosing a domain, a hosting provider, analytics, or adding any third-party script.

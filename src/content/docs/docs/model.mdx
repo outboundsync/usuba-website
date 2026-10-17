@@ -1,6 +1,6 @@
 ---
 title: Usuba Checker Model
-description: The Usuba Checker Model is a local Omarchy model that reviews a plugin the Checker Scripts cannot. It is In Training; the latest run is Usuba run 2. Preliminary results, October 2026.
+description: The Usuba Checker Model is a local Omarchy model that reviews a plugin the Checker Scripts cannot. v0.1.0 (Usuba run 2) is out. Preliminary results, October 2026.
 ---
 
 import Callout from '../../../components/Callout.astro';
@@ -11,7 +11,7 @@ import IntervalScoreboard from '../../../components/charts/IntervalScoreboard.as
 free, trained on real Omarchy plugin data.
 
 Usuba has two complementary parts: the scripts that test a plugin, and the model that judges it. The scripts are plain Python, not
-AI, and they are available now — see [the Checker Scripts](/docs/checker/install/). The model is **In Training**.
+AI, and they are available now — see [the Checker Scripts](/docs/checker/install/). The model is out too: **v0.1.0**. [Get both](/docs/get/).
 
 ## Status
 
@@ -19,12 +19,13 @@ AI, and they are available now — see [the Checker Scripts](/docs/checker/insta
 |-------|-----------|--------|
 | Usuba Checker Scripts | The tests that check a plugin | **Available now** |
 | Usuba Standard v0.2 | The rulebook the scripts enforce | **Available now** |
-| Usuba Checker Model | The model that reviews a plugin | **In Training** |
+| Usuba Checker Model | The model that reviews a plugin | **Available now, v0.1.0** |
 
-## The latest run: Usuba run 2
+## Usuba Checker Model v0.1.0 (Usuba run 2)
 
 | | |
 |---|---|
+| Version | v0.1.0, released October 17, 2026 ([release notes](https://github.com/outboundsync/usuba-checker-models/releases/tag/model-v0.1.0)) |
 | Trained | October 16, 2026 |
 | Base | Qwen3.5 9B, stock weights unchanged, plus a LoRA adapter (about 350 MB) |
 | Data | 221 training and 23 validation examples, from real plugin git histories and runs on the Dell Latitude 7430 |
@@ -51,7 +52,7 @@ rarely disagrees with the scripts' findings, which is part of why.
 <IntervalScoreboard />
 
 The Usuba Checker Scripts, with no model at all, still make the call. The model has not yet met the targets we set for a full
-release (Dell accuracy 0.85 or more, false alarms 0.15 or less), which is why it is In Training.
+release (Dell accuracy 0.85 or more, false alarms 0.15 or less), and closing that gap is what v0.2 is for.
 
 ## What it is built to do
 

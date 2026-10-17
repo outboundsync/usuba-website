@@ -154,7 +154,7 @@
       "caption": "The finished review: changes requested, one blocker."
     }
   ],
-  "screenshotsNote": "Usuba run 1 (usuba-9b, Q4_K_M) on the Dell Latitude 7430, running on its Core i5 CPU, October 14, 2026. One manual run of review.py, a single sample, unedited screenshots; preliminary, model In Training. This is the model's review, given a Checker Scripts report and the plugin source, not the scripts' own output. Run 1 is the run before run 2: its \"exact commit\" opening is one of the habits run 2 was trained to drop.",
+  "screenshotsNote": "Usuba run 1 (usuba-9b, Q4_K_M) on the Dell Latitude 7430, running on its Core i5 CPU, October 14, 2026. One manual run of review.py, a single sample, unedited screenshots; preliminary. This is the model's review, given a Checker Scripts report and the plugin source, not the scripts' own output. Run 1 is the run before run 2, which shipped as v0.1.0: its \"exact commit\" opening is one of the habits run 2 was trained to drop.",
   "sourceCharts": [
     {
       "src": "/methodology/source/chart1_dell_scoreboard_hero.png",

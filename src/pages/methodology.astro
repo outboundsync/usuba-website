@@ -13,6 +13,7 @@ import CtaBand from '../components/CtaBand.astro';
 import OutcomeChart from '../components/OutcomeChart.astro';
 import Screenshot from '../components/Screenshot.astro';
 import SpecChip from '../components/SpecChip.astro';
+import Icon from '../components/Icon.astro';
 import TestMachine from '../components/TestMachine.astro';
 import Base from '../layouts/Base.astro';
 import { METHODOLOGY } from '../data/methodology';
@@ -33,6 +34,12 @@ const valid = metric('Valid answers', 'Dell 75');
 const bestModel = RESULTS.scoreboard.rows.filter((row) => row.kind !== 'scripts').sort((a, b) => b.score.value - a.score.value)[0];
 const best = [...benchmark.models].sort((a, b) => b.afterFixes - a.afterFixes)[0];
 const fmt = (n: number) => n.toLocaleString('en-US');
+const EXAM_ICONS = [
+  { icon: 'laptop', tone: 'mint' },
+  { icon: 'bug', tone: 'pink' },
+  { icon: 'book', tone: 'lilac' },
+  { icon: 'terminal', tone: 'butter' },
+];
 const cpu = hardware.specs.find((spec) => spec.label === 'CPU')?.value ?? '';
 
 const STATS = [
@@ -77,8 +84,8 @@ const TOC = [
         test that tells you whether one works. Here&rsquo;s what we tried, the scores that lied to us, and where the model stands.
       </p>
       <p class="post__badges">
-        <span class="badge badge--now">Checker Scripts: available now</span>
-        <span class="badge badge--training">Checker Model: In Training</span>
+        <span class="badge badge--now">Checker Scripts v0.1.0: out now</span>
+        <span class="badge badge--now">Checker Model v0.1.0: out now</span>
       </p>
     </header>
 
@@ -111,7 +118,7 @@ const TOC = [
             with no model. The best model we tested reached {rate(bestModel.score.value)}, with the scripts&rsquo; help.
           </li>
           <li>
-            <strong>The model is In Training.</strong> Usuba run 2 answers in a usable form almost every time and catches more broken
+            <strong>The model is out, as an early v0.1.0.</strong> It answers in a usable form almost every time and catches more broken
             plugins than its base, but raises more false alarms. The Checker Scripts still make the call.
           </li>
         </ol>
@@ -215,8 +222,11 @@ const TOC = [
     </div>
     <ul class="post__wide card-grid exam-grid">
       {
-        exams.map((exam) => (
+        exams.map((exam, index) => (
           <li class="card exam">
+            <span class={`icon-badge icon-badge--${EXAM_ICONS[index % EXAM_ICONS.length].tone}`}>
+              <Icon name={EXAM_ICONS[index % EXAM_ICONS.length].icon} />
+            </span>
             <h3>{exam.name}</h3>
             <p class="exam__size">{exam.size}</p>
             <dl>
@@ -273,7 +283,7 @@ const TOC = [
     </div>
 
     <div class="post__prose">
-      <h2 class="post__h2" id="model">The Usuba Checker Model <span class="badge badge--training">In Training</span></h2>
+      <h2 class="post__h2" id="model">The Usuba Checker Model <span class="badge badge--now">v0.1.0</span></h2>
       <p>
         The case for a model isn&rsquo;t loading; the scripts do that. It&rsquo;s the review a person would do: is the data real, do
         the buttons do anything, does it break in use. Usuba run 2 is Qwen3.5 9B with a small LoRA adapter, trained on {model.run2.train}
@@ -285,11 +295,20 @@ const TOC = [
       <PairedMetrics />
     </div>
     <div class="post__prose">
-      <p>
-        <strong>Better than its base:</strong> usable answers on every exam, about twice the broken plugins caught, and far fewer
-        findings of its own. <strong>On par:</strong> overall verdicts and bugs found. <strong>Worse:</strong> about twice the false
-        alarms on working plugins. It rarely disagrees with the scripts, which is part of why.
-      </p>
+      <ul class="verdict-list">
+        <li>
+          <span class="icon-badge icon-badge--mint icon-badge--sm"><Icon name="check" /></span>
+          <span><strong>Better than its base:</strong> usable answers on every exam, about twice the broken plugins caught, and far fewer findings of its own.</span>
+        </li>
+        <li>
+          <span class="icon-badge icon-badge--lilac icon-badge--sm"><Icon name="chart" /></span>
+          <span><strong>On par:</strong> overall verdicts and bugs found.</span>
+        </li>
+        <li>
+          <span class="icon-badge icon-badge--pink icon-badge--sm"><Icon name="alert" /></span>
+          <span><strong>Worse:</strong> about twice the false alarms on working plugins. It rarely disagrees with the scripts, which is part of why.</span>
+        </li>
+      </ul>
       <p>And against everything else we tested on the same exam:</p>
     </div>
     <div class="post__figure">
@@ -298,7 +317,7 @@ const TOC = [
     <div class="post__prose">
       <p class="pullquote">
         The Checker Scripts still make the call. The model has not yet met the targets we set for a full release ({model.run2.targets}),
-        which is why it is In Training.
+        and closing that gap is what v0.2 is for.
       </p>
     </div>
 
@@ -321,18 +340,21 @@ const TOC = [
     </div>
     <ul class="post__wide card-grid claims-grid">
       <li class="card">
+        <span class="icon-badge icon-badge--mint"><Icon name="gift" /></span>
         <span class="badge badge--now">Releasing</span>
         <h3>The part that works, and the part that&rsquo;s learning</h3>
         <ul>
           <li>The Usuba Checker Scripts and Usuba Standard v{scripts.standardVersion}, MIT.</li>
           <li>
-            Usuba run 2, In Training: the adapter and a {model.run2.gguf} file, Apache-2.0, on <a href={SITE.adaptersHref}>Hugging Face</a>.
+            Usuba Checker Model v0.1.0 (Usuba run 2): the adapter and a {model.run2.gguf} file, Apache-2.0, on <a href={SITE.adaptersHref}>Hugging Face</a>.
           </li>
           <li>The training data, the exam outputs and how to reproduce them, on <a href={SITE.datasetHref}>Hugging Face</a>.</li>
         </ul>
+        <p class="claims-cta"><a class="btn btn--action btn--sm" href={SITE.getHref}>Get Usuba v0.1.0</a></p>
       </li>
       <li class="card">
-        <span class="badge badge--training">Not claiming</span>
+        <span class="icon-badge icon-badge--pink"><Icon name="alert" /></span>
+        <span class="badge badge--next">Not claiming</span>
         <h3>The limits, plainly</h3>
         <ul>
           <li>That the model makes better calls than the scripts, or better overall verdicts than its base. It doesn&rsquo;t, yet.</li>
@@ -345,7 +367,9 @@ const TOC = [
 
     <div class="post__prose">
       <h2 class="post__h2" id="took">What it took</h2>
-      <p><strong>Money.</strong> {METHODOLOGY.spend.confirmed} {METHODOLOGY.spend.provisional}</p>
+      <p>
+        <strong>Money.</strong> {METHODOLOGY.spend.confirmed} {METHODOLOGY.spend.provisional}
+      </p>
       <p>
         <strong>Mostly, time.</strong> Calibrating a grader against a real laptop, sweeping thousands of plugins, chasing bugs through
         git histories, building a training set with a source on every row. Very little of it was GPUs. A specialist model isn&rsquo;t a

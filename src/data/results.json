@@ -31,6 +31,42 @@
       }
     ]
   },
+  "releases": {
+    "_source": "GitHub tags checker-v0.1.0 and model-v0.1.0; Hugging Face osiharris/usuba-checker-adapters at commit e736833300da7bf3ede035b58c0cf99cbedc5495",
+    "date": "October 17, 2026",
+    "scripts": {
+      "name": "Usuba Checker Scripts",
+      "version": "0.1.0",
+      "tag": "checker-v0.1.0",
+      "release": "https://github.com/outboundsync/usuba-checker-scripts/releases/tag/checker-v0.1.0",
+      "repo": "https://github.com/outboundsync/usuba-checker-scripts",
+      "issues": "https://github.com/outboundsync/usuba-checker-scripts/issues",
+      "archive": "https://github.com/outboundsync/usuba-checker-scripts/archive/refs/tags/checker-v0.1.0.tar.gz",
+      "clone": "git clone --branch checker-v0.1.0 https://github.com/outboundsync/usuba-checker-scripts",
+      "pip": "pip install \"usuba-checker @ git+https://github.com/outboundsync/usuba-checker-scripts@checker-v0.1.0\"",
+      "standard": "0.2",
+      "licence": "MIT"
+    },
+    "model": {
+      "name": "Usuba Checker Model",
+      "version": "0.1.0",
+      "tag": "model-v0.1.0",
+      "run": "Usuba run 2",
+      "release": "https://github.com/outboundsync/usuba-checker-models/releases/tag/model-v0.1.0",
+      "repo": "https://github.com/outboundsync/usuba-checker-models",
+      "issues": "https://github.com/outboundsync/usuba-checker-models/issues",
+      "weights": "https://huggingface.co/osiharris/usuba-checker-adapters",
+      "gguf": "https://huggingface.co/osiharris/usuba-checker-adapters/resolve/e736833300da7bf3ede035b58c0cf99cbedc5495/gguf/usuba-9b-usuba-9b-lora-r7-best-Q4_K_M.gguf",
+      "ggufFile": "usuba-9b-usuba-9b-lora-r7-best-Q4_K_M.gguf",
+      "ggufSize": "5.63 GB",
+      "ggufSha256": "7d2b54a24f335aa31d53a47fca8e0848add83bef8246f0f7f831c0e80c9e4f8e",
+      "adapter": "https://huggingface.co/osiharris/usuba-checker-adapters/tree/e736833300da7bf3ede035b58c0cf99cbedc5495/adapter",
+      "adapterSize": "about 350 MB",
+      "data": "https://huggingface.co/datasets/osiharris/usuba-checker-data",
+      "base": "https://huggingface.co/Qwen/Qwen3.5-9B",
+      "licence": "Apache-2.0"
+    }
+  },
   "benchmark": {
     "_source": "usuba-checker-scripts/docs/post/data/set1_summary.csv (Set 1, Oct 16 rerun)",
     "final": false,
@@ -366,15 +402,15 @@
   },
   "model": {
     "final": false,
-    "status": "In Training",
+    "status": "Available now, v0.1.0",
     "specs": [
+      "Usuba Checker Model v0.1.0",
       "Qwen3.5 9B with a LoRA adapter",
       "4-bit file: 5.63 GB (Q4_K_M)",
       "Built for a 32 GB laptop, no graphics card",
-      "Run 2: 221 training rows from real plugin histories",
-      "In Training"
+      "221 training rows from real plugin histories"
     ],
-    "summary": "Usuba run 2 gives a usable answer almost every time and catches more broken plugins than its base, but raises more false alarms. The Checker Scripts still make the call. Preliminary, October 2026.",
+    "summary": "Usuba Checker Model v0.1.0 gives a usable answer almost every time and catches more broken plugins than its base, but raises more false alarms. The Checker Scripts still make the call. Preliminary results, October 2026.",
     "run2": {
       "date": "October 16, 2026",
       "base": "Qwen3.5 9B (stock weights unchanged) + LoRA",

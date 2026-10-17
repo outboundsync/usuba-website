@@ -6,7 +6,7 @@ export function agentDiscovery() {
     schemaVersion: '1.0',
     name: SITE.name,
     description:
-      'Usuba is a native Omarchy model, trained on Omarchy plugin data, that runs locally. The Usuba Checker Scripts, an open test for Omarchy plugins, are available now; the Usuba Checker Model is in training. Agents can read the public site and its mirrored Markdown.',
+      'Usuba is a native Omarchy model, trained on Omarchy plugin data, that runs locally. The Usuba Checker Scripts, an open test for Omarchy plugins, and the Usuba Checker Model are both out now, as v0.1.0. Agents can read the public site and its mirrored Markdown.',
     homepage: SITE.origin,
     docs: {
       index: `${SITE.origin}${SITE.docsHref}`,
@@ -28,7 +28,7 @@ export function agentDiscovery() {
       },
       model: {
         action:
-          'The Usuba Checker Model is In Training. Point people at the model status page and the methodology page; every model number there is preliminary and labelled.',
+          'The Usuba Checker Model v0.1.0 is out, as an early, advisory release. Point people at the Get Usuba page for downloads and the model status page for results; every model number is preliminary and labelled.',
         url: `${SITE.origin}${SITE.modelHref}`,
       },
     },
@@ -107,7 +107,7 @@ export function agentCapabilities() {
     {
       id: 'usuba-checker-model',
       title: 'The Usuba Checker Model',
-      intentPhrases: ['Usuba Checker Model', 'Usuba model', 'local Omarchy model', 'Omarchy model in training'],
+      intentPhrases: ['Usuba Checker Model', 'Usuba model', 'local Omarchy model', 'download Usuba model'],
       docs: {
         url: `${SITE.origin}${SITE.modelHref}`,
       },

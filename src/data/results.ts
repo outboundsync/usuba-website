@@ -52,7 +52,33 @@ export interface Exam {
   limit: string;
 }
 
+export interface Release {
+  name: string;
+  version: string;
+  tag: string;
+  release: string;
+  repo: string;
+  issues: string;
+  licence: string;
+}
+
 export interface Results {
+  releases: {
+    date: string;
+    scripts: Release & { archive: string; clone: string; pip: string; standard: string };
+    model: Release & {
+      run: string;
+      weights: string;
+      gguf: string;
+      ggufFile: string;
+      ggufSize: string;
+      ggufSha256: string;
+      adapter: string;
+      adapterSize: string;
+      data: string;
+      base: string;
+    };
+  };
   /** The reference laptop every hardware label comes from. */
   hardware: { name: string; short: string; specs: { label: string; value: string }[] };
   benchmark: {

@@ -1,13 +1,21 @@
 ---
+import { RESULTS } from '../data/results';
 import { DISCOVERY, SITE } from '../data/site';
+
+// Every repo is named for what it holds, never a bare "GitHub" (the site's own repo is private).
+const { scripts, model } = RESULTS.releases;
+const ext = { rel: 'noopener noreferrer', target: '_blank' };
 ---
 
 <footer class="site-footer">
   <p>{SITE.footerNote}</p>
   <nav aria-label="Footer">
-    <a href={SITE.githubHref} rel="noopener noreferrer" target="_blank">GitHub</a>
+    <a href={SITE.getHref}>Get Usuba</a>
+    <a href={scripts.repo} {...ext}>Checker Scripts on GitHub</a>
+    <a href={model.repo} {...ext}>Checker Model on GitHub</a>
+    <a href={model.weights} {...ext}>Model weights on Hugging Face</a>
     <a href={SITE.standardHref}>Standard</a>
-    <a href={SITE.omarchyHref} rel="noopener noreferrer" target="_blank">Omarchy</a>
+    <a href={SITE.omarchyHref} {...ext}>Omarchy</a>
     <a href={DISCOVERY.llms}>llms.txt</a>
   </nav>
 </footer>

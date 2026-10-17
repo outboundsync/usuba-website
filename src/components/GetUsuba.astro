@@ -1,0 +1,39 @@
+---
+import { RESULTS } from '../data/results';
+import { SITE } from '../data/site';
+import Icon from './Icon.astro';
+
+/**
+ * The two downloads, side by side, then every place the code and data live, each named for what it
+ * holds. All links come from results.json > releases, pinned to the release tags and to the Hugging
+ * Face commit the release was cut from.
+ */
+const { scripts, model, date } = RESULTS.releases;
+const ext = { rel: 'noopener noreferrer', target: '_blank' };
+---
+
+<div class="get-grid not-content">
+  <section class="get-card" aria-labelledby="get-scripts">
+    <span class="icon-badge icon-badge--mint"><Icon name="terminal" /></span>
+    <span class="badge badge--now">v{scripts.version} · {date}</span>
+    <h3 id="get-scripts">{scripts.name}</h3>
+    <p>Plain Python tests for an Omarchy plugin. Enforces <a href={SITE.standardHref}>Usuba Standard v{scripts.standard}</a>. {scripts.licence}.</p>
+    <ul class="get-links">
+      <li><a class="btn btn--action btn--sm" href={scripts.release} {...ext}>Release notes and download</a></li>
+      <li><a href={scripts.archive}>Source archive (.tar.gz)</a></li>
+      <li><a href={scripts.repo} {...ext}>Source on GitHub: outboundsync/usuba-checker-scripts</a></li>
+    </ul>
+  </section>
+  <section class="get-card" aria-labelledby="get-model">
+    <span class="icon-badge icon-badge--butter"><Icon name="download" /></span>
+    <span class="badge badge--now">v{model.version} · {date}</span>
+    <h3 id="get-model">{model.name}</h3>
+    <p>{model.run}: Qwen3.5 9B with a LoRA adapter, for llama.cpp. Weights {model.licence}. Preliminary results, October 2026.</p>
+    <ul class="get-links">
+      <li><a class="btn btn--action btn--sm" href={model.gguf}>Download the 4-bit file ({model.ggufSize})</a></li>
+      <li><a href={model.adapter} {...ext}>LoRA adapter only ({model.adapterSize})</a></li>
+      <li><a href={model.release} {...ext}>Release notes on GitHub</a></li>
+      <li><a href={model.repo} {...ext}>Training code on GitHub: outboundsync/usuba-checker-models</a></li>
+    </ul>
+  </section>
+</div>
