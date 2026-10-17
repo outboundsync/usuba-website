@@ -1,0 +1,325 @@
+---
+import Button from '../components/Button.astro';
+import Callout from '../components/Callout.astro';
+import AuthorityStack from '../components/charts/AuthorityStack.astro';
+import GraderVsReal from '../components/charts/GraderVsReal.astro';
+import IntervalScoreboard from '../components/charts/IntervalScoreboard.astro';
+import PairedMetrics from '../components/charts/PairedMetrics.astro';
+import SweepBar from '../components/charts/SweepBar.astro';
+import Timeline from '../components/charts/Timeline.astro';
+import ValidatorVsReal from '../components/charts/ValidatorVsReal.astro';
+import CodeWindow from '../components/CodeWindow.astro';
+import CtaBand from '../components/CtaBand.astro';
+import OutcomeChart from '../components/OutcomeChart.astro';
+import Screenshot from '../components/Screenshot.astro';
+import SpecChip from '../components/SpecChip.astro';
+import StickerCard from '../components/StickerCard.astro';
+import Base from '../layouts/Base.astro';
+import { METHODOLOGY } from '../data/methodology';
+import { preliminaryLabel, RESULTS, rate } from '../data/results';
+import { SAMPLE_OUTPUT_NOTE } from '../data/sample-output';
+import { SITE } from '../data/site';
+
+/*
+ * The long-form account of the work: what we tried, how we measured it, and what held up.
+ * Every number comes from results.json (exams) or methodology.json (the story), both sourced
+ * from usuba-checker-scripts/docs/post. Each section opens with a picture, then a few short lines.
+ */
+const { scripts, model, benchmark, exams } = RESULTS;
+const label = preliminaryLabel(model.final);
+const run2 = model.comparison.metrics;
+const metric = (name: string, exam: string) => run2.find((m) => m.label === name && m.exam === exam);
+const acc = metric('Verdict accuracy', 'Dell 75');
+const valid = metric('Valid answers', 'Dell 75');
+const bestLoop = RESULTS.scoreboard.rows.filter((row) => row.kind !== 'scripts').sort((a, b) => b.score.value - a.score.value)[0];
+const best = [...benchmark.models].sort((a, b) => b.afterFixes - a.afterFixes)[0];
+
+const STATS = [
+  { value: rate(scripts.dell75.accuracy.value, 3), text: 'verdict accuracy for the Checker Scripts on the Dell 75, with no model' },
+  { value: acc ? rate(acc.run2.value) : '', text: `for Usuba run 2 on the same exam (its stock base: ${acc ? rate(acc.stock.value) : ''})` },
+  { value: valid ? rate(valid.run2.value) : '', text: `run 2's rate of usable answers (stock: ${valid ? rate(valid.stock.value) : ''})` },
+  { value: RESULTS.sweep.total.toLocaleString('en-US'), text: 'plugin runs labelled on a real Omarchy laptop' },
+];
+---
+
+<Base
+  title="How Usuba was built and tested"
+  description="The full account: six days, two training runs, thousands of plugins on a real Omarchy laptop. How we test, what lied to us, and where the Usuba Checker Model stands. Preliminary results, October 2026."
+>
+  <!-- Hero -->
+  <section class="container container--narrow hero hero--page">
+    <span class="badge badge--training">In Training</span>
+    <h1>How Usuba was built and tested</h1>
+    <p class="lede">
+      Six days, two training runs and thousands of plugins on a real laptop. What we tried, how we measured it, and what held up.
+    </p>
+    <ul class="stat-strip">
+      {
+        STATS.map((stat) => (
+          <li class="stat">
+            <span class="stat__value">{stat.value}</span>
+            <span class="stat__text">{stat.text}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="chart__note chart__note--center">{label} Machine-drafted labels on small exam sets.</p>
+  </section>
+
+  <!-- The short version -->
+  <section class="container container--narrow section" aria-labelledby="short-title">
+    <h2 class="section-title" id="short-title">The short version</h2>
+    <ol class="short-list">
+      <li>
+        <strong>Our first wins were measurement mistakes.</strong> A tuned 7B looked level with GPT-5.6 until we ran its plugins: 42 of
+        56 became 8.
+      </li>
+      <li>
+        <strong>So the test came first.</strong> We built a grader that agrees with a real laptop and turned it into the Usuba Checker
+        Scripts and a public standard of {scripts.ruleCount} rules.
+      </li>
+      <li>
+        <strong>Plain code still judges best.</strong> On the Dell 75 the scripts get {rate(scripts.dell75.accuracy.value, 3)} of verdicts right with
+        no model. The best model we tested reached {rate(bestLoop.score.value)}, with the scripts&rsquo; help.
+      </li>
+      <li>
+        <strong>The model is In Training.</strong> Usuba run 2 answers in a usable form almost every time and catches more broken plugins
+        than its base, but raises more false alarms. The Checker Scripts still make the call.
+      </li>
+    </ol>
+  </section>
+
+  <!-- Who decides -->
+  <section class="container container--narrow section" aria-labelledby="authority-title">
+    <h2 class="section-title" id="authority-title">Who decides if a plugin works</h2>
+    <p class="section-lede">Everything here rests on one rule: the real laptop outranks the scripts, and the scripts outrank the model.</p>
+    <AuthorityStack />
+  </section>
+
+  <!-- Timeline -->
+  <section class="container container--narrow section" aria-labelledby="timeline-title">
+    <h2 class="section-title" id="timeline-title">Six days, October 11 to 16</h2>
+    <p class="section-lede">
+      We set out to train a small local model to write Omarchy plugins. We ended up building the thing that tells you whether one works.
+    </p>
+    <Timeline />
+  </section>
+
+  <!-- How a score can lie -->
+  <section class="container section" id="lies" aria-labelledby="lies-title">
+    <h2 class="section-title" id="lies-title">How a score can lie</h2>
+    <p class="section-lede">Every one of these happened to us. Each time, a number looked good until something more real checked it.</p>
+    <div class="chart-pair">
+      <ValidatorVsReal />
+      <GraderVsReal />
+    </div>
+    <div class="table-card">
+      <table class="lies">
+        <thead>
+          <tr>
+            <th scope="col">How it lied</th>
+            <th scope="col">The flattering number</th>
+            <th scope="col">What exposed it</th>
+            <th scope="col">The honest number</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            METHODOLOGY.lies.map((lie) => (
+              <tr>
+                <th scope="row">{lie.how}</th>
+                <td>{lie.flattering}</td>
+                <td>{lie.exposed}</td>
+                <td>
+                  <strong>{lie.honest}</strong>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Exams -->
+  <section class="container section" id="exams" aria-labelledby="exams-title">
+    <h2 class="section-title" id="exams-title">The four exams</h2>
+    <p class="section-lede">Every number on this site comes from one of these. Each has a size, a source for its labels, and a limit.</p>
+    <ul class="card-grid exam-grid">
+      {
+        exams.map((exam) => (
+          <li class="card exam">
+            <h3>{exam.name}</h3>
+            <p class="exam__size">{exam.size}</p>
+            <dl>
+              <dt>Asks</dt>
+              <dd>{exam.measures}</dd>
+              <dt>Labelled by</dt>
+              <dd>{exam.labels}</dd>
+              <dt>Watch out</dt>
+              <dd>{exam.limit}</dd>
+            </dl>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- Dell sweep -->
+  <section class="container section" aria-labelledby="sweep-title">
+    <h2 class="section-title" id="sweep-title">Loading isn&rsquo;t using</h2>
+    <p class="section-lede">
+      We ran every plugin we could find on a Dell laptop running Omarchy. For loading, the scripts are stricter than the hardware. For
+      using, they aren&rsquo;t enough.
+    </p>
+    <div class="chart-wrap">
+      <SweepBar />
+    </div>
+  </section>
+
+  <!-- Checker Scripts -->
+  <section class="container section" id="scripts" aria-labelledby="scripts-title">
+    <h2 class="section-title" id="scripts-title">
+      The Usuba Checker Scripts <span class="badge badge--now">Available now</span>
+    </h2>
+    <p class="section-lede">
+      Plain Python, no AI. {scripts.ruleCount} rules in <a href={SITE.standardHref}>Usuba Standard v{scripts.standardVersion}</a>, each with an id,
+      a reason and a fix. They agree with the hardware answer key on {scripts.keyAgreement} decided cases.
+    </p>
+    <div class="container--code code-wrap">
+      <CodeWindow />
+      <p class="chart__note chart__note--center">{SAMPLE_OUTPUT_NOTE}</p>
+    </div>
+    <h3 class="subsection-title subsection-title--spaced">Do they help models write plugins?</h3>
+    <p class="section-lede section-lede--tight">
+      Eleven models wrote the same 49 plugins. The scripts&rsquo; report went back for up to three fix rounds. Strong models gained the
+      most: {best.name} went from {best.firstTry} to {best.afterFixes}.
+    </p>
+    <div class="chart-wrap">
+      <OutcomeChart />
+    </div>
+    <p class="chart__note chart__note--link">
+      <a href={SITE.resultsHref}>The 49 requests, model by model.</a>
+    </p>
+  </section>
+
+  <!-- Checker Model -->
+  <section class="container section" id="model" aria-labelledby="model-title">
+    <h2 class="section-title" id="model-title">
+      The Usuba Checker Model <span class="badge badge--training">In Training</span>
+    </h2>
+    <p class="section-lede">
+      Usuba run 2 is Qwen3.5 9B with a small LoRA adapter, trained on {model.run2.train} examples mined from real plugin histories and the
+      Dell. Here it is against the stock model it started from.
+    </p>
+    <SpecChip />
+    <div class="chart-wrap">
+      <PairedMetrics />
+    </div>
+    <ul class="card-grid card-grid--3 verdict-grid">
+      <StickerCard title="Better than its base">
+        Usable answers on every exam, about twice the broken plugins caught, and far fewer findings of its own.
+      </StickerCard>
+      <StickerCard title="On par">Overall verdicts and bugs found. The intervals overlap a lot.</StickerCard>
+      <StickerCard title="Worse">
+        About twice the false alarms on working plugins. It rarely disagrees with the scripts, which is part of why.
+      </StickerCard>
+    </ul>
+    <div class="chart-wrap chart-wrap--after">
+      <IntervalScoreboard />
+    </div>
+    <p class="honest-note">
+      The Checker Scripts still make the call. The model has not yet met the targets we set for a full release ({model.run2.targets}), which
+      is why it is In Training.
+    </p>
+  </section>
+
+  <!-- See it run -->
+  <section class="container section" aria-labelledby="run-title">
+    <h2 class="section-title" id="run-title">See it run</h2>
+    <p class="section-lede">Real screenshots from the Dell: the model reading a plugin and writing its review, on the laptop&rsquo;s own CPU.</p>
+    <div class="shot-grid shot-grid--run">
+      {METHODOLOGY.screenshots.map((figure, index) => <Screenshot figure={figure} eager={index === 0} />)}
+    </div>
+    <p class="chart__note chart__note--center shot-note">{METHODOLOGY.screenshotsNote}</p>
+  </section>
+
+  <!-- Claims -->
+  <section class="container section" aria-labelledby="claims-title">
+    <h2 class="section-title" id="claims-title">What we&rsquo;re releasing, and what we&rsquo;re not claiming</h2>
+    <ul class="card-grid claims-grid">
+      <li class="card">
+        <span class="badge badge--now">Releasing</span>
+        <h3>The part that works, and the part that&rsquo;s learning</h3>
+        <ul>
+          <li>The Usuba Checker Scripts and Usuba Standard v{scripts.standardVersion}, MIT.</li>
+          <li>
+            Usuba run 2, In Training: the adapter and a {model.run2.gguf} file, Apache-2.0, on <a href={SITE.adaptersHref}>Hugging Face</a>.
+          </li>
+          <li>The training data, the exam outputs and how to reproduce them, on <a href={SITE.datasetHref}>Hugging Face</a>.</li>
+        </ul>
+      </li>
+      <li class="card">
+        <span class="badge badge--training">Not claiming</span>
+        <h3>The limits, plainly</h3>
+        <ul>
+          <li>That the model makes better calls than the scripts, or better overall verdicts than its base. It doesn&rsquo;t, yet.</li>
+          <li>That better format is better judgment.</li>
+          {model.run2.gaps.map((gap) => <li>{gap}</li>)}
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <!-- What it took -->
+  <section class="container container--narrow section" aria-labelledby="cost-title">
+    <h2 class="section-title" id="cost-title">What it took</h2>
+    <div class="box box--left">
+      <p><strong>Money.</strong> {METHODOLOGY.spend.confirmed} {METHODOLOGY.spend.provisional}</p>
+      <p>
+        <strong>Mostly, time.</strong> Calibrating a grader against a real laptop, sweeping thousands of plugins, chasing bugs through
+        git histories, building a training set with a source on every row. Very little of it was GPUs.
+      </p>
+      <p>
+        <strong>Why we tried.</strong> Coinbase post-trained the same base model, Qwen3.5 9B, for one specialised job, and that is what
+        prompted this project. Coinbase is not a sponsor. Separately, Brian Armstrong personally gave $1 million to the Omacom Foundation.
+      </p>
+    </div>
+    <h3 class="subsection-title subsection-title--spaced">What we&rsquo;d tell anyone trying this</h3>
+    <ul class="lesson-list">
+      {METHODOLOGY.lessons.map((lesson) => <li>{lesson}</li>)}
+    </ul>
+  </section>
+
+  <!-- Help -->
+  <section class="container container--narrow section" aria-labelledby="help-title">
+    <h2 class="section-title" id="help-title">Help us</h2>
+    <Callout kind="tip" title="Most useful">
+      A plugin the Checker Scripts got wrong on your machine, especially one that loads fine and breaks when you click it.
+    </Callout>
+    <ul class="help-list">
+      <li><strong>Plugin authors:</strong> run the scripts on your plugins and report false passes and false fails.</li>
+      <li><strong>Omarchy maintainers:</strong> check the rules against your intent, and tell us when a release changes what works.</li>
+      <li><strong>Anyone:</strong> labelled bugs and false alarms from real plugins, and evaluation time for the next run.</li>
+    </ul>
+    <div class="btn-row">
+      <Button href={`${SITE.scriptsRepoHref}/issues`} external>Report a plugin</Button>
+      <Button href={SITE.modelsRepoHref} variant="info" external>The model repo</Button>
+    </div>
+  </section>
+
+  <!-- Source charts -->
+  <section class="container section" aria-labelledby="source-title">
+    <h2 class="section-title" id="source-title">The original charts</h2>
+    <p class="section-lede">
+      The charts above are redrawn from the same data. These are the originals from the research repo, with their footnotes.
+    </p>
+    <div class="shot-grid shot-grid--2">
+      {METHODOLOGY.sourceCharts.map((figure) => <Screenshot figure={figure} />)}
+    </div>
+  </section>
+
+  <section class="container section" aria-label="Get started">
+    <CtaBand />
+  </section>
+</Base>

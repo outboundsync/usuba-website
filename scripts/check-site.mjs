@@ -93,6 +93,7 @@ if (!homepageMarkdown.includes('canonical: "https://usuba.dev/"')) fail('content
 // ---- 3. Fonts are self-hosted (never Google Fonts) ----
 const allFiles = await walk(dist);
 const textFiles = allFiles.filter((file) => /\.(html|css|js|txt|xml|json)$/.test(file));
+const htmlFiles = allFiles.filter((file) => file.endsWith('.html'));
 for (const file of textFiles) {
   const body = await readFile(file, 'utf8');
   if (/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(body)) {
@@ -111,19 +112,21 @@ const homepageChecks = [
   ['The Usuba Checker Scripts are available now. The Usuba Checker Model is in training.', 'homepage must keep the hero status pill copy'],
   ["let's check!", 'homepage must inline the hero mascot so the bubble uses the brand font'],
   ['badge--now', 'homepage must show the Available now badge'],
-  ['badge--training', 'homepage must show the In training badge'],
+  ['badge--training', 'homepage must show the In Training badge'],
   ['Usuba is a local model trained on, and built for, Omarchy.', 'homepage must keep the hero headline'],
   ['AI can struggle building Omarchy plugins', 'homepage must keep the problem heading'],
-  ['Working plugins out of 49', 'homepage must keep the benchmark chart caption'],
+  ['Plugins passing checks, out of 49', 'homepage must keep the benchmark chart caption'],
   ['outcome-chart', 'homepage must render the outcome chart'],
-  ['no published model results yet.', 'homepage must keep the model honest note'],
+  ['The Checker Scripts still make the call.', 'homepage must keep the model honest note'],
+  ['In Training', 'homepage must label the model In Training'],
+  ['href="/methodology/', 'homepage must link the methodology page'],
   ['data-copy-output', 'homepage must offer the code-window copy button'],
   ['Built for Omarchy plugin builders', 'homepage must keep the closing CTA band'],
   ['data-theme-switch', 'homepage must show the light / dark / system switcher'],
   ['usuba-theme', 'homepage must ship the pre-paint theme script'],
   ['Sponsored by OutboundSync', 'homepage must keep the sponsor line'],
   ['Created by Harris Kenny', 'homepage must keep the author line'],
-  ['open source (MIT)', 'homepage must state the licence'],
+  ['open source (MIT for the code, Apache-2.0 for the model weights)', 'homepage must state the licences'],
   ['Preliminary results, October 2026.', 'preliminary numbers must carry their label'],
   ['the trusty knife for the omakase chef', 'homepage must explain where the name comes from'],
   ['This website is hosted by Cloudflare', 'homepage must credit Cloudflare for hosting'],
@@ -145,6 +148,26 @@ if (/btn--(?:primary|secondary|highlight)\b/.test(homepage)) {
 }
 if (homepage.includes('starlight-theme-select')) fail('docs must keep the empty ThemeSelect override');
 
+// ---- 4b. Methodology page: the long-form account of the work ----
+const methodology = await mustExist('methodology/index.html');
+const methodologyChecks = [
+  ['How Usuba was built and tested', 'methodology page must keep its headline'],
+  ['Preliminary results, October 2026.', 'methodology numbers must carry the preliminary label'],
+  ['In Training', 'methodology page must label the model In Training'],
+  ['The Checker Scripts still make the call.', 'methodology page must say who makes the call'],
+  ['has not yet met', 'methodology page must say the model has not met its full-release targets'],
+  ['Usuba run 1', 'the review screenshots must say they show run 1'],
+  ['checker-review-3-verdict', 'methodology page must show the real review screenshots'],
+  ['interval-board', 'methodology page must render the Dell 75 scoreboard'],
+  ['paired-metrics', 'methodology page must render run 2 against its base'],
+];
+for (const [needle, message] of methodologyChecks) {
+  if (!methodology.includes(needle)) fail(message);
+}
+if ((methodology.match(/usu-chan-/g) ?? []).length > 3) fail('methodology page: mascots are for punctuation, keep to three at most');
+const standard = await mustExist('docs/standard/index.html');
+if (!standard.includes('Usuba Standard v0.2')) fail('the Standard page must name its version, v0.2');
+
 // ---- 5. 404 ----
 const notFound = await mustExist('404.html');
 if (!notFound.includes('This page wandered off')) fail('404 must use the approved heading');
@@ -159,6 +182,10 @@ const banned = [
   [/\bbitter\b/i, 'the word "bitter" must never appear'],
   [/\bbeats (?:the |all |every |frontier)/i, 'never claim the model beats frontier models'],
   [/\bstate-of-the-art\b/i, 'no hype adjectives'],
+  [/\boutperform/i, 'never claim the model outperforms anything; show the measured numbers'],
+  [/\bUsuba v2\b/, '"Run 2" is never "Usuba v2"; say "Usuba run 2"'],
+  [/\b(?:Oct(?:ober)?\.? 19|2026-10-19)\b/, 'no release or announcement dates on the site'],
+  [/no published model results/i, 'model results are published now; this line is stale'],
 ];
 for (const [pattern, message] of banned) {
   if (pattern.test(corpus)) fail(message);
@@ -171,8 +198,12 @@ if (/\bthe Checker\b(?!\s*(?:Scripts|Model))/.test(corpus))
   fail('never use bare "the Checker"; say "the Checker Scripts" or "the Checker Model"');
 if (/\bBuilder\b/.test(corpus)) fail('the Usuba Builder Model must not appear on the site yet');
 if (/writes Omarchy plugins and reviews them/i.test(corpus)) fail('the Checker Model does not write plugins; keep the two jobs apart');
-if (/\bmodel results (?:are|were)\b(?![^.]*\bno\b)/i.test(corpus) && !/no model results exist yet/i.test(corpus)) {
-  fail('no model performance numbers exist yet; do not imply any');
+// Model numbers are allowed only with their label: every page that shows run 2's numbers carries the preliminary label.
+for (const file of htmlFiles) {
+  const body = await readFile(file, 'utf8');
+  if (/Usuba run 2/.test(body) && /\b0\.\d{2,3}\b/.test(body) && !body.includes('Preliminary')) {
+    fail(`${path.relative(dist, file)} shows model numbers without the preliminary label`);
+  }
 }
 
 // ---- 7. Tokens only: no raw hex outside tokens.css ----

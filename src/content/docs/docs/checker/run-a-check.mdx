@@ -1,6 +1,6 @@
 ---
 title: Run a check
-description: Point the Usuba Checker Scripts at an Omarchy plugin and read what they report.
+description: Point the Usuba Checker Scripts at an Omarchy plugin and read what they report. Real command, real output.
 ---
 
 import Callout from '../../../../components/Callout.astro';
@@ -11,32 +11,42 @@ Run the Checker Scripts on a plugin before you share it. The feedback is the poi
 
 ## Check a plugin
 
+From the repo, point the script at a plugin folder (the one with `manifest.json`):
+
 ```bash
-# [TBD: real command and flags]
-usuba check ./dropbox-widget
+python3 functest/functest.py path/to/your-plugin --reasons
 ```
+
+| Flag | What it does |
+|------|--------------|
+| `--reasons` | `PASS` or `FAIL`, then one line per rule hit. Without it you get the full JSON report. |
+| `--static` | Static checks only, even where the runtime build exists. |
+| `--require-runtime` | Stop with an error if the runtime stage can't start, instead of skipping it. |
+
+The exit code is 0 whether the plugin passes or fails, so read the first line (or the `pass` field in the JSON). An exit code of
+2 means the command was used wrong.
 
 ## What the Checker Scripts do with it
 
-1. They read the plugin's code and flag invented APIs, missing helper scripts, made-up command flags and fake data.
-2. They load the plugin in a real Omarchy shell and catch load errors and crashes.
+1. They read the plugin's code against [Usuba Standard v0.2](/docs/standard/) and flag invented APIs, missing programs and
+   helper scripts, made-up command flags and fake data.
+2. On the reference build, they load the plugin in a real Omarchy shell and catch load errors, crashes and panels that draw
+   nothing.
 3. They report every problem with a rule id, a plain reason and a fix hint.
 
-<Callout kind="warn" title="Heads up">
-The sample output is illustrative: the exact command and wording are `[TBD]` until the Checker Scripts ship. The rule ids are
-real, and come from [Usuba Standard v0.1](/docs/standard/).
-</Callout>
+## Real output
+
+This is a small "now playing" bar widget with two classic mistakes, checked on a Mac:
 
 ```
-$ usuba check ./dropbox-widget
-✗ USB-H02   Shows storage numbers, but Dropbox isn't installed.
-  fix: detect Dropbox first, and show an empty state without it.
-✗ USB-B02   Calls xdotool, which doesn't exist on Omarchy.
-  fix: use hyprctl for window info instead.
-⚠ USB-S01   Writes outside the plugin directory (~/.cache/dropbox-widget). Review it.
-
-2 problems, 1 warning
+$ python3 functest/functest.py now-playing --reasons
+FAIL (static checks only: runtime skipped, the runtime stage needs Linux, this is darwin)
+  [USB-B05] Widget.qml: runs `playerctl` - not an Omarchy/system binary on the Dell and not shipped by the plugin. Fix: use an installed program or ship/document it
+  [USB-A04] Widget.qml: line 19: `p.start()` - `Process` has no method `start`. Fix: set `running = true` to start a Process (there is no start())
 ```
+
+`playerctl` isn't on a stock Omarchy install, and a Quickshell `Process` starts when you set `running = true`; there is no
+`start()`. Both are mistakes models make often.
 
 ## Next
 

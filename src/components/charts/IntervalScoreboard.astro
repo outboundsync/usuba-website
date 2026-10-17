@@ -1,0 +1,89 @@
+---
+import { preliminaryLabel, RESULTS, rate } from '../../data/results';
+
+/**
+ * The Dell 75 scoreboard: one row per system, a dot for the score and a pill for its
+ * 95% interval, on a 0 to 1 track. The always-"broken" baseline is a dashed line.
+ * Every row prints its number and interval, so the colours (kind of system) never
+ * carry meaning alone; the legend names them too.
+ */
+const { scoreboard } = RESULTS;
+const label = preliminaryLabel(RESULTS.model.final);
+const pct = (value: number) => `${(value * 100).toFixed(1)}%`;
+const KINDS = [
+  { key: 'scripts', label: 'The Checker Scripts, no model' },
+  { key: 'usuba', label: 'Usuba run 2' },
+  { key: 'base', label: 'Its stock base' },
+  { key: 'peer', label: 'Other open models' },
+] as const;
+const ticks = [0, 0.25, 0.5, 0.75, 1];
+---
+
+<figure class="chart interval-board">
+  <figcaption class="chart__caption">
+    <span class="chart__title">{scoreboard.caption}</span>
+    <span class="chart__subtitle">
+      Higher is better. {label}
+    </span>
+  </figcaption>
+
+  <ol class="interval-rows">
+    {
+      scoreboard.rows.map((row) => {
+        const { value, low, high } = row.score;
+        return (
+          <li class={`interval-row interval-row--${row.kind}`}>
+            <span class="interval-row__label">{row.name}</span>
+            <span class="interval-row__track" aria-hidden="true">
+              {ticks.map((tick) => (
+                <span class="interval-tick" style={`left: ${pct(tick)}`} />
+              ))}
+              <span class="interval-base" style={`left: ${pct(scoreboard.baseline.value)}`} />
+              {low !== null && high !== null && <span class="interval-span" style={`left: ${pct(low)}; width: ${pct(high - low)}`} />}
+              <span class="interval-dot" style={`left: ${pct(value)}`} />
+            </span>
+            <span class="interval-row__value">
+              <strong>{rate(value, row.kind === 'scripts' ? 3 : 2)}</strong>
+              {low !== null && high !== null && (
+                <span class="interval-row__ci">
+                  {' '}
+                  {rate(low, row.kind === 'scripts' ? 3 : 2)}–{rate(high, row.kind === 'scripts' ? 3 : 2)}
+                </span>
+              )}
+            </span>
+          </li>
+        );
+      })
+    }
+  </ol>
+
+  <div class="interval-axis" aria-hidden="true">
+    <span class="interval-row__label" />
+    <span class="interval-axis__track">
+      {
+        ticks.map((tick) => (
+          <span class="interval-axis__tick" style={`left: ${pct(tick)}`}>
+            {tick}
+          </span>
+        ))
+      }
+    </span>
+    <span class="interval-row__value" />
+  </div>
+
+  <ul class="chart-legend">
+    {
+      KINDS.map((kind) => (
+        <li>
+          <span class={`chart-legend__swatch interval-row--${kind.key}`} aria-hidden="true" />
+          {kind.label}
+        </li>
+      ))
+    }
+    <li>
+      <span class="chart-legend__dash" aria-hidden="true" />
+      {scoreboard.baseline.name}: {scoreboard.baseline.value}
+    </li>
+  </ul>
+  <p class="chart__note">{scoreboard.note}</p>
+</figure>

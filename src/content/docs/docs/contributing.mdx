@@ -1,26 +1,33 @@
 ---
 title: Contributing
-description: How to contribute to the Usuba Checker Scripts, the standard and the Checker Model.
+description: How to contribute to the Usuba Checker Scripts, the Usuba Standard and the Usuba Checker Model. Where the code and weights live, and their licences.
 ---
 
-import Callout from '../../../components/Callout.astro';
+## Where everything lives
 
-<Callout kind="warn" title="Placeholders">
-The repository URL, licence and the contribution process are `[TBD]` — `BRIEF.md` open question 9.
-</Callout>
+| What | Where | Licence |
+|------|-------|---------|
+| Usuba Checker Scripts and the Usuba Standard | [outboundsync/usuba-checker-scripts](https://github.com/outboundsync/usuba-checker-scripts) | MIT |
+| Model training code, data policy, exam results | [outboundsync/usuba-checker-models](https://github.com/outboundsync/usuba-checker-models) | MIT |
+| Model weights: the run 2 adapter and its 4-bit file | [osiharris/usuba-checker-adapters](https://huggingface.co/osiharris/usuba-checker-adapters) | Apache-2.0, matching Qwen |
+| Training data, eval outputs, `REPRODUCE.md` | [osiharris/usuba-checker-data](https://huggingface.co/datasets/osiharris/usuba-checker-data) | Each row keeps its source licence |
+| This website | Private repo | MIT |
 
-## Where the code lives
-
-- Repository: `[TBD: repo URL]`.
-- Licences: `[TBD: Checker Scripts, standard and model weights]`.
-- Where model weights will be published: `[TBD]`.
+Copyright 2026 OutboundSync. Third-party material keeps its own licence: the Omarchy reference tree in the scripts repo is MIT,
+from basecamp/omarchy. The fonts on this site are OFL 1.1.
 
 ## How to help
 
-1. **Report a plugin the Checker Scripts get wrong.** A mismatch against real Omarchy hardware is the most useful bug report we
-   get.
-2. **Propose a rule.** The standard is the Checker Scripts' contract; new rules need a reason, a failing example and a fix.
-3. **Sweep plugins.** The Usuba Checker Model is trained on Omarchy plugins verified with the Checker Scripts.
+1. **Report a plugin the Checker Scripts get wrong.** A false pass or a false fail against real Omarchy hardware is the most useful
+   bug report we get, especially a plugin that loads fine and breaks in use.
+   [Open an issue](https://github.com/outboundsync/usuba-checker-scripts/issues).
+2. **Propose a rule.** The standard is the Checker Scripts' contract; a new rule needs a reason, a failing example and a fix.
+3. **Help the model.** Labelled in-use bugs and false alarms from real plugins, reports of where the model and the scripts disagree
+   with your machine, and evaluation time for the next run. [Open an issue](https://github.com/outboundsync/usuba-checker-models/issues).
+4. **Omarchy maintainers:** tell us when a release will change what "working" means, and review the rules against your intent for
+   the plugin contract.
+
+Feedback and changes are welcome as GitHub issues or pull requests. We are not asking for donations.
 
 ## Style
 

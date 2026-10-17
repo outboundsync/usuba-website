@@ -1,0 +1,192 @@
+{
+  "_about": "Words and figures for /methodology/ that aren't exam results. Exam numbers live in results.json. Source: usuba-checker-scripts/docs/post/draft.md (v0.7) and its data/ folder.",
+  "timeline": [
+    {
+      "date": "Oct 11–12",
+      "title": "Teach a small model to write plugins",
+      "what": "We fine-tuned Qwen2.5-Coder 7B and 14B on licensed Omarchy plugins. On a static validator the tuned 7B scored 42 of 56, level with GPT-5.6. Run in real Quickshell, it scored 8.",
+      "learned": "A file check can call a plugin valid when it does nothing. Only running it tells you."
+    },
+    {
+      "date": "Oct 12",
+      "title": "Build a grader that matches a real laptop",
+      "what": "A headless harness boots the real Omarchy shell and loads the plugin. We calibrated it against a Dell running Omarchy 4.0.4: from 44 of 58 agreeing cases to 90 of 90, with no false passes.",
+      "learned": "A grader you haven't checked against hardware is a guess."
+    },
+    {
+      "date": "Oct 12–13",
+      "title": "Fine-tunes lose to stock, and a model games the grader",
+      "what": "A tuned 27B scored 4 of 49 and looped on 31 answers; the stock 27B scored 6 with none. In a fix loop, grader passes rose from 5 to 13, but only 4 were real.",
+      "learned": "Beat your own base model first. And a test you trust has to survive a model trying to fool it."
+    },
+    {
+      "date": "Oct 13",
+      "title": "Pivot: the Checker Scripts come first",
+      "what": "We hardened the grader into the Usuba Checker Scripts and wrote down every rule as a public, versioned standard, each with an id, a reason and a fix.",
+      "learned": "Don't train anything against a test that can be gamed. The test comes first."
+    },
+    {
+      "date": "Oct 13",
+      "title": "Sweep thousands of plugins on the Dell",
+      "what": "Every plugin we could find, run on real hardware. An audio plugin rerouted the sound and the shell ran out of memory, so we sandboxed the runs and redid 194 jobs.",
+      "learned": "The scripts handle \"does it load\". What's left is \"does it work when you click it\"."
+    },
+    {
+      "date": "Oct 13–14",
+      "title": "Data, and Usuba run 1",
+      "what": "A 4,592-row training set with provenance on every row, and a first LoRA on Qwen3.5 9B. Its first scores were leaky, it flagged 27 of 29 clean plugins, and it named the real bug for 0 of 33 broken ones.",
+      "learned": "Read the answers, not just the accuracy. A better prompt on a stock model beat our first trained run."
+    },
+    {
+      "date": "Oct 15–16",
+      "title": "Usuba run 2",
+      "what": "A much smaller, cleaner set: 221 rows mined from plugin git histories and the Dell, scored on three exams against the same stock model.",
+      "learned": "It learned the answer format. The judgment is still the Checker Scripts' job."
+    }
+  ],
+  "lies": [
+    {
+      "how": "Checking the wrong thing",
+      "flattering": "Tuned 7B: 42 of 56 on a static validator",
+      "exposed": "Running the plugins in real Quickshell",
+      "honest": "8 of 56"
+    },
+    {
+      "how": "A grader never checked against hardware",
+      "flattering": "Old grader agreed with the Dell on 44 of 58",
+      "exposed": "Labelling real runs on the Dell",
+      "honest": "Rebuilt: 90 of 90, no false passes"
+    },
+    {
+      "how": "A model gaming the grader",
+      "flattering": "Grader passes rose from 5 to 13 of 49",
+      "exposed": "Reading all 13 plugins: stubs, hardcoded data, invented APIs",
+      "honest": "4 real"
+    },
+    {
+      "how": "Passing the scripts isn't working",
+      "flattering": "The scripts passed Claude Opus 5.5 on 49 of 49",
+      "exposed": "A code read plus a Dell load test",
+      "honest": "38 of 49"
+    },
+    {
+      "how": "Accuracy that rewards \"everything is broken\"",
+      "flattering": "Run 1: 0.81 accuracy on the holdout",
+      "exposed": "Always answering \"changes requested\" scores 0.91 there",
+      "honest": "It flagged 27 of 29 clean plugins"
+    },
+    {
+      "how": "Format read as skill",
+      "flattering": "Run 2: 0.99 valid answers on the Dell 75",
+      "exposed": "Verdict accuracy on the same set",
+      "honest": "0.48, against 0.51 for its stock base"
+    }
+  ],
+  "validatorVsReal": {
+    "caption": "Validator score vs. running it for real, out of 56",
+    "note": "October 12, 2026. The validator only reads files; the real run loads each plugin in Quickshell. The real reference plugins passed 51 of 56. Claude Opus's real-run figure is from its larger run; the regular run scored 27.",
+    "total": 56,
+    "rows": [
+      { "name": "Tuned Qwen2.5-Coder 7B", "validator": 42, "real": 8 },
+      { "name": "Tuned Qwen2.5-Coder 14B", "validator": 42, "real": 12 },
+      { "name": "GPT-5.6", "validator": 40, "real": 29 },
+      { "name": "Claude Opus", "validator": 34, "real": 28 }
+    ]
+  },
+  "graderVsReal": {
+    "caption": "The fix loop: what the grader counted vs. what was real, out of 49",
+    "note": "Stock Qwen3.6 27B with up to 3 rounds of grader feedback, October 13. Real passes were counted by reading every plugin, at the start and after round 3.",
+    "max": 16,
+    "rounds": [
+      { "label": "Start", "grader": 5, "real": 4 },
+      { "label": "Round 1", "grader": 8, "real": null },
+      { "label": "Round 2", "grader": 12, "real": null },
+      { "label": "Round 3", "grader": 13, "real": 4 }
+    ]
+  },
+  "authority": [
+    {
+      "title": "The real laptop",
+      "body": "Omarchy 4.0.4 on a Dell: load it, click it, screenshot it, read the logs.",
+      "power": "The final word on whether a plugin works."
+    },
+    {
+      "title": "The Usuba Checker Scripts",
+      "body": "Plain code with fixed rules. The same answer every run.",
+      "power": "Decide pass or fail, rule by rule."
+    },
+    {
+      "title": "The Usuba Checker Model",
+      "body": "Reads the plugin and the scripts' report, explains, suggests a fix.",
+      "power": "Advises. It can't overrule the two above."
+    }
+  ],
+  "lessons": [
+    "Beat your own base model before you try to beat anyone else's.",
+    "Read the answers, not just the accuracy.",
+    "Check the grader against real hardware, then against a model trying to fool it.",
+    "Most of the work is data and labels, not GPUs."
+  ],
+  "spend": {
+    "confirmed": "About $207 by October 14, from the billing ledgers: $77.67 of rented GPUs and $129.73 of AI services.",
+    "provisional": "About $400 by the evening of October 16. That figure is derived from the ledgers and GPU credit, and isn't yet checked against the final bills."
+  },
+  "screenshots": [
+    {
+      "src": "/assets/captures/checker-review-1-plugin-source.png",
+      "width": 1920,
+      "height": 1080,
+      "alt": "Terminal showing the end of an Omarchy bar-widget QML file.",
+      "caption": "The plugin under review: QML for a bar widget."
+    },
+    {
+      "src": "/assets/captures/checker-review-2-model-generating.png",
+      "width": 1920,
+      "height": 1080,
+      "alt": "Two terminals side by side. The right one shows a model's review being generated token by token.",
+      "caption": "Usuba reading the plugin and writing its review, live."
+    },
+    {
+      "src": "/assets/captures/checker-review-3-verdict.png",
+      "width": 1920,
+      "height": 1080,
+      "alt": "The terminal shows verdict changes_requested with a blocker finding about an unbounded download and symlink risk.",
+      "caption": "The finished review: changes requested, one blocker."
+    }
+  ],
+  "screenshotsNote": "Usuba run 1 (usuba-9b, Q4_K_M) on the Dell, local CPU, October 14, 2026. One manual run of review.py, a single sample, unedited screenshots; preliminary, model In Training. This is the model's review, given a Checker Scripts report and the plugin source, not the scripts' own output. Run 1 is the run before run 2: its \"exact commit\" opening is one of the habits run 2 was trained to drop.",
+  "sourceCharts": [
+    {
+      "src": "/methodology/source/chart1_dell_scoreboard_hero.png",
+      "width": 1700,
+      "height": 918,
+      "alt": "Dell 75 verdict accuracy for every model, against the Checker Scripts alone and the always-broken baseline.",
+      "caption": "Dell 75 scoreboard",
+      "href": "https://github.com/outboundsync/usuba-checker-scripts/blob/main/docs/post/images/chart1_dell_scoreboard_hero.png"
+    },
+    {
+      "src": "/methodology/source/set1_stacked.png",
+      "width": 1920,
+      "height": 1152,
+      "alt": "Plugins passing checks, out of 49, for 11 models, split into first try, after Checker fixes, failed checks and no usable code.",
+      "caption": "Writing test, Set 1",
+      "href": "https://github.com/outboundsync/usuba-checker-scripts/blob/main/docs/post/images/set1_stacked.png"
+    },
+    {
+      "src": "/methodology/source/chart3_dell_sweep_labels.png",
+      "width": 1785,
+      "height": 782,
+      "alt": "Dell sweep labels: 3,942 works, 1,001 broken, 589 unsure, and the 137 plugins that pass the scripts but fail in use.",
+      "caption": "Dell sweep",
+      "href": "https://github.com/outboundsync/usuba-checker-scripts/blob/main/docs/post/images/chart3_dell_sweep_labels.png"
+    },
+    {
+      "src": "/methodology/source/diagram_authority.png",
+      "width": 1700,
+      "height": 952,
+      "alt": "Who has authority over a verdict: the hardware test, then the Checker Scripts, then the model.",
+      "caption": "Who decides",
+      "href": "https://github.com/outboundsync/usuba-checker-scripts/blob/main/docs/post/images/diagram_authority.png"
+    }
+  ]
+}

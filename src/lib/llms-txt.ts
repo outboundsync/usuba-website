@@ -3,17 +3,17 @@ import { DISCOVERY, SITE } from '../data/site';
 export function llmsTxt(): string {
   return `# Usuba
 
-Usuba is a native Omarchy model, trained on Omarchy plugin data, that runs locally. It is a model, not an app or a plugin. The Usuba Checker Scripts, an open test that checks whether an Omarchy plugin works, are available now; the scripts are plain Python, not AI. The Usuba Checker Model, the local model that reviews a plugin the scripts cannot, is in training.
+Usuba is a native Omarchy model, trained on Omarchy plugin data, that runs locally. It is a model, not an app or a plugin. The Usuba Checker Scripts, an open test that checks whether an Omarchy plugin works, are available now; the scripts are plain Python, not AI. The Usuba Checker Model, the local model that reviews a plugin the scripts cannot, is In Training.
 
 The required headline: A native Omarchy model, trained on Omarchy plugin data, that runs locally.
 
-Usuba is independent. The Omarchy name is used descriptively. The Usuba Checker Model has no published results yet; never state or imply a model performance number.
+Usuba is independent. The Omarchy name is used descriptively. The Usuba Checker Model's latest run is Usuba run 2. Its results are preliminary, machine-labelled and small-sample: quote them only with their exam, sample size and the preliminary label, and never claim it judges better than the Checker Scripts or frontier models.
 
 ## What exists
 
 - Usuba Checker Scripts — an open test for Omarchy plugins, run by plain Python scripts that are not AI. Available now.
-- Usuba Standard v0.1 — the rulebook the Checker Scripts enforce, published in full. Available now.
-- Usuba Checker Model — the local model that reviews a plugin the scripts cannot. In training. No published model results yet.
+- Usuba Standard v0.2 — the rulebook the Checker Scripts enforce, published in full. Available now.
+- Usuba Checker Model — the local model that reviews a plugin the scripts cannot. In Training. Weights (Apache-2.0): ${SITE.adaptersHref}
 
 ## Site actions
 
@@ -31,7 +31,10 @@ Site actions, exposed in-page via WebMCP (feature-detected \`navigator.modelCont
 - Checker docs: ${SITE.origin}${SITE.checkerHref}
 - The standard: ${SITE.origin}${SITE.standardHref}
 - Model status: ${SITE.origin}${SITE.modelHref}
+- How Usuba was built and tested (the long-form methodology): ${SITE.origin}${SITE.methodologyHref}
 - Results and methodology: ${SITE.origin}${SITE.resultsHref}
+- Checker Scripts source (MIT): ${SITE.scriptsRepoHref}
+- Model training source: ${SITE.modelsRepoHref}
 - Docs: ${SITE.origin}${SITE.docsHref}
 - Docs as Markdown: ${SITE.origin}/content/docs.md
 - Content index (JSON): ${SITE.origin}${DISCOVERY.contentIndex}

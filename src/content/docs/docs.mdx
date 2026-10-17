@@ -1,6 +1,6 @@
 ---
 title: What Usuba is
-description: Usuba is two parts. The Usuba Checker Scripts, plain-Python tests for an Omarchy plugin, are available now. The Usuba Checker Model, the local model that reviews a plugin, is in training.
+description: Usuba is two parts. The Usuba Checker Scripts, plain-Python tests for an Omarchy plugin, are available now. The Usuba Checker Model, the local model that reviews a plugin, is In Training.
 ---
 
 Usuba is two parts, and they do different jobs. This page is the map of both.
@@ -8,15 +8,15 @@ Usuba is two parts, and they do different jobs. This page is the map of both.
 - **Usuba Checker Scripts** — the tests. Plain Python, not AI. They load an Omarchy plugin in a real Omarchy environment, run rule
   checks over its code, and report what is wrong and how to fix it. **Available now.**
 - **Usuba Checker Model** — the reviewer. A small AI model, trained only on Omarchy plugin data, that runs free on your own laptop.
-  It is built to review a plugin the way an experienced Omarchy reviewer would. **In training.**
+  It is built to review a plugin the way an experienced Omarchy reviewer would. **In Training.**
 
 ## The names
 
 | Name | What it is | Status |
 |------|------------|--------|
 | **Usuba Checker Scripts** | The tests that check a plugin | **Available now** |
-| **Usuba Standard v0.1** | The rulebook the scripts enforce | **Available now** |
-| **Usuba Checker Model** | The model that reviews a plugin | **In training** |
+| **Usuba Standard v0.2** | The rulebook the scripts enforce | **Available now** |
+| **Usuba Checker Model** | The model that reviews a plugin | **In Training** |
 
 ## Start with the Checker Scripts
 
@@ -25,11 +25,11 @@ They run today, on your own machine, for free.
 - [Install](/docs/checker/install/) — get the Checker Scripts onto your machine.
 - [Run a check](/docs/checker/run-a-check/) — check a plugin and read the output.
 - [Reading results](/docs/checker/reading-results/) — rule ids, warnings, and what a failure means.
-- [Usuba Standard v0.1](/docs/standard/) — the rulebook behind every result, with a rule id, a level and a fix for every
+- [Usuba Standard v0.2](/docs/standard/) — the rulebook behind every result, with a rule id, a level and a fix for every
   failure. It is the document you check the Checker Scripts against.
 
 ## The model
 
-The Usuba Checker Model is in training. There are no published model results yet. See [Model status](/docs/model/) and
-[Results and methodology](/docs/results/).
+The Usuba Checker Model is In Training. Its latest run, Usuba run 2, has preliminary results: see [Model status](/docs/model/),
+[Results and methodology](/docs/results/), and the long-form account, [How Usuba was built and tested](/methodology/).
 

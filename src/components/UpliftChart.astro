@@ -19,7 +19,7 @@ for (let i = 0; i <= total; i += 7) ticks.push(i);
 
 <figure class="chart uplift-chart">
   <figcaption class="chart__caption">
-    First try vs. after up to {benchmark.rounds} rounds of the scripts&rsquo; feedback, out of {total}
+    Passing on the first try vs. after up to {benchmark.rounds} rounds of Checker fixes, out of {total}
     {label && <span class="chart__preliminary"> · {label}</span>}
   </figcaption>
 
@@ -39,7 +39,7 @@ for (let i = 0; i <= total; i += 7) ticks.push(i);
             <span class="uplift-dot uplift-dot--first" style={`left: ${pct(model.firstTry)}`} aria-hidden="true" />
             <span class="uplift-dot uplift-dot--after" style={`left: ${pct(model.afterFixes)}`} aria-hidden="true" />
             <span class="visually-hidden">
-              {`${model.firstTry} of ${total} on the first try, ${model.afterFixes} after the scripts' feedback`}
+              {`${model.firstTry} of ${total} on the first try, ${model.afterFixes} after Checker fixes`}
             </span>
           </span>
           <span class="uplift-row__value">
@@ -69,7 +69,7 @@ for (let i = 0; i <= total; i += 7) ticks.push(i);
       <span class="uplift-dot uplift-dot--first uplift-legend__dot" aria-hidden="true" /> first try
     </span>
     <span class="uplift-legend__item">
-      <span class="uplift-dot uplift-dot--after uplift-legend__dot" aria-hidden="true" /> after the scripts&rsquo; feedback
+      <span class="uplift-dot uplift-dot--after uplift-legend__dot" aria-hidden="true" /> after Checker fixes
     </span>
   </p>
 </figure>

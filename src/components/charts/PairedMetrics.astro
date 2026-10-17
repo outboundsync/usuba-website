@@ -1,0 +1,76 @@
+---
+import { preliminaryLabel, RESULTS, rate } from '../../data/results';
+
+/**
+ * Usuba run 2 against its stock base, metric by metric. Each metric gets a plain
+ * verdict word (better, on par, worse) worked out from the intervals, so a reader
+ * sees the false-alarm regression as clearly as the wins.
+ */
+const { comparison } = RESULTS.model;
+const label = preliminaryLabel(RESULTS.model.final);
+const pct = (value: number) => `${(value * 100).toFixed(1)}%`;
+const ticks = [0, 0.25, 0.5, 0.75, 1];
+const series = [
+  { key: 'run2', name: 'Usuba run 2' },
+  { key: 'stock', name: 'Stock Qwen3.5 9B' },
+] as const;
+---
+
+<figure class="chart paired-metrics" id="paired-metrics">
+  <figcaption class="chart__caption">
+    <span class="chart__title">{comparison.caption}</span>
+    <span class="chart__subtitle">Dots are scores, pills are 95% intervals. {label}</span>
+  </figcaption>
+
+  <ol class="paired-list">
+    {
+      comparison.metrics.map((metric) => (
+        <li class="paired">
+          <div class="paired__head">
+            <span class="paired__title">{metric.label}</span>
+            <span class="paired__meta">
+              {metric.exam}, n = {metric.n}, {metric.better} is better
+            </span>
+            <span class={`paired__read paired__read--${metric.read.replace(' ', '-')}`}>{metric.read}</span>
+          </div>
+          {series.map((s) => {
+            const m = metric[s.key];
+            return (
+              <div class={`paired__row paired__row--${s.key}`}>
+                <span class="paired__name">{s.name}</span>
+                <span class="paired__track" aria-hidden="true">
+                  {ticks.map((tick) => (
+                    <span class="interval-tick" style={`left: ${pct(tick)}`} />
+                  ))}
+                  {m.low !== null && m.high !== null && <span class="interval-span" style={`left: ${pct(m.low)}; width: ${pct(m.high - m.low)}`} />}
+                  <span class="interval-dot" style={`left: ${pct(m.value)}`} />
+                </span>
+                <span class="paired__value">
+                  <strong>{rate(m.value)}</strong>
+                  {m.low !== null && m.high !== null && <span class="interval-row__ci"> {rate(m.low)}–{rate(m.high)}</span>}
+                </span>
+              </div>
+            );
+          })}
+        </li>
+      ))
+    }
+  </ol>
+  <div class="interval-axis" aria-hidden="true">
+    <span class="paired__name" />
+    <span class="interval-axis__track">
+      {
+        ticks.map((tick) => (
+          <span class="interval-axis__tick" style={`left: ${pct(tick)}`}>
+            {tick}
+          </span>
+        ))
+      }
+    </span>
+    <span />
+  </div>
+  <p class="chart__note">
+    Machine-drafted labels, one shot, same prompt and scorer for both. Run 2 was scored as the bf16 merge; the 4-bit file has no exam
+    score yet.
+  </p>
+</figure>
