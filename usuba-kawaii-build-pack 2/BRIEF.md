@@ -52,7 +52,7 @@ With the Checker's feedback and another try, working plugins go up. Hand-checked
 
 ## Context
 
-- Inspired by Coinbase's work post-training Qwen3.5-9B on their own data to beat frontier models at a specialized task. **Coinbase is a sponsor.**
+- Inspired by Coinbase's work post-training Qwen3.5-9B with reinforcement learning on their own data for a specialized task. **Coinbase is not a sponsor**: credit it only as inspiration. Separately, Brian Armstrong personally donated $1M to the Omacom Foundation; state that only as a fact.
 - Long term, Usuba probably belongs as an Omacom project; maintaining the Checker and building a builder-grade model is ongoing work. **Internal context only; don't put this on the site until it's agreed.**
 
 ## Audience
@@ -63,7 +63,7 @@ Omarchy plugin builders, and anyone using AI to write Omarchy plugins. Assume th
 
 - Plain and honest. No hype.
 - Never use the word "bitter."
-- Never claim the Usuba model beats frontier models. Never state or imply model performance numbers.
+- Never claim the Usuba model beats frontier models or the Checker Scripts. Model numbers appear only as measured, with their exam, sample size, intervals and the preliminary label (updated Oct 17, 2026: run 2 results are published).
 - Never call Usuba an app, plugin or tool. The model is a model; the Checker is "an open test."
 - The Checker complements AI models; don't frame it as competing with them.
 - Mark preliminary numbers as preliminary wherever they appear.
@@ -78,7 +78,7 @@ Omarchy plugin builders, and anyone using AI to write Omarchy plugins. Assume th
 | 4 | Where the public standard lives and what it's called | It's a primary nav item and CTA |
 | 5 | How the 49 requests, the 90-plugin answer key and the 1,400+ sweep relate | Three different numbers will confuse readers without a methodology page |
 | 6 | Where the 27 human-written plugins came from | A 27/49 human score invites "is the test too strict?" One sentence of context prevents that |
-| 7 | Coinbase: approved credit wording, logo use, and a link to their Qwen post-training write-up | Sponsor and inspiration claims need their sign-off |
+| 7 | Coinbase: resolved Oct 17, 2026. Not a sponsor; credited only as inspiration | No logo, no sponsor claim |
 | 8 | Relationship to Omarchy / Omacom | Until agreed, describe Usuba as independent and use the Omarchy name only descriptively |
 | 9 | Licenses (Checker, standard, model weights), repo URL, and where weights will be published | Footer, docs and model page all depend on it |
 | 10 | Domain and hosting; mascot name (working name "Usu-chan"); dark mode at launch or later | Carried over from v1 |

@@ -31,6 +31,7 @@ export default defineConfig({
         '@fontsource/m-plus-1-code/latin-500.css',
         './src/styles/tokens.css',
         './src/styles/global.css',
+        './src/styles/charts.css',
         './src/styles/docs.css',
       ],
       components: {

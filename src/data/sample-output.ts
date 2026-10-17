@@ -1,6 +1,6 @@
-// The homepage's illustrative Checker output. The command and the wording are still
-// unconfirmed (BRIEF.md open question 3) and are labelled as illustrative on the page;
-// the rule ids are real, from Usuba Standard v0.1. Docs show real output only.
+// Real output from the Usuba Checker Scripts, verbatim: `functest.py --reasons` on a small, deliberately broken
+// "now playing" bar widget, run on a Mac (static checks only; the runtime stage needs the reference Linux build).
+// Long lines are wrapped onto their own `Fix:` line; the words are unchanged. Rule ids are from Usuba Standard v0.2.
 // Rendered as explicit lines because Astro collapses whitespace between elements,
 // which would run a <pre> block together.
 export type OutputTone = 'prompt' | 'fail' | 'warn' | 'hint';
@@ -11,12 +11,19 @@ export interface OutputPart {
 }
 
 export const SAMPLE_OUTPUT: OutputPart[][] = [
-  [{ tone: 'prompt', text: '$ ' }, { text: 'usuba check ./dropbox-widget' }],
-  [{ tone: 'fail', text: '✗ USB-H02' }, { text: '   Shows storage numbers, but Dropbox isn’t installed.' }],
-  [{ tone: 'hint', text: '  fix: detect Dropbox first, and show an empty state without it.' }],
-  [{ tone: 'fail', text: '✗ USB-B02' }, { text: '   Calls xdotool, which doesn’t exist on Omarchy.' }],
-  [{ tone: 'hint', text: '  fix: use hyprctl for window info instead.' }],
-  [{ tone: 'warn', text: '⚠ USB-S01' }, { text: '   Writes outside the plugin directory (~/.cache/dropbox-widget). Review it.' }],
-  [],
-  [{ text: '2 problems, 1 warning' }],
+  [{ tone: 'prompt', text: '$ ' }, { text: 'python3 functest/functest.py now-playing --reasons' }],
+  [{ tone: 'fail', text: 'FAIL' }, { text: ' (static checks only: runtime skipped,' }],
+  [{ text: '      the runtime stage needs Linux, this is darwin)' }],
+  [{ tone: 'fail', text: '  [USB-B05]' }, { text: ' Widget.qml: runs `playerctl` - not an' }],
+  [{ text: '      Omarchy/system binary on the Dell and not shipped' }],
+  [{ text: '      by the plugin.' }],
+  [{ tone: 'hint', text: '      Fix: use an installed program or ship/document it' }],
+  [{ tone: 'fail', text: '  [USB-A04]' }, { text: ' Widget.qml: line 19: `p.start()` -' }],
+  [{ text: '      `Process` has no method `start`.' }],
+  [{ tone: 'hint', text: '      Fix: set `running = true` to start a Process' }],
+  [{ tone: 'hint', text: '      (there is no start())' }],
 ];
+
+/** Where the output came from, shown under the window. */
+export const SAMPLE_OUTPUT_NOTE =
+  'Real output from the Usuba Checker Scripts on a deliberately broken test plugin. Static checks only, run on a Mac; long lines wrapped.';

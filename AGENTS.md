@@ -1,8 +1,8 @@
 # usuba-website
 
-Public website for **Usuba** (`usuba.dev` — `[TBD]`): a native Omarchy model, trained on Omarchy plugin data, that runs
+Public website for **Usuba** (`usuba.dev`, on Cloudflare): a native Omarchy model, trained on Omarchy plugin data, that runs
 locally. **Usuba is a model, not an app or a plugin.** The **Usuba Checker Scripts**, an open test for Omarchy plugins, are
-available now; the **Usuba Checker Model** is in training.
+available now; the **Usuba Checker Model** is In Training (latest run: Usuba run 2).
 
 The approved design direction, tokens, mascot assets and copy live in [`usuba-kawaii-build-pack 2/`](usuba-kawaii-build-pack%202/)
 (next to this file). Read `BRIEF.md`, `design/DESIGN_SYSTEM.md`, `content/copy.md` and `TASKS.md` there before changing
@@ -11,14 +11,17 @@ anything visual or any claim.
 ## Ground rules
 
 - **Naming contract** (`src/data/site.ts`): Usuba (project) · Usuba Checker Scripts (the tests, now) · Usuba Checker Model
-  (the reviewer, in training) · Usuba Standard v0.1 (the rulebook, now). Never bare "the Checker". The Usuba Builder Model
+  (the reviewer, In Training) · Usuba Standard v0.2 (the rulebook, now). Never bare "the Checker". The latest model run is
+  "Usuba run 2", never "Usuba v2" (an older, superseded adapter). The Usuba Builder Model
   (the writer) is coming later and is **not on the site**; `check:site` fails if "Builder" appears.
-- **Do not invent product facts.** The Checker Scripts' install steps, command, rule ids and output, final benchmark numbers, model
-  versions, licences and repo URL are unconfirmed (`BRIEF.md` > Open questions). Keep them as `[TBD: ...]`. `npm run
-  check:site` fails the build on the honesty rules below, not on the placeholders — placeholders are expected until Harris
-  clears them.
-- **Honesty rules are hard limits.** No hype. Never the word "bitter." Never claim the model beats frontier models. Never
-  state or imply model performance numbers. Always label preliminary numbers and in-progress pieces.
+- **Do not invent product facts.** Install, command, rule ids, output, licences, repos and weights are confirmed (Oct 17,
+  2026) and come from the two public repos. Every number comes from `src/data/results.json`, which names the source file in
+  `usuba-checker-scripts` for each block; the latest run is the source of truth and superseded runs are not shown. Anything
+  still unconfirmed stays `[TBD: ...]`.
+- **Honesty rules are hard limits.** No hype. Never the word "bitter." Never claim the model beats, or outperforms, the Checker
+  Scripts or frontier models. Model numbers appear only as measured: with their exam, sample size, intervals where they exist
+  and the preliminary label, next to the stock base they are compared with. Always say the model is In Training, and say plainly
+  where it is worse (false alarms). No release or announcement dates. `check:site` enforces the wording.
 - **Tokens only.** No raw hex, font names or shadow values in components or stylesheets. `src/styles/tokens.css` is the
   source of truth (copied from the build pack); if you need a value that is not a token, add it there and to the build
   pack's `design/tokens.json`, and note it. `check:site` enforces this for `src/styles/`.

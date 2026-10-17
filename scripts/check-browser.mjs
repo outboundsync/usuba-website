@@ -65,6 +65,8 @@ await context.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: 
 const pages = [
   { name: 'home', path: '/' },
   { name: 'docs', path: '/docs/' },
+  { name: 'methodology', path: '/methodology/' },
+  { name: 'model', path: '/docs/model/' },
   { name: '404', path: '/does-not-exist' },
 ];
 
@@ -88,7 +90,7 @@ for (const target of pages) {
   await page.keyboard.press('Tab');
   const focused = await page.evaluate(() => document.activeElement?.getAttribute('href'));
   // Starlight ships its own skip link to #_top on docs pages; marketing pages use #main.
-  const expectedFocus = target.name === 'docs' ? '#_top' : '#main';
+  const expectedFocus = target.name === 'docs' || target.name === 'model' ? '#_top' : '#main';
   if (focused !== expectedFocus) failures.push(`${target.path} first tab stop is ${focused}, expected ${expectedFocus}`);
 
   for (const width of widths) {
@@ -98,9 +100,23 @@ for (const target of pages) {
     if (target.name === 'home') {
       await page.screenshot({ path: path.join(shots, `home-${width}.png`), fullPage: false });
     }
+    if (target.name === 'methodology') {
+      await page.screenshot({ path: path.join(shots, `methodology-${width}.png`), fullPage: false });
+    }
     if (target.name === 'docs' && width === 1440) {
       await page.screenshot({ path: path.join(shots, 'docs-1440.png'), fullPage: false });
     }
+  }
+
+  if (target.name === 'methodology') {
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 1200 });
+      await page.screenshot({ path: path.join(shots, `methodology-full-${width}.png`), fullPage: true });
+    }
+    const broken = await page.evaluate(() =>
+      [...document.images].filter((img) => img.complete && img.naturalWidth === 0).map((img) => img.src),
+    );
+    if (broken.length) failures.push(`/methodology/ has images that did not load: ${broken.join(', ')}`);
   }
 
   if (target.name === 'home') {

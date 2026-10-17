@@ -13,11 +13,13 @@ const label = preliminaryLabel(benchmark.final);
 const models = [...benchmark.models].sort((a, b) => b.afterFixes - a.afterFixes || b.firstTry - a.firstTry);
 
 const SEGMENTS = [
-  { key: 'worksRightAway', tone: 'mint', label: 'Worked right away' },
-  { key: 'fixedByChecker', tone: 'fixed', label: 'Fixed by the scripts' },
-  { key: 'stillBuggy', tone: 'butter', label: 'Still buggy' },
-  { key: 'fullyBroken', tone: 'dead', label: 'Fully broken' },
+  { key: 'worksRightAway', tone: 'mint' },
+  { key: 'fixedByChecker', tone: 'fixed' },
+  { key: 'stillBuggy', tone: 'butter' },
+  { key: 'fullyBroken', tone: 'dead' },
 ] as const;
+const name = (key: (typeof SEGMENTS)[number]['key']) => benchmark.labels[key];
+const t = benchmark.totals;
 ---
 
 <figure class="chart outcome-chart">
@@ -43,7 +45,7 @@ const SEGMENTS = [
               if (!value) return null;
               return (
                 <span class={`outcome-seg fill-${segment.tone}`} style={`flex: ${value} 0 0`}>
-                  <span class="visually-hidden">{`${segment.label}: `}</span>
+                  <span class="visually-hidden">{`${name(segment.key)}: `}</span>
                   <span class="outcome-seg__num">{value}</span>
                 </span>
               );
@@ -59,7 +61,7 @@ const SEGMENTS = [
       SEGMENTS.map((segment) => (
         <li>
           <span class={`outcome-swatch fill-${segment.tone}`} aria-hidden="true" />
-          {segment.label}
+          {name(segment.key)}
         </li>
       ))
     }
@@ -70,8 +72,8 @@ const SEGMENTS = [
   </ul>
 
   <p class="chart__note">
-    Of {total * models.length} answers across the twelve models: {benchmark.totals.worksRightAway} worked right away,{' '}
-    {benchmark.totals.fixedByChecker} were fixed by the scripts, {benchmark.totals.stillBuggy} stayed buggy and{' '}
-    {benchmark.totals.fullyBroken} never loaded.
+    Of {total * models.length} answers across the {models.length} models: {t.worksRightAway} passed on the first try, {t.fixedByChecker} passed
+    after Checker fixes, {t.stillBuggy} failed checks and {t.fullyBroken} produced no usable code. Passing means the Checker Scripts pass it, a
+    code read agrees it does the task, and where we could run it, it loads on the Dell. Run {benchmark.runDate}.
   </p>
 </figure>

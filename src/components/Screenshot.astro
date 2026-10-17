@@ -1,0 +1,19 @@
+---
+import type { Figure } from '../data/methodology';
+
+/** A real screenshot in a sticker frame. Sized up front so the page doesn't jump; opens full size in a new tab. */
+interface Props {
+  figure: Figure;
+  /** Load straight away instead of lazily (only for the first one on screen). */
+  eager?: boolean;
+}
+const { figure, eager = false } = Astro.props;
+---
+
+<figure class="shot">
+  <a class="shot__frame" href={figure.href ?? figure.src} target="_blank" rel="noopener noreferrer">
+    <img src={figure.src} width={figure.width} height={figure.height} alt={figure.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+    <span class="visually-hidden"> (opens full size in a new tab)</span>
+  </a>
+  <figcaption class="shot__caption">{figure.caption}</figcaption>
+</figure>

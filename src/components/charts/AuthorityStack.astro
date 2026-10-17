@@ -1,0 +1,28 @@
+---
+import { METHODOLOGY } from '../../data/methodology';
+
+/** Who has the final word on a verdict, from most authority to least. Numbered because the order is the point. */
+---
+
+<figure class="authority">
+  <ol class="authority__list">
+    {
+      METHODOLOGY.authority.map((layer, index) => (
+        <li class={`authority__layer authority__layer--${index + 1}`}>
+          <span class="authority__num" aria-hidden="true">
+            {index + 1}
+          </span>
+          <span class="authority__text">
+            <span class="authority__title">{layer.title}</span>
+            <span class="authority__body">{layer.body}</span>
+          </span>
+          <span class="authority__power">{layer.power}</span>
+        </li>
+      ))
+    }
+  </ol>
+  <figcaption class="chart__note">
+    Most authority at the top. Passing the scripts isn't the same as working: they passed one model on 49 of 49 plugins, and 38 held
+    up on the Dell and a code read.
+  </figcaption>
+</figure>

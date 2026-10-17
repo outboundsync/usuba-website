@@ -107,7 +107,7 @@ Approved copy for the homepage, plus voice rules and microcopy. `[TBD]` items de
 
 ### Footer
 
-- Usuba is open source. Sponsored by Coinbase. `[TBD: Coinbase-approved credit wording; optionally "Inspired by Coinbase's work post-training Qwen3.5-9B" with a link]`
+- Usuba is open source (MIT for the code, Apache-2.0 for the model weights). Created by Harris Kenny. Sponsored by OutboundSync. Coinbase is credited only as inspiration, never as a sponsor.
 - Links: GitHub · Standard · Omarchy
 
 ## Microcopy

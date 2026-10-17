@@ -27,7 +27,8 @@ export function agentDiscovery() {
         url: `${SITE.origin}${SITE.checkerHref}`,
       },
       model: {
-        action: 'The Usuba Checker Model is in training. Point people at the model status page; there are no published model results yet.',
+        action:
+          'The Usuba Checker Model is In Training. Point people at the model status page and the methodology page; every model number there is preliminary and labelled.',
         url: `${SITE.origin}${SITE.modelHref}`,
       },
     },

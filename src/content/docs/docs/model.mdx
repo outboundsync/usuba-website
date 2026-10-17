@@ -1,45 +1,62 @@
 ---
 title: Usuba Checker Model
-description: The Usuba Checker Model is a local Omarchy model, trained on Omarchy plugin data, that reviews a plugin the Checker Scripts cannot. It is in training.
+description: The Usuba Checker Model is a local Omarchy model that reviews a plugin the Checker Scripts cannot. It is In Training; the latest run is Usuba run 2. Preliminary results, October 2026.
 ---
 
 import Callout from '../../../components/Callout.astro';
+import PairedMetrics from '../../../components/charts/PairedMetrics.astro';
+import IntervalScoreboard from '../../../components/charts/IntervalScoreboard.astro';
 
-**Usuba is a model, not an app or a plugin.** The Usuba Checker Model is a small model that runs locally on your own laptop, for
-free, trained only on Omarchy plugin data.
+**Usuba is a model, not an app or a plugin.** The Usuba Checker Model is a small model built to run locally on your own laptop, for
+free, trained on real Omarchy plugin data.
 
 Usuba has two complementary parts: the scripts that test a plugin, and the model that judges it. The scripts are plain Python, not
-AI, and they are available now — see [the Checker Scripts](/docs/checker/install/). The model is in training.
+AI, and they are available now — see [the Checker Scripts](/docs/checker/install/). The model is **In Training**.
 
 ## Status
 
 | Piece | What it is | Status |
 |-------|-----------|--------|
 | Usuba Checker Scripts | The tests that check a plugin | **Available now** |
-| Usuba Standard v0.1 | The rulebook the scripts enforce | **Available now** |
-| Usuba Checker Model | The model that reviews a plugin | **In training** |
+| Usuba Standard v0.2 | The rulebook the scripts enforce | **Available now** |
+| Usuba Checker Model | The model that reviews a plugin | **In Training** |
 
-## What it runs on
+## The latest run: Usuba run 2
 
-- Based on Qwen 3.5 9B.
-- Runs at 4-bit quantization, about 5.5 GB of weights.
-- On a typical 32 GB laptop, with no graphics card.
+| | |
+|---|---|
+| Trained | October 16, 2026 |
+| Base | Qwen3.5 9B, stock weights unchanged, plus a LoRA adapter (about 350 MB) |
+| Data | 221 training and 23 validation examples, from real plugin git histories and Dell hardware runs |
+| Training | 28 steps, final validation loss 0.263 |
+| File you'd run | 5.63 GB, 4-bit (Q4_K_M), for llama.cpp. Built for a 32 GB laptop with no graphics card |
+| Licence | Apache-2.0, matching the Qwen base |
+| Download | [osiharris/usuba-checker-adapters](https://huggingface.co/osiharris/usuba-checker-adapters) (adapter and 4-bit file) |
+| Training data and eval outputs | [osiharris/usuba-checker-data](https://huggingface.co/datasets/osiharris/usuba-checker-data), with `REPRODUCE.md` |
+| Code | [outboundsync/usuba-checker-models](https://github.com/outboundsync/usuba-checker-models) |
 
-## What it is trained on
+## How it did
 
-Omarchy plugins verified with the Checker Scripts and tested on real Omarchy hardware, from a sweep of more than 1,400 published
-plugins so far. The scripts' results across those plugins are part of the training data too.
-
-## What it will do
-
-The model reviews a plugin and says what to fix. Give it the plugin, the scripts' report, and what the plugin shows on screen, and
-it judges what the scripts can't: whether the plugin really works, whether the data is real or faked, whether the buttons do
-anything, whether it breaks in use, and what Omarchy's plugin reviewer would flag. Then it explains what to fix.
-
-It is in training, so this is what it is built to do, not what it has proven.
-
-<Callout kind="warn" title="No published results yet">
-The Usuba Checker Model is in training. There are no published model results. When there are, they will appear here with the test
-method, the model versions and the dates attached.
+<Callout kind="warn" title="Preliminary results, October 2026.">
+Machine-drafted labels on small exam sets, one training run. Run 2 was scored as the bf16 merge; the 4-bit file has no exam
+score yet. Read the intervals, not just the dots.
 </Callout>
 
+<PairedMetrics />
+
+In plain terms: run 2 gives a usable answer almost every time and catches more broken plugins than its base, and it adds far fewer
+findings of its own. It is on par on overall verdicts, and it raises about twice as many false alarms on working plugins. It
+rarely disagrees with the scripts' findings, which is part of why.
+
+<IntervalScoreboard />
+
+The Usuba Checker Scripts, with no model at all, still make the call. The model has not yet met the targets we set for a full
+release (Dell accuracy 0.85 or more, false alarms 0.15 or less), which is why it is In Training.
+
+## What it is built to do
+
+Give it the plugin, the scripts' report, and what the plugin shows on screen, and it judges what the scripts can't: whether the
+plugin really works, whether the data is real or faked, whether the buttons do anything, whether it breaks in use, and what
+Omarchy's plugin reviewer would flag. Then it explains what to fix.
+
+The exams, the training data and every mistake we caught along the way are on [How Usuba was built and tested](/methodology/).

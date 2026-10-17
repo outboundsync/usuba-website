@@ -1,0 +1,42 @@
+---
+import { RESULTS } from '../../data/results';
+
+/** The Dell sweep in one stacked bar, then the plugins that passed the scripts and still broke in use. */
+const { sweep } = RESULTS;
+const TONES = { works: 'mint', broken: 'pink', unsure: 'dead' } as const;
+const fmt = (n: number) => n.toLocaleString('en-US');
+const most = Math.max(...sweep.inUse.items.map((item) => item.value));
+---
+
+<figure class="chart sweep-chart">
+  <figcaption class="chart__caption">
+    <span class="chart__title">{fmt(sweep.total)} plugin runs, labelled on the Dell</span>
+    <span class="chart__subtitle">Omarchy 4.0.4 on a Dell laptop, October 13, 2026, after re-running {sweep.rerun} jobs a misbehaving plugin spoiled.</span>
+  </figcaption>
+  <div class="sweep-stack">
+    {
+      sweep.labels.map((part) => (
+        <span class={`sweep-seg fill-${TONES[part.key]}`} style={`flex: ${part.value} 0 0`}>
+          <span class="sweep-seg__label">{part.label}</span>
+          <span class="sweep-seg__num">{fmt(part.value)}</span>
+        </span>
+      ))
+    }
+  </div>
+
+  <h3 class="sweep-sub">{sweep.inUse.total} passed the scripts and still broke in use</h3>
+  <ol class="chart__rows">
+    {
+      sweep.inUse.items.map((item) => (
+        <li class="chart__row">
+          <span class="chart__label">{item.label}</span>
+          <span class="chart__track">
+            <span class="chart__bar fill-butter" style={`width: ${((item.value / most) * 100).toFixed(1)}%`} aria-hidden="true" />
+            <span class="chart__value">{item.value}</span>
+          </span>
+        </li>
+      ))
+    }
+  </ol>
+  <p class="chart__note">Each one became a new hardware-learned check: {sweep.newRules.join(', ')}.</p>
+</figure>

@@ -1,0 +1,22 @@
+---
+import { METHODOLOGY } from '../../data/methodology';
+
+/** Six days, in order: what we tried, and the one thing each step taught us. */
+---
+
+<ol class="timeline">
+  {
+    METHODOLOGY.timeline.map((stop) => (
+      <li class="timeline__stop">
+        <span class="timeline__date">{stop.date}</span>
+        <div class="timeline__card">
+          <h3 class="timeline__title">{stop.title}</h3>
+          <p>{stop.what}</p>
+          <p class="timeline__learned">
+            <strong>Learned:</strong> {stop.learned}
+          </p>
+        </div>
+      </li>
+    ))
+  }
+</ol>

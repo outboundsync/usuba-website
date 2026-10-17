@@ -1,0 +1,47 @@
+---
+import { METHODOLOGY } from '../../data/methodology';
+
+/**
+ * The first lie we caught: a file-reading validator's score next to the real run.
+ * A dumbbell per model, from the validator's (hollow) dot down to the real (filled) one.
+ */
+const { caption, note, total, rows } = METHODOLOGY.validatorVsReal;
+const pct = (value: number) => `${((value / total) * 100).toFixed(1)}%`;
+const ticks = [0, 14, 28, 42, 56];
+---
+
+<figure class="chart drop-chart">
+  <figcaption class="chart__caption">
+    <span class="chart__title">{caption}</span>
+  </figcaption>
+  <ol class="uplift-rows">
+    {
+      rows.map((row) => (
+        <li class="uplift-row">
+          <span class="uplift-row__label">{row.name}</span>
+          <span class="uplift-row__track">
+            {ticks.map((tick) => (
+              <span class="uplift-tick" style={`left: ${pct(tick)}`} aria-hidden="true" />
+            ))}
+            <span class="uplift-bar drop-bar" style={`left: ${pct(row.real)}; width: ${pct(row.validator - row.real)}`} aria-hidden="true" />
+            <span class="uplift-dot uplift-dot--first" style={`left: ${pct(row.validator)}`} aria-hidden="true" />
+            <span class="uplift-dot drop-dot--real" style={`left: ${pct(row.real)}`} aria-hidden="true" />
+            <span class="visually-hidden">{`${row.validator} of ${total} on the validator, ${row.real} when run for real`}</span>
+          </span>
+          <span class="uplift-row__value">
+            {row.validator} <span aria-hidden="true">→</span> <strong>{row.real}</strong>
+          </span>
+        </li>
+      ))
+    }
+  </ol>
+  <p class="uplift-legend">
+    <span class="uplift-legend__item">
+      <span class="uplift-dot uplift-dot--first uplift-legend__dot" aria-hidden="true" /> the validator's count
+    </span>
+    <span class="uplift-legend__item">
+      <span class="uplift-dot drop-dot--real uplift-legend__dot" aria-hidden="true" /> run for real
+    </span>
+  </p>
+  <p class="chart__note">{note}</p>
+</figure>

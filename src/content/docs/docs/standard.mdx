@@ -1,17 +1,19 @@
 ---
-title: Usuba Standard v0.1
-description: Usuba Standard v0.1 is the public rulebook the Checker Scripts enforce — what a working Omarchy plugin is, rule by rule.
+title: Usuba Standard v0.2
+description: Usuba Standard v0.2 is the public rulebook the Usuba Checker Scripts enforce — what a working Omarchy plugin is, rule by rule. 66 rules.
 ---
 
-**Usuba Standard v0.1** is the rulebook the [Usuba Checker Scripts](/docs/checker/install/) enforce. It says what a working Omarchy plugin is.
-Every failure the Checker Scripts report starts with a rule id from this document, gives the reason, and ends with a `Fix:` hint.
+**Usuba Standard v0.2** is the rulebook the [Usuba Checker Scripts](/docs/checker/install/) enforce. It says what a working Omarchy plugin is,
+in 66 rules. Every failure the Checker Scripts report starts with a rule id from this document, gives the reason, and ends with a `Fix:` hint.
 
-This page *is* the rulebook, not a summary of one: the Checker Scripts are held to it, and you can hold the Checker Scripts to it.
+This page *is* the rulebook, not a summary of one. The tables below are generated from the canonical rule file,
+[`functest/STANDARD.md`](https://github.com/outboundsync/usuba-checker-scripts/blob/main/functest/STANDARD.md), which also gives each rule's reason and a
+failing example.
 
 ## What it targets
 
-- **Omarchy 4.0.4-1**, shell tree byte-identical to `basecamp/omarchy` at the pinned snapshot.
-- **Quickshell on Qt 6.11**, as installed on the reference machine the Checker Scripts are calibrated against.
+- **Omarchy 4.0.4-1**, shell tree byte-identical to `basecamp/omarchy@c668141`.
+- **Quickshell on Qt 6.11**, as installed on the reference Dell laptop the Checker Scripts are calibrated against.
 
 A plugin that passes here is a plugin that loads and runs on that target. The standard claims nothing beyond it.
 
@@ -24,6 +26,8 @@ Every rule has a level, and the level decides whether a finding fails the plugin
 | **error** | Always fails. |
 | **high** | A heuristic finding that fails, reported as `heuristic/high` so a human can overrule it. |
 | **medium**, **low** | Warnings only. They never fail a plugin. |
+| **warning** | Reported, never fails. Experimental warnings are off by default. |
+| **report only** | Shown in the report, not counted in pass or fail yet. |
 
 ## Rule families
 
@@ -39,107 +43,144 @@ A rule id is `USB-<family><number>`. The family says where the rule looks.
 | `USB-F` | Files the plugin ships and references | `USB-F01` Referenced helper scripts are shipped |
 | `USB-J` | JavaScript correctness inside QML | `USB-J01` No undeclared identifiers |
 | `USB-S` | Safety: writes, privilege, destructive commands | `USB-S03` No clearly destructive commands |
+| `USB-W` | Review warnings learned from Omarchy plugin reviews | `USB-W05` Privileged actions are flagged |
+| `USB-N`, `USB-L` | Manifest registry and lifecycle checks (report only) | `USB-L03` No `required property` for host-injected names |
 | `USB-H` | Heuristics: real data and real behaviour | `USB-H02` No hardcoded readings shown as live data |
 | `USB-R` | Runtime: the plugin in a real Omarchy shell | `USB-R03` Visible, legible, on-screen |
 
 ## The rules
 
+{/* generated from usuba-checker-scripts/functest/STANDARD.md v0.2: 66 rules */}
 ### Task contract
 
-| Rule | Level | What it checks |
-|------|-------|----------------|
-| `USB-T01` | error | The answer contains plugin code, not a manifest alone |
-| `USB-T02` | error | The file the task asked for is delivered, in full |
-| `USB-T03` | error | The answer is files, not leaked reasoning or self-correction |
+| Rule | Level | What it checks | Fix |
+|------|-------|----------------|-----|
+| `USB-T01` | error | Answer contains plugin code | return the QML entry point(s) the manifest names, in full |
+| `USB-T02` | error | Requested file is delivered | return the complete requested file |
+| `USB-T03` | error | Answer is files, not leaked reasoning | return only `### path` headings with fenced code |
 
 ### Manifest
 
-| Rule | Level | What it checks |
-|------|-------|----------------|
-| `USB-M01` | error | `manifest.json` is valid JSON with an id |
-| `USB-M02` | error | Entry points are QML files |
-| `USB-M03` | error | The plugin ships QML |
-| `USB-M04` | error | The entry root is a shell surface |
-| `USB-M05` | error | The id is namespaced and not reserved |
+| Rule | Level | What it checks | Fix |
+|------|-------|----------------|-----|
+| `USB-M01` | error | manifest.json is valid JSON with an id | fix the JSON |
+| `USB-M02` | error | Entry points are QML files | point entryPoints at .qml files |
+| `USB-M03` | error | Plugin ships QML | add the QML entry points |
+| `USB-M04` | error | Entry root is a shell surface | use Item / BarWidget / Panel (qs.Ui) as the root |
+| `USB-M05` | warning (error for `omarchy.*`) | Namespaced, non-reserved id | use e.g. "jankeesvw.time-machine" |
 
 ### QML types and imports
 
-| Rule | Level | What it checks |
-|------|-------|----------------|
-| `USB-Q01` | error | Every QML type resolves, against a positive allowlist |
-| `USB-Q02` | error | Every import exists |
-| `USB-Q03` | error | No Qt 5 APIs |
-| `USB-Q04` | error | Valid QML structure |
-| `USB-Q05` | error | A `QtObject` does not host child objects |
+| Rule | Level | What it checks | Fix |
+|------|-------|----------------|-----|
+| `USB-Q01` | error | Every QML type resolves (positive allowlist) | add the import that provides the type, or use a type that exists |
+| `USB-Q02` | error | Imports exist | import only Qt 6, Quickshell, qs.Commons, qs.Ui or shipped files |
+| `USB-Q03` | error | No Qt 5 APIs | use Qt5Compat.GraphicalEffects or QtQuick.Effects |
+| `USB-Q04` | error | Valid QML structure | declare objects in QML, start them from JS |
+| `USB-Q05` | error | QtObject does not host child objects | use an Item root or `property Timer t: Timer {}` |
 
 ### APIs
 
-| Rule | Level | What it checks |
-|------|-------|----------------|
-| `USB-A01` | error | Only real APIs are called |
-| `USB-A02` | error | Signal handlers name real signals |
-| `USB-A03` | error | QML types are not constructed with `new` |
-| `USB-A04` | error | Methods called on an id exist |
-| `USB-A05` | error | No Node, browser or C++ idioms in QML JavaScript |
-| `USB-A06` | error | `qs.Commons` members exist |
-| `USB-A07` | error | Only real `shell` members are used |
-| `USB-A08` | medium | Read-only bar facade properties are not assigned |
+| Rule | Level | What it checks | Fix |
+|------|-------|----------------|-----|
+| `USB-A01` | error | Only real APIs are called | use Process / Quickshell.execDetached / omarchy-shell IPC / wl-copy |
+| `USB-A02` | error | Signal handlers name real signals | use the type's real signal, e.g. onExited, or StdioCollector.onStreamFinished |
+| `USB-A08` | medium | Read-only bar facade properties are not assigned | bar.setCenterHoverRevealSuppressed(true) |
+| `USB-A03` | error | QML types are not constructed with `new` | declare the object in QML with an id |
+| `USB-A04` | error | Methods called on ids exist | use the real method/property (running = true) |
+| `USB-A05` | error | No Node/browser/C++ idioms in QML JS | use Process / XMLHttpRequest |
+| `USB-A06` | error | qs.Commons singleton members exist | use a member that exists in shell/Commons |
+| `USB-A07` | error | Only real `shell` members are used | use members listed in the Omarchy 4.0.4 PluginShellApi |
 
 ### Binaries and commands
 
-| Rule | Level | What it checks |
-|------|-------|----------------|
-| `USB-B01` | error | Binaries in shell strings exist on the target |
-| `USB-B02` | error | No X11-only tools |
-| `USB-B03` | error | `hyprctl` and `hyprsunset` invocations are valid |
-| `USB-B04` | error | No `hyprctl reload` after `hyprctl keyword` |
-| `USB-B05` | error | `argv[0]` exists on the target |
-| `USB-B06` | error | CLI flags are real |
+| Rule | Level | What it checks | Fix |
+|------|-------|----------------|-----|
+| `USB-B01` | error | Binaries in shell strings exist on the Dell | use an installed tool, ship a script, or document the dependency in README.md |
+| `USB-B02` | error | No X11-only tools | use hyprctl / wtype / wl-copy / a Wayland OSK |
+| `USB-B03` | error | hyprctl / hyprsunset invocations are valid | use real hyprctl commands; hyprsunset -t 4500 / hyprctl hyprsunset temperature 4500 |
+| `USB-B04` | error | No hyprctl reload after hyprctl keyword | drop the reload |
+| `USB-B05` | error | argv[0] exists on the Dell | use an installed program or ship/document it |
+| `USB-B06` | error | CLI flags are real | use flags from the tool's real getopt/--help on the Dell |
 
 ### Shipped files
 
-| Rule | Level | What it checks |
-|------|-------|----------------|
-| `USB-F01` | error | Referenced helper scripts are shipped |
+| Rule | Level | What it checks | Fix |
+|------|-------|----------------|-----|
+| `USB-F01` | error | Referenced helper scripts are shipped | ship the script or inline the command |
 
 ### JavaScript correctness
 
-| Rule | Level | What it checks |
-|------|-------|----------------|
-| `USB-J01` | error | No undeclared identifiers |
-| `USB-J02` | error | Commands never receive `undefined` |
-| `USB-J03` | error | No `Qt.resolvedUrl("~")` |
-| `USB-J04` | error | `argv` paths are local paths, not URLs |
-| `USB-J06` | error | Loader-passed properties are not read only in `onCompleted` |
+| Rule | Level | What it checks | Fix |
+|------|-------|----------------|-----|
+| `USB-J01` | error | No undeclared identifiers | declare the property and fill it from a real API |
+| `USB-J03` | error | No Qt.resolvedUrl("~") | use Quickshell.env("HOME") or StandardPaths |
+| `USB-J04` | error | argv paths are local paths, not URLs | strip the file:// scheme (e.g. .toString().replace(/^file:\/\//, "")) |
+| `USB-J06` | error | Loader-passed properties are not read only in onCompleted | use setSource(url, \{props\}) or react in on&lt;Prop>Changed |
+| `USB-J02` | error | Commands never receive undefined | declare manifest defaults / use real PluginBarApi members |
 
 ### Safety
 
-| Rule | Level | What it checks |
-|------|-------|----------------|
-| `USB-S01` | high / medium | Writes outside the plugin directory are flagged |
-| `USB-S02` | high | Privileged or remote-exec commands are flagged |
-| `USB-S03` | error | No clearly destructive commands |
+| Rule | Level | What it checks | Fix |
+|------|-------|----------------|-----|
+| `USB-S01` | warning | Writes outside the plugin dir are flagged | prefer hyprctl keyword / omarchy-shell IPC; if a write is the point of the plugin, say so in the README |
+| `USB-S02` | warning | Privileged or remote-exec commands are flagged | do not escalate from the shell; document manual steps or use a polkit-free path |
+| `USB-S03` | error | No clearly destructive commands | never delete outside the plugin's own data dir |
+
+### Review warnings
+
+| Rule | Level | What it checks | Fix |
+|------|-------|----------------|-----|
+| `USB-W01` | warning, experimental | Programs the plugin runs are documented dependencies | list every external program (with its pacman/AUR package) and probe `command -v` before use |
+| `USB-W02` | warning | No hardcoded secrets or tokens | read secrets from the keyring (secret-tool) or a 0600 config outside the plugin |
+| `USB-W03` | warning, experimental | Remote code is pinned | pin to a full commit SHA or versioned release and verify a checksum |
+| `USB-W04` | warning, experimental | File operations are safe | use mktemp or $XDG_RUNTIME_DIR, 0600/0700 modes, refuse symlinks, validate variables before rm -rf |
+| `USB-W05` | warning | Privileged actions are flagged | stay unprivileged; document manual root steps in the README |
+| `USB-W06` | warning, experimental | Rich text is not bound to untrusted data | use textFormat: Text.PlainText for non-literal text, or escape it |
+| `USB-W07` | warning, experimental | No interpolation into shell or Lua command strings | pass values as separate argv elements, or quote them |
+| `USB-W08` | warning, experimental | Network calls and processes have timeouts | add --max-time / timeout= / xhr.timeout, or wrap in `timeout 10` |
+| `USB-W09` | warning, experimental | Remote URLs use https | use https:// |
+| `USB-W10` | warning, experimental | Input is bounded | cap the bytes read (head -c N, slice) before parsing |
+| `USB-W11` | warning, experimental, report only | cargo install --git is pinned with a 40-hex --rev | add --rev &lt;sha> --locked |
+| `USB-W12` | warning, experimental, report only | GitHub Actions pinned to a commit SHA | pin to a 40-hex commit |
+| `USB-W13` | warning, experimental, report only | No broad passwordless sudoers | fixed root-owned helper + one polkit action |
+| `USB-W14` | warning, experimental, report only | No bundled native binaries | build on install or declare the dependency |
+
+### Manifest registry (report only)
+
+| Rule | Level | What it checks | Fix |
+|------|-------|----------------|-----|
+| `USB-N01` | error (high), report only | Every declared kind has its entryPoints key | add the key for each kind |
+| `USB-N02` | error (high), report only | Manifest passes the registry validation | add schemaVersion 1 and the required fields |
+
+### Lifecycle (report only)
+
+| Rule | Level | What it checks | Fix |
+|------|-------|----------------|-----|
+| `USB-L01` | warning, experimental, report only | panel/overlay/menu define open(payloadJson) and close() | define function open(payloadJson) and function close() |
+| `USB-L02` | warning, report only | No ShellRoot entry root / second quickshell | use Item / Panel / BarWidget roots |
+| `USB-L03` | error (high), report only | No `required property` for host-injected names | property var shell: null |
 
 ### Heuristics
 
-| Rule | Level | What it checks |
-|------|-------|----------------|
-| `USB-H01` | high / medium | Real data, not simulated |
-| `USB-H02` | high / medium | No hardcoded readings shown as live data |
-| `USB-H03` | high / low | Handlers do something besides `console.log` |
-| `USB-H04` | high | No demo click handlers |
-| `USB-H05` | error | Not a placeholder UI |
-| `USB-H06` | error | No placeholder data patterns |
-| `USB-H07` | high | No placeholder endpoints or credentials |
+| Rule | Level | What it checks | Fix |
+|------|-------|----------------|-----|
+| `USB-H01` | high / medium | Real data, not simulated | read the real source (Process, FileView, Quickshell service) |
+| `USB-H02` | high / medium | No hardcoded readings shown as live data | bind the text to a property filled from a real source |
+| `USB-H03` | high / low | Handlers do something besides console.log | make each handler perform its action |
+| `USB-H04` | high | No demo click handlers | make the click do what the plugin is for |
+| `USB-H05` | error | Not a placeholder UI | implement the behaviour |
+| `USB-H06` | error | No placeholder data patterns | use real data |
+| `USB-H07` | high | No placeholder endpoints or credentials | read endpoints/keys from settings or real config |
 
 ### Runtime
 
-| Rule | Level | What it checks |
-|------|-------|----------------|
-| `USB-R01` | error | Loads and registers in the real shell |
-| `USB-R02` | error | No runtime JavaScript or QML errors |
-| `USB-R03` | error | Visible, legible, on-screen |
-| `USB-R04` | error | Runtime commands are valid |
+| Rule | Level | What it checks | Fix |
+|------|-------|----------------|-----|
+| `USB-R01` | error | Loads and registers in the real shell | fix the reported QML error |
+| `USB-R02` | error | No runtime JS/QML errors | guard the value or use the real API |
+| `USB-R03` | error | Visible, legible, on-screen | give the widget implicit size and theme colours |
+| `USB-R04` | error | Runtime commands are valid | use installed programs and defined args |
 
 ## How the Checker Scripts enforce it
 
@@ -147,16 +188,21 @@ Three passes, in order:
 
 1. **Static checks.** Reads the plugin's files against the type and member allowlists, which are generated from the
    Quickshell and Qt builds the runtime uses and from Omarchy's own shell modules — so they move with the target, not with a
-   hand-kept list.
+   hand-kept list. These run on any machine.
 2. **The task contract.** When a plugin was written by a model, the answer itself is checked: real files, the file that was
    asked for, and no leaked reasoning.
 3. **The runtime probe.** Boots the real Omarchy shell — Quickshell on a headless compositor, inside a sandbox — loads the
-   plugin, and watches what actually happens: load errors, JavaScript errors, and whether anything visible drew.
+   plugin, and watches what actually happens: load errors, JavaScript errors, and whether anything visible drew. It needs the
+   reference Linux build; elsewhere the report says it was skipped.
 
-Every rule above names its reason and a failing example in the canonical rule file, and every finding carries its rule id, so
-a result you disagree with is a result you can argue with.
+`USB-S03` is the only safety rule that fails a plugin. The review warnings (`USB-W`) never fail one: each was measured against
+12,989 findings from Omarchy plugin reviews, and only `USB-W05` met the bar to be on by default. `USB-W02` (hardcoded secrets) is on
+by maintainer decision. The rest are experimental.
 
 ## Version
 
-Usuba Standard v0.1, dated 2026-10-13. It moves with the Checker Scripts: when a rule is added, or a level changes, this page and the
+Usuba Standard v0.2, dated 2026-10-13. It moves with the Checker Scripts: when a rule is added, or a level changes, this page and the
 version change with it.
+
+- **v0.2** (2026-10-13): adds the review warnings `USB-W01` to `USB-W10`, learned from Omarchy plugin reviews. None of them fail a plugin.
+- **v0.1** (2026-10-13): first public version, written after a fix-loop experiment showed the old grader could be gamed (13 passes, 4 real).

@@ -1,17 +1,18 @@
+import { RESULTS } from './results';
 import { SITE } from './site';
 
-// Public product facts already approved in BRIEF.md and content/copy.md.
-// No model performance numbers exist yet: don't add any (BRIEF.md > Tone and hard limits).
+// Public product facts, served as /data/product.json and by the site MCP's get_product tool.
+// Numbers come from results.json, always with the preliminary label (AGENTS.md > Honesty rules).
 export const PRODUCT = {
   name: SITE.name,
   description: SITE.description,
   tagline: 'A native Omarchy model, trained on Omarchy plugin data, that runs locally.',
   whatItIs:
-    'Usuba is a model, not an app or a plugin. It is a small AI model made for one job: Omarchy plugins. It runs free on your own laptop. The Usuba Checker Model is in training; the Usuba Checker Scripts are available now.',
+    'Usuba is a model, not an app or a plugin. It is a small AI model made for one job: Omarchy plugins. It runs free on your own laptop. The Usuba Checker Model is In Training; the Usuba Checker Scripts are available now.',
   shipping: {
     checkerScripts: 'Usuba Checker Scripts: an open test for Omarchy plugins. Plain Python, not AI. Available now.',
-    standard: 'Usuba Standard v0.1: the rulebook the Checker Scripts enforce, published in full. Available now.',
-    checkerModel: 'Usuba Checker Model: the local model that reviews a plugin the scripts cannot. In training.',
+    standard: 'Usuba Standard v0.2: the rulebook the Checker Scripts enforce, published in full. Available now.',
+    checkerModel: 'Usuba Checker Model: the local model that reviews a plugin the scripts cannot. In Training; latest run: Usuba run 2.',
   },
   checker: {
     summary:
@@ -24,13 +25,17 @@ export const PRODUCT = {
     warns: 'Risky commands a plugin may need are warnings. Only clearly destructive ones fail.',
   },
   model: {
-    base: 'Qwen 3.5 9B',
-    hardware: 'Runs at 4-bit, about 5.5 GB of weights, on a typical 32 GB laptop with no graphics card',
-    data: 'Omarchy plugins verified with the Checker Scripts and tested on real Omarchy hardware, from a sweep of 1,400+ published plugins so far. The Checker Scripts’ results across those plugins are part of the training data too.',
-    role: 'The model does the reviewing the scripts cannot: whether a plugin really works, whether its data is real or faked, whether its buttons do anything, whether it breaks in use, and what Omarchy’s plugin reviewer would flag. Then it explains what to fix. It is in training, so it is built to do this, not proven at it.',
-    results: 'The Usuba Checker Model is in training. No published model results yet.',
+    base: 'Qwen3.5 9B with a LoRA adapter (stock weights unchanged)',
+    hardware:
+      'A 5.63 GB 4-bit file (Q4_K_M), built for a typical 32 GB laptop with no graphics card. The 4-bit file has no exam score yet.',
+    data: `Usuba run 2 was trained on ${RESULTS.model.run2.train} examples (${RESULTS.model.run2.val} held out for validation) built from real plugin git histories and Dell hardware runs.`,
+    role: 'The model does the reviewing the scripts cannot: whether a plugin really works, whether its data is real or faked, whether its buttons do anything, whether it breaks in use, and what Omarchy’s plugin reviewer would flag. Then it explains what to fix. It is In Training, so it is built to do this, not proven at it.',
+    results: RESULTS.model.summary,
+    weights: SITE.adaptersHref,
+    dataset: SITE.datasetHref,
   },
-  licence: '[TBD: licences for the Checker Scripts, the standard and the model weights; where weights will be published]',
+  licence:
+    'MIT for the Usuba Checker Scripts, the Usuba Standard, this site and all repository code (copyright 2026 OutboundSync). Apache-2.0 for the Usuba Checker Model weights and adapters, matching the Qwen base model; they are published on Hugging Face.',
   links: {
     homepage: SITE.origin,
     docs: `${SITE.origin}${SITE.docsHref}`,
@@ -39,6 +44,9 @@ export const PRODUCT = {
     model: `${SITE.origin}${SITE.modelHref}`,
     results: `${SITE.origin}${SITE.resultsHref}`,
     github: SITE.githubHref,
+    scripts: SITE.scriptsRepoHref,
+    models: SITE.modelsRepoHref,
+    methodology: `${SITE.origin}${SITE.methodologyHref}`,
     contact: SITE.contactHref,
   },
 } as const;

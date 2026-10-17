@@ -1,14 +1,34 @@
 {
+  "_about": "Every number on the site comes from this file. Latest run: Usuba run 2 and the Oct 16 exam sets. Each block names its source in the usuba-checker-scripts repo.",
   "benchmark": {
+    "_source": "usuba-checker-scripts/docs/post/data/set1_summary.csv (Set 1, Oct 16 rerun)",
     "final": false,
     "preliminaryLabel": "Preliminary results, October 2026.",
-    "caption": "Working plugins out of 49",
+    "caption": "Plugins passing checks, out of 49",
     "requests": 49,
     "rounds": 3,
-    "omarchyVersion": "4.0.4",
-    "runDate": "October 13, 2026",
+    "omarchyVersion": "4.0.4-1",
+    "runDate": "October 16, 2026",
     "provider": "OpenRouter",
-    "note": "We ran the same 49 requests to every model through OpenRouter and ran the Checker Scripts against them up to three times.",
+    "note": "11 models each wrote a plugin for the same 49 requests. When the Checker Scripts found problems, their report went back for up to 3 fix rounds.",
+    "passTest": [
+      "the Checker Scripts pass it",
+      "a code read agrees it does the task: no stubs, fake data or invented APIs",
+      "where we could run it, it loads on the Dell"
+    ],
+    "labels": {
+      "worksRightAway": "Passed on first try",
+      "fixedByChecker": "Passed after Checker fixes",
+      "stillBuggy": "Failed checks",
+      "fullyBroken": "Failed to produce usable code"
+    },
+    "dellLoad": {
+      "checked": 420,
+      "loaded": 267,
+      "failed": 37,
+      "notRun": 116,
+      "note": "Most of the 116 were skipped because the code held destructive commands, to keep the laptop safe."
+    },
     "breakdown": [
       "26 full plugins from a description",
       "6 add a panel to a bar widget",
@@ -16,35 +36,477 @@
       "5 broken manifests to fix"
     ],
     "totals": {
-      "worksRightAway": 87,
-      "fixedByChecker": 187,
-      "stillBuggy": 174,
-      "fullyBroken": 140
+      "worksRightAway": 53,
+      "fixedByChecker": 194,
+      "stillBuggy": 200,
+      "fullyBroken": 92
     },
     "models": [
-      { "name": "GPT-5.6", "group": "proprietary", "firstTry": 21, "afterFixes": 40, "worksRightAway": 21, "fixedByChecker": 19, "stillBuggy": 5, "fullyBroken": 4 },
-      { "name": "Claude Opus 5.5", "group": "proprietary", "firstTry": 17, "afterFixes": 36, "worksRightAway": 17, "fixedByChecker": 19, "stillBuggy": 10, "fullyBroken": 3 },
-      { "name": "Claude Sonnet 5.5", "group": "proprietary", "firstTry": 9, "afterFixes": 35, "worksRightAway": 9, "fixedByChecker": 26, "stillBuggy": 11, "fullyBroken": 3 },
-      { "name": "Meta Muse Wonder", "group": "proprietary", "firstTry": 12, "afterFixes": 33, "worksRightAway": 12, "fixedByChecker": 21, "stillBuggy": 14, "fullyBroken": 2, "footnote": "Ran without zero data retention: its only provider, Meta, is not ZDR. Every other model ran with ZDR." },
-      { "name": "Kimi K3", "group": "open", "firstTry": 3, "afterFixes": 32, "worksRightAway": 3, "fixedByChecker": 29, "stillBuggy": 9, "fullyBroken": 8 },
-      { "name": "Grok 4.7", "group": "proprietary", "firstTry": 1, "afterFixes": 27, "worksRightAway": 1, "fixedByChecker": 26, "stillBuggy": 17, "fullyBroken": 5 },
-      { "name": "Gemini 4 Argon", "group": "proprietary", "firstTry": 7, "afterFixes": 27, "worksRightAway": 7, "fixedByChecker": 20, "stillBuggy": 19, "fullyBroken": 3 },
-      { "name": "Gemini 3.1 Pro", "group": "proprietary", "firstTry": 2, "afterFixes": 17, "worksRightAway": 2, "fixedByChecker": 15, "stillBuggy": 20, "fullyBroken": 12 },
-      { "name": "DeepSeek V4 Pro", "group": "open", "firstTry": 4, "afterFixes": 10, "worksRightAway": 4, "fixedByChecker": 6, "stillBuggy": 12, "fullyBroken": 27 },
-      { "name": "Grok 4.3", "group": "proprietary", "firstTry": 3, "afterFixes": 8, "worksRightAway": 3, "fixedByChecker": 5, "stillBuggy": 28, "fullyBroken": 13 },
-      { "name": "Qwen3.6 27B", "group": "open", "firstTry": 4, "afterFixes": 5, "worksRightAway": 4, "fixedByChecker": 1, "stillBuggy": 14, "fullyBroken": 30 },
-      { "name": "Qwen3-Coder", "group": "open", "firstTry": 4, "afterFixes": 4, "worksRightAway": 4, "fixedByChecker": 0, "stillBuggy": 15, "fullyBroken": 30 }
+      {
+        "name": "Claude Opus 5.5",
+        "group": "proprietary",
+        "firstTry": 14,
+        "afterFixes": 38,
+        "worksRightAway": 14,
+        "fixedByChecker": 24,
+        "stillBuggy": 11,
+        "fullyBroken": 0
+      },
+      {
+        "name": "Meta Muse Wonder",
+        "group": "proprietary",
+        "firstTry": 10,
+        "afterFixes": 35,
+        "worksRightAway": 10,
+        "fixedByChecker": 25,
+        "stillBuggy": 14,
+        "fullyBroken": 0,
+        "footnote": "Ran without zero data retention: its only provider is not ZDR. Every other model ran with ZDR."
+      },
+      {
+        "name": "GPT-5.6 Sol",
+        "group": "proprietary",
+        "firstTry": 9,
+        "afterFixes": 32,
+        "worksRightAway": 9,
+        "fixedByChecker": 23,
+        "stillBuggy": 14,
+        "fullyBroken": 3
+      },
+      {
+        "name": "Kimi K3",
+        "group": "open",
+        "firstTry": 4,
+        "afterFixes": 34,
+        "worksRightAway": 4,
+        "fixedByChecker": 30,
+        "stillBuggy": 12,
+        "fullyBroken": 3
+      },
+      {
+        "name": "Gemini 4 Argon",
+        "group": "proprietary",
+        "firstTry": 4,
+        "afterFixes": 25,
+        "worksRightAway": 4,
+        "fixedByChecker": 21,
+        "stillBuggy": 24,
+        "fullyBroken": 0
+      },
+      {
+        "name": "Claude Sonnet 5.5",
+        "group": "proprietary",
+        "firstTry": 3,
+        "afterFixes": 32,
+        "worksRightAway": 3,
+        "fixedByChecker": 29,
+        "stillBuggy": 17,
+        "fullyBroken": 0
+      },
+      {
+        "name": "Grok 4.7",
+        "group": "proprietary",
+        "firstTry": 2,
+        "afterFixes": 30,
+        "worksRightAway": 2,
+        "fixedByChecker": 28,
+        "stillBuggy": 13,
+        "fullyBroken": 6
+      },
+      {
+        "name": "DeepSeek V4 Pro",
+        "group": "open",
+        "firstTry": 2,
+        "afterFixes": 8,
+        "worksRightAway": 2,
+        "fixedByChecker": 6,
+        "stillBuggy": 12,
+        "fullyBroken": 29
+      },
+      {
+        "name": "Qwen3-Coder",
+        "group": "open",
+        "firstTry": 2,
+        "afterFixes": 3,
+        "worksRightAway": 2,
+        "fixedByChecker": 1,
+        "stillBuggy": 30,
+        "fullyBroken": 16
+      },
+      {
+        "name": "Qwen3.6 27B",
+        "group": "open",
+        "firstTry": 2,
+        "afterFixes": 2,
+        "worksRightAway": 2,
+        "fixedByChecker": 0,
+        "stillBuggy": 22,
+        "fullyBroken": 25
+      },
+      {
+        "name": "Gemini 3.1 Pro",
+        "group": "proprietary",
+        "firstTry": 1,
+        "afterFixes": 8,
+        "worksRightAway": 1,
+        "fixedByChecker": 7,
+        "stillBuggy": 31,
+        "fullyBroken": 10
+      }
     ]
+  },
+  "scripts": {
+    "_source": "usuba-checker-scripts/docs/post/data/set2_oneshot_tidy.csv (checker_scripts_only_accuracy); draft Epochs 2 and 5",
+    "standardVersion": "0.2",
+    "ruleCount": 66,
+    "dell75": {
+      "accuracy": {
+        "value": 0.773,
+        "low": 0.667,
+        "high": 0.853
+      },
+      "correct": 58,
+      "n": 75,
+      "interval": "Wilson 95%"
+    },
+    "alwaysBroken": 0.373,
+    "keyAgreement": "90 of 90",
+    "keyAgreementNote": "decided cases in the hardware answer key, Oct 12",
+    "sweepKeyAgreement": "52 of 52"
+  },
+  "sweep": {
+    "_source": "usuba-checker-scripts/docs/post/charts/make_post_charts.py (chart 3); draft Epoch 5",
+    "total": 5532,
+    "labels": [
+      {
+        "key": "works",
+        "label": "Works",
+        "value": 3942
+      },
+      {
+        "key": "broken",
+        "label": "Broken",
+        "value": 1001
+      },
+      {
+        "key": "unsure",
+        "label": "Unsure",
+        "value": 589
+      }
+    ],
+    "rerun": 194,
+    "inUse": {
+      "total": 137,
+      "items": [
+        {
+          "label": "The toggle opens nothing",
+          "value": 68
+        },
+        {
+          "label": "Calls a program that isn't installed",
+          "value": 62
+        },
+        {
+          "label": "Memory grows past 150 MB in 20 seconds",
+          "value": 7
+        }
+      ]
+    },
+    "newRules": [
+      "USB-D01 audio routing",
+      "USB-D02 panel with no toggle",
+      "USB-D04 close and reopen",
+      "USB-D05 runaway memory",
+      "USB-D06 panel that can't close"
+    ]
+  },
+  "exams": [
+    {
+      "name": "Dell 75",
+      "size": "75 plugins: 28 broken, 47 working",
+      "measures": "Is the verdict right: broken or working?",
+      "labels": "Runs on real hardware, Omarchy 4.0.4 on a Dell laptop",
+      "limit": "Small set, so intervals are about 20 points wide. One laptop. Always answering \"broken\" scores 0.373."
+    },
+    {
+      "name": "S4 60",
+      "size": "60 real bugs",
+      "measures": "Does it find the bug? A hit is a finding within 3 lines, in the same file.",
+      "labels": "Bug-fix commits mined from plugin git histories",
+      "limit": "Machine-drafted. A fixed bug isn't the only bug in a file."
+    },
+    {
+      "name": "Holdout 329",
+      "size": "329 plugins: 300 with problems, 29 clean",
+      "measures": "Valid answers, and blockers raised on clean plugins",
+      "labels": "Omarchy plugin reviews, frozen Oct 13 before any training set existed",
+      "limit": "Only 29 clean plugins, so one plugin moves a rate by 3.4 points."
+    },
+    {
+      "name": "Writing test 49",
+      "size": "49 plugin requests",
+      "measures": "Can a model write a plugin that passes?",
+      "labels": "The Checker Scripts, a code read and a Dell load test",
+      "limit": "Failing doesn't prove a plugin is broken; the Dell load test covered part of the set."
+    }
+  ],
+  "scoreboard": {
+    "_source": "draft scoreboard table; usuba-checker-scripts/docs/post/data/set2_oneshot_tidy.csv, set3_feedback_tidy.csv",
+    "caption": "Verdict accuracy on the Dell 75, with 95% intervals",
+    "rows": [
+      {
+        "name": "Usuba Checker Scripts, no model",
+        "kind": "scripts",
+        "score": {
+          "value": 0.773,
+          "low": 0.667,
+          "high": 0.853
+        }
+      },
+      {
+        "name": "Gemma 4 26B + scripts' feedback",
+        "kind": "peer",
+        "score": {
+          "value": 0.65,
+          "low": 0.55,
+          "high": 0.76
+        }
+      },
+      {
+        "name": "Stock Qwen3.5 9B + scripts' feedback",
+        "kind": "base",
+        "score": {
+          "value": 0.57,
+          "low": 0.47,
+          "high": 0.68
+        }
+      },
+      {
+        "name": "Qwen3-Coder 30B + scripts' feedback",
+        "kind": "peer",
+        "score": {
+          "value": 0.56,
+          "low": 0.45,
+          "high": 0.67
+        }
+      },
+      {
+        "name": "Gemma 4 26B, one shot",
+        "kind": "peer",
+        "score": {
+          "value": 0.56,
+          "low": 0.44,
+          "high": 0.68
+        }
+      },
+      {
+        "name": "Stock Qwen3.5 9B, one shot",
+        "kind": "base",
+        "score": {
+          "value": 0.51,
+          "low": 0.4,
+          "high": 0.61
+        }
+      },
+      {
+        "name": "Usuba run 2, one shot",
+        "kind": "usuba",
+        "score": {
+          "value": 0.48,
+          "low": 0.37,
+          "high": 0.59
+        }
+      },
+      {
+        "name": "Usuba run 2 + scripts' feedback",
+        "kind": "usuba",
+        "score": {
+          "value": 0.47,
+          "low": 0.36,
+          "high": 0.57
+        }
+      }
+    ],
+    "baseline": {
+      "name": "Always answer \"broken\"",
+      "value": 0.373
+    },
+    "note": "Machine-drafted labels. The scripts' interval is Wilson; model intervals are bootstrap. The scripts' feedback loop: up to 3 revisions."
   },
   "model": {
     "final": false,
+    "status": "In Training",
     "specs": [
-      "Based on Qwen 3.5 9B",
-      "Runs at 4-bit, about 5.5 GB of weights",
-      "On a typical 32 GB laptop, no graphics card",
-      "Trained only on Omarchy plugin data",
-      "1,400+ published plugins swept so far"
+      "Qwen3.5 9B with a LoRA adapter",
+      "4-bit file: 5.63 GB (Q4_K_M)",
+      "Built for a 32 GB laptop, no graphics card",
+      "Run 2: 221 training rows from real plugin histories",
+      "In Training"
     ],
-    "honestNote": "The Usuba Checker Model is in training. There are no published model results yet."
+    "summary": "Usuba run 2 gives a usable answer almost every time and catches more broken plugins than its base, but raises more false alarms. The Checker Scripts still make the call. Preliminary, October 2026.",
+    "run2": {
+      "date": "October 16, 2026",
+      "base": "Qwen3.5 9B (stock weights unchanged) + LoRA",
+      "train": 221,
+      "val": 23,
+      "steps": 28,
+      "valLoss": 0.263,
+      "adapter": "about 350 MB",
+      "gguf": "5.63 GB, Q4_K_M",
+      "scoredOn": "the bf16 merge",
+      "targets": "Dell accuracy 0.85 or more, false alarms 0.15 or less",
+      "gaps": [
+        "The 4-bit file has no exam score yet: run 2 was scored as the bf16 merge.",
+        "One training run, one seed.",
+        "The training-code commit is unverified."
+      ]
+    },
+    "comparison": {
+      "_source": "usuba-checker-scripts/docs/post/data/set2_oneshot_tidy.csv (one shot)",
+      "caption": "Usuba run 2 vs its stock base, one shot",
+      "metrics": [
+        {
+          "label": "Verdict accuracy",
+          "exam": "Dell 75",
+          "n": 75,
+          "better": "higher",
+          "run2": {
+            "value": 0.48,
+            "low": 0.373,
+            "high": 0.587
+          },
+          "stock": {
+            "value": 0.507,
+            "low": 0.4,
+            "high": 0.613
+          },
+          "read": "on par"
+        },
+        {
+          "label": "Broken plugins flagged",
+          "exam": "Dell 75",
+          "n": 28,
+          "better": "higher",
+          "run2": {
+            "value": 0.607,
+            "low": 0.429,
+            "high": 0.786
+          },
+          "stock": {
+            "value": 0.286,
+            "low": 0.107,
+            "high": 0.464
+          },
+          "read": "better"
+        },
+        {
+          "label": "False alarms on working plugins",
+          "exam": "Dell 75",
+          "n": 47,
+          "better": "lower",
+          "run2": {
+            "value": 0.574,
+            "low": 0.426,
+            "high": 0.702
+          },
+          "stock": {
+            "value": 0.277,
+            "low": 0.149,
+            "high": 0.404
+          },
+          "read": "worse"
+        },
+        {
+          "label": "Valid answers",
+          "exam": "Dell 75",
+          "n": 75,
+          "better": "higher",
+          "run2": {
+            "value": 0.987,
+            "low": 0.928,
+            "high": 0.998
+          },
+          "stock": {
+            "value": 0.893,
+            "low": 0.803,
+            "high": 0.945
+          },
+          "read": "better"
+        },
+        {
+          "label": "Valid answers",
+          "exam": "S4 60",
+          "n": 60,
+          "better": "higher",
+          "run2": {
+            "value": 0.917,
+            "low": 0.819,
+            "high": 0.964
+          },
+          "stock": {
+            "value": 0.567,
+            "low": 0.441,
+            "high": 0.684
+          },
+          "read": "better"
+        },
+        {
+          "label": "Valid answers",
+          "exam": "Holdout 329",
+          "n": 329,
+          "better": "higher",
+          "run2": {
+            "value": 0.939,
+            "low": 0.908,
+            "high": 0.96
+          },
+          "stock": {
+            "value": 0.638,
+            "low": 0.585,
+            "high": 0.688
+          },
+          "read": "better"
+        },
+        {
+          "label": "Bugs found",
+          "exam": "S4 60",
+          "n": 60,
+          "better": "higher",
+          "run2": {
+            "value": 0.133,
+            "low": 0.069,
+            "high": 0.242
+          },
+          "stock": {
+            "value": 0.067,
+            "low": 0.026,
+            "high": 0.159
+          },
+          "read": "on par"
+        },
+        {
+          "label": "Clean plugins given a blocker",
+          "exam": "Holdout 329",
+          "n": 29,
+          "better": "lower",
+          "run2": {
+            "value": 0.276,
+            "low": 0.147,
+            "high": 0.457
+          },
+          "stock": {
+            "value": 0.379,
+            "low": 0.227,
+            "high": 0.56
+          },
+          "read": "on par"
+        }
+      ]
+    },
+    "facts": {
+      "addedFindings": "Adds far fewer findings of its own: 13 vs 47 on S4, 64 vs 139 on the holdout.",
+      "dismissals": "Rarely disagrees with the scripts: it dismissed 3 of 80 of their findings on the Dell, where stock dismissed 43 of 71.",
+      "loop": "The scripts' feedback loop didn't move it: 0.48 one shot, 0.47 with feedback. Stock went from 0.51 to 0.57."
+    }
   }
 }

@@ -10,7 +10,10 @@ import StatusPill from '../components/StatusPill.astro';
 import StickerCard from '../components/StickerCard.astro';
 import Base from '../layouts/Base.astro';
 import { RESULTS } from '../data/results';
+import { SAMPLE_OUTPUT_NOTE } from '../data/sample-output';
 import { SITE } from '../data/site';
+
+const BEST_FIRST_TRY = [...RESULTS.benchmark.models].sort((a, b) => b.firstTry - a.firstTry)[0];
 ---
 
 <Base>
@@ -52,7 +55,7 @@ import { SITE } from '../data/site';
     </div>
     <SpecChip items={RESULTS.benchmark.breakdown} />
     <p class="chart__note chart__note--link">
-      <a href={SITE.resultsHref}>How the 49 test prompts are built, and what counts as working.</a>
+      <a href={SITE.methodologyHref}>How we test, what counts as passing, and everything we found.</a>
     </p>
     <h3 class="subsection-title">Top 6 reasons models struggle</h3>
     <ul class="card-grid card-grid--3">
@@ -85,19 +88,19 @@ import { SITE } from '../data/site';
         </ul>
       </li>
       <li class="card">
-        <span class="badge badge--training">In training</span>
+        <span class="badge badge--training">In Training</span>
         <h3>The model</h3>
         <ul>
           <li>
-            A small model, based on Qwen 3.5 9B and about 5.5 GB, trained only on Omarchy plugin data. It runs free and locally
-            on an Omarchy laptop, with no graphics card and no cloud.
+            A small model: Qwen3.5 9B with a LoRA adapter, a 5.63 GB file at 4 bits, trained on real Omarchy plugin data. It is
+            built to run free and locally on an Omarchy laptop, with no graphics card and no cloud.
           </li>
           <li>
             It does the actual reviewing. It takes the scripts&rsquo; report, plus the plugin&rsquo;s code and what it shows on
             screen, and judges what the scripts can&rsquo;t: whether the plugin really works, whether the data is real or faked,
             whether the buttons do anything, whether it breaks in use, and what Omarchy&rsquo;s plugin reviewer would flag.
           </li>
-          <li>Then it explains what to fix. It&rsquo;s in training now: built to do this, not proven at it.</li>
+          <li>Then it explains what to fix. It&rsquo;s In Training: better than its base at some of this, not yet good enough at the rest.</li>
         </ul>
       </li>
     </ul>
@@ -123,7 +126,9 @@ import { SITE } from '../data/site';
     </p>
     <ul class="card-grid card-grid--3 checker-grid">
       <StickerCard title="Reads the code">Flags invented APIs, missing helper scripts, made-up command flags and fake data.</StickerCard>
-      <StickerCard title="Runs it for real">Loads the plugin in a real Omarchy shell and catches load errors and crashes.</StickerCard>
+      <StickerCard title="Runs it for real">
+        On the reference Linux build, loads the plugin in a real Omarchy shell and catches load errors and crashes.
+      </StickerCard>
       <StickerCard title="Explains every problem">Each one comes with a rule id, a plain reason and a fix hint.</StickerCard>
       <StickerCard title="Warns before it fails">
         Risky commands a plugin may need are warnings. Only clearly destructive ones, like deleting your home folder, fail.
@@ -131,26 +136,31 @@ import { SITE } from '../data/site';
       <StickerCard title="Follows a public standard">
         The rules are written up as an open standard for what a working Omarchy plugin is.
       </StickerCard>
-      <StickerCard title="Matches real hardware">It agrees with a laptop running Omarchy on all 90 plugins in our answer key.</StickerCard>
+      <StickerCard title="Matches real hardware">
+        Right on {RESULTS.scripts.dell75.accuracy.value} of the 75-plugin Dell exam with no model, and on {RESULTS.scripts.keyAgreement} cases in the
+        hardware answer key.
+      </StickerCard>
     </ul>
     <div class="container--code code-wrap">
       <CodeWindow />
-      <p class="chart__note chart__note--center">Sample output. Command and rule ids shown for illustration.</p>
+      <p class="chart__note chart__note--center">{SAMPLE_OUTPUT_NOTE}</p>
     </div>
   </section>
 
   <!-- 6. Checker Model -->
   <section class="container section" id="model" aria-labelledby="model-title">
     <h2 class="section-title" id="model-title">
-      Usuba Checker Model <span class="badge badge--training">In training</span>
+      Usuba Checker Model <span class="badge badge--training">In Training</span>
     </h2>
     <p class="section-lede">
-      The Usuba Checker Model is trained only on Omarchy plugins we&rsquo;ve verified with the scripts and tested on real Omarchy
-      hardware. It is built to review a plugin the way an experienced Omarchy reviewer would: not just that it loads, but that it
-      really works.
+      The latest run, Usuba run 2, was trained on {RESULTS.model.run2.train} examples from real plugin histories and the Dell. It is built to review a
+      plugin the way an experienced Omarchy reviewer would: not just that it loads, but that it really works.
     </p>
     <SpecChip />
-    <p class="honest-note">{RESULTS.model.honestNote}</p>
+    <p class="honest-note">{RESULTS.model.summary}</p>
+    <p class="chart__note chart__note--link">
+      <a href={`${SITE.methodologyHref}#model`}>See run 2 against its base, exam by exam.</a>
+    </p>
   </section>
 
   <!-- 7. How it is built -->
@@ -187,7 +197,7 @@ import { SITE } from '../data/site';
         class="card--center"
         title="Why not use a better model?"
         points={[
-          'The best model we tested got only 21 of 49 plugins working on the first try.',
+          `The best model we tested passed only ${BEST_FIRST_TRY.firstTry} of 49 on the first try.`,
           'Frontier models cost money per use, need the cloud, and send your code out.',
           'Usuba is built to run free on your laptop, with nothing leaving your machine.',
         ]}

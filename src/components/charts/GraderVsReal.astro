@@ -1,0 +1,44 @@
+---
+import { METHODOLOGY } from '../../data/methodology';
+
+/** The fix loop: the grader's count climbs each round while the real count stays put. Columns, each with its number on it. */
+const { caption, note, max, rounds } = METHODOLOGY.graderVsReal;
+const h = (value: number) => `${((value / max) * 100).toFixed(1)}%`;
+---
+
+<figure class="chart columns-chart">
+  <figcaption class="chart__caption">
+    <span class="chart__title">{caption}</span>
+  </figcaption>
+  <ol class="columns">
+    {
+      rounds.map((round) => (
+        <li class="columns__group">
+          <span class="columns__bars">
+            <span class="columns__bar fill-pink" style={`height: ${h(round.grader)}`}>
+              <span class="visually-hidden">Grader passes: </span>
+              {round.grader}
+            </span>
+            {round.real === null ? (
+              <span class="columns__bar columns__bar--none">
+                <span class="visually-hidden">Real passes: not counted</span>
+                <span aria-hidden="true">–</span>
+              </span>
+            ) : (
+              <span class="columns__bar fill-mint" style={`height: ${h(round.real)}`}>
+                <span class="visually-hidden">Real passes: </span>
+                {round.real}
+              </span>
+            )}
+          </span>
+          <span class="columns__label">{round.label}</span>
+        </li>
+      ))
+    }
+  </ol>
+  <ul class="chart-legend">
+    <li><span class="chart-legend__swatch fill-pink" aria-hidden="true" /> What the grader passed</li>
+    <li><span class="chart-legend__swatch fill-mint" aria-hidden="true" /> Real passes, after reading the code</li>
+  </ul>
+  <p class="chart__note">{note}</p>
+</figure>

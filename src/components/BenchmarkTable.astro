@@ -1,0 +1,53 @@
+---
+import { RESULTS } from '../data/results';
+
+/**
+ * The writing test as a table, read from results.json so it can't drift from the charts,
+ * plus the largest gains from the Checker Scripts' feedback, worked out from the same rows.
+ */
+const { models, labels, requests } = RESULTS.benchmark;
+const rows = [...models].sort((a, b) => b.afterFixes - a.afterFixes || b.firstTry - a.firstTry);
+const gains = [...models].sort((a, b) => b.afterFixes - b.firstTry - (a.afterFixes - a.firstTry)).slice(0, 4);
+const footnoted = models.filter((model) => model.footnote);
+---
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Model</th>
+      <th scope="col">Passing out of {requests}</th>
+      <th scope="col">{labels.worksRightAway}</th>
+      <th scope="col">{labels.stillBuggy}</th>
+      <th scope="col">{labels.fullyBroken}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {
+      rows.map((model) => (
+        <tr>
+          <td>
+            {model.name}
+            {model.footnote && ' *'}
+            {model.group === 'open' && ' (open)'}
+          </td>
+          <td>{model.afterFixes}</td>
+          <td>{model.firstTry}</td>
+          <td>{model.stillBuggy}</td>
+          <td>{model.fullyBroken}</td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>
+{footnoted.map((model) => <p>* {model.name}: {model.footnote}</p>)}
+<p data-gains>
+  The largest gains from the scripts&rsquo; feedback:{' '}
+  {
+    gains.map((model, index) => (
+      <Fragment>
+        {model.name} <strong>+{model.afterFixes - model.firstTry}</strong> ({model.firstTry} → {model.afterFixes})
+        {index < gains.length - 2 ? ', ' : index === gains.length - 2 ? ' and ' : '.'}
+      </Fragment>
+    ))
+  }
+</p>

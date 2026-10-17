@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import ThemeScript from '../components/ThemeScript.astro';
 import { DISCOVERY, SITE } from '../data/site';
+import { markdownUrlFor } from '../lib/urls';
 
 import '@fontsource/m-plus-rounded-1c/latin-500.css';
 import '@fontsource/m-plus-rounded-1c/latin-700.css';
@@ -12,6 +13,7 @@ import '@fontsource/m-plus-rounded-1c/latin-800.css';
 import '@fontsource/m-plus-1-code/latin-500.css';
 import '../styles/tokens.css';
 import '../styles/global.css';
+import '../styles/charts.css';
 
 interface Props {
   title?: string;
@@ -39,7 +41,7 @@ const ogImage = hasOgImage ? new URL('/og.png', SITE.origin).href : null;
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-    <link rel="alternate" type="text/markdown" href={DISCOVERY.homepageMarkdown} />
+    {!noindex && <link rel="alternate" type="text/markdown" href={markdownUrlFor(Astro.url.pathname)} />}
     <link
       rel="service-desc"
       href={DISCOVERY.agentDiscovery}
