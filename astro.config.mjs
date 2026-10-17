@@ -42,7 +42,15 @@ export default defineConfig({
         Header: './src/components/starlight/Header.astro',
       },
       sidebar: DOCS_SIDEBAR,
-      head: [{ tag: 'meta', attrs: { name: 'theme-color', content: '#ffe1ec' } }],
+      // Docs pages share the site's social card (public/og.png, from npm run make:images).
+      head: [
+        { tag: 'meta', attrs: { name: 'theme-color', content: '#ffe1ec' } },
+        { tag: 'meta', attrs: { property: 'og:image', content: `${SITE.origin}/og.png` } },
+        { tag: 'meta', attrs: { property: 'og:image:width', content: '1200' } },
+        { tag: 'meta', attrs: { property: 'og:image:height', content: '630' } },
+        { tag: 'meta', attrs: { name: 'twitter:image', content: `${SITE.origin}/og.png` } },
+        { tag: 'meta', attrs: { name: 'twitter:card', content: 'summary_large_image' } },
+      ],
     }),
     sitemap({
       filter: (page) => {

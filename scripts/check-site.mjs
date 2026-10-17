@@ -134,6 +134,8 @@ const homepageChecks = [
   ['Agent work on this project is managed using Fizzy', 'homepage must credit Fizzy'],
   ['brian_armstrong/status/2109412046244913643', 'homepage must link the Coinbase post that inspired the project'],
   ['not affiliated with, or endorsed by, the Omacom Foundation', 'homepage must state that Usuba is independent of the Omacom Foundation'],
+  ['property="og:image" content="https://usuba.dev/og.png"', 'homepage must carry the social card'],
+  ['summary_large_image', 'homepage must use the large social card'],
   ['btn--action', 'action buttons must use the green action style'],
   ['btn--info', 'FYI buttons must use the steel info style'],
 ];
@@ -160,6 +162,8 @@ const methodologyChecks = [
   ['checker-review-3-verdict', 'methodology page must show the real review screenshots'],
   ['interval-board', 'methodology page must render the Dell 75 scoreboard'],
   ['paired-metrics', 'methodology page must render run 2 against its base'],
+  ['content="https://usuba.dev/og-post.png"', 'the post must carry its own social card'],
+  ['property="og:type" content="article"', 'the post must be marked as an article'],
 ];
 for (const [needle, message] of methodologyChecks) {
   if (!methodology.includes(needle)) fail(message);
