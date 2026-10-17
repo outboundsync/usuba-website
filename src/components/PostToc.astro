@@ -1,0 +1,97 @@
+---
+/**
+ * The post's floating contents. One list, two looks: a rail fixed beside the reading column on wide
+ * screens, and a "Contents" pill that opens the same list everywhere else. It stays out of the way
+ * until the reader scrolls past the inline "In this post" box, and marks the section in view.
+ */
+interface Props {
+  items: { id: string; label: string }[];
+}
+const { items } = Astro.props;
+---
+
+<nav class="post-toc" aria-label="Contents" data-post-toc data-hidden>
+  <button class="post-toc__toggle" type="button" aria-expanded="false" aria-controls="post-toc-list" data-post-toc-toggle>
+    <span data-post-toc-label>Contents</span>
+  </button>
+  <div class="post-toc__panel" id="post-toc-list">
+    <p class="post-toc__title">In this post</p>
+    <ol>
+      {
+        items.map((item) => (
+          <li>
+            <a href={`#${item.id}`} data-post-toc-link={item.id}>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+    <a class="post-toc__top" href="#main">Back to top</a>
+  </div>
+</nav>
+
+<script>
+  const toc = document.querySelector('[data-post-toc]');
+  const toggle = document.querySelector('[data-post-toc-toggle]');
+  const label = document.querySelector('[data-post-toc-label]');
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-post-toc-link]')];
+
+  if (toc instanceof HTMLElement && toggle instanceof HTMLButtonElement) {
+    const setOpen = (open: boolean) => {
+      toc.toggleAttribute('data-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (label) label.textContent = open ? 'Close' : 'Contents';
+    };
+    toggle.addEventListener('click', () => setOpen(!toc.hasAttribute('data-open')));
+    for (const link of links) link.addEventListener('click', () => setOpen(false));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toc.hasAttribute('data-open')) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    document.addEventListener('click', (event) => {
+      if (toc.hasAttribute('data-open') && event.target instanceof Node && !toc.contains(event.target)) setOpen(false);
+    });
+
+    // Hidden until the inline contents box has scrolled off the top. Checked on every scroll frame, not with an
+    // IntersectionObserver: a jump straight past the box (a link, a reload mid-page) never crosses it, so no event fires.
+    const inline = document.querySelector('.toc');
+    const place = () => {
+      const above = inline ? inline.getBoundingClientRect().bottom > 0 : false;
+      if (above && toc.hasAttribute('data-open')) setOpen(false);
+      toc.toggleAttribute('data-hidden', above);
+    };
+
+    // Mark the section being read: the last heading that has scrolled past the top third.
+    const headings = links
+      .map((link) => document.getElementById(link.dataset.postTocLink ?? ''))
+      .filter((el): el is HTMLElement => el !== null);
+    const mark = () => {
+      const line = window.innerHeight / 3;
+      let current = headings[0]?.id;
+      for (const heading of headings) if (heading.getBoundingClientRect().top <= line) current = heading.id;
+      for (const link of links) {
+        if (link.dataset.postTocLink === current) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      }
+    };
+    let queued = false;
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(() => {
+          queued = false;
+          place();
+          mark();
+        });
+      },
+      { passive: true },
+    );
+    place();
+    mark();
+  }
+</script>
