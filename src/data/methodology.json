@@ -228,5 +228,41 @@
       "linkText": "tcballard/build-omarchy-plugins",
       "body": "For the Build Omarchy Plugins skills directory. If you want an agent to build your plugin, start there, then check what it writes with the Checker Scripts."
     }
-  ]
+  ],
+  "inspiration": {
+    "series": "Owning Intelligence",
+    "articles": [
+      {
+        "label": "Part one: How Coinbase built, evaluated and post-trained a fraud agent",
+        "href": "https://www.coinbase.com/blog/part-one-how-coinbase-built-evaluated-and-post-trained-a-fraud-agent"
+      },
+      {
+        "label": "Part two of the Owning Intelligence series",
+        "href": "https://www.coinbase.com/blog/part-two-owning-intelligence-series"
+      },
+      {
+        "label": "Part three of the Owning Intelligence series",
+        "href": "https://www.coinbase.com/blog/part-three-owning-intelligence-series"
+      }
+    ],
+    "ceo": {
+      "name": "Brian Armstrong",
+      "role": "Coinbase's founder and CEO",
+      "href": "https://x.com/brian_armstrong/status/2109412046244913643"
+    },
+    "coinbase": [
+      "Yao Ma",
+      "Bo Lei",
+      "Xuwei Tan",
+      "Akshit Trehan",
+      "Aman Choudhary"
+    ],
+    "anyscale": [
+      "Eric Tang",
+      "Sumanth Hegde",
+      "Seiji Eicher",
+      "Jess Kong"
+    ]
+  },
+  "tools": "I did this work with OpenRouter for model calls, Vast.ai for rented GPUs, and Cursor and Grok Bot for agent work."
 }

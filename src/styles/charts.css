@@ -342,3 +342,16 @@
 @media (prefers-reduced-motion: reduce) {
   .post-toc { transition: none; }
 }
+
+/* ---------- Credit callout (the Coinbase series that inspired the project) ---------- */
+.credit {
+  display: flex; gap: var(--space-5); align-items: flex-start; margin: var(--space-6) 0 var(--space-8);
+  background: var(--color-surface); border: var(--border); border-radius: 22px; box-shadow: var(--shadow-md); padding: var(--space-5) var(--space-6);
+}
+.credit__icon { margin: 0; flex: none; }
+.credit__title { margin: 0 0 var(--space-2); font-family: var(--font-display); font-size: var(--text-lg); font-weight: var(--weight-heavy); line-height: 1.25; }
+.credit__links { display: grid; gap: var(--space-1); margin: 0 0 var(--space-3); padding-left: 1.1em; font-weight: var(--weight-bold); }
+.credit p:last-child { margin: 0; color: var(--color-ink-soft); font-size: var(--text-sm); line-height: var(--leading-lede); }
+@media (max-width: 640px) {
+  .credit { flex-direction: column; padding: var(--space-5); }
+}
